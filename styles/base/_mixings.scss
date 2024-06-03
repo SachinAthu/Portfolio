@@ -1,0 +1,48 @@
+$breakpoints: (
+  2xs: 360px,
+  xs: 412px,
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1536px,
+  3xl: 1920px,
+  4xl: 2560px,
+  5xl: 3840px,
+);
+
+@mixin max-width($breakpoint) {
+  $breakpoint_value: map-get(
+    $map: $breakpoints,
+    $key: $breakpoint,
+  );
+
+  @media only screen and (width <= $breakpoint_value) {
+    @content;
+  }
+}
+
+@mixin max-width-custom($breakpoint) {
+  @media only screen and (width <= $breakpoint) {
+    @content;
+  }
+}
+
+@mixin min-width($breakpoint) {
+  $breakpoint_value: map-get(
+    $map: $breakpoints,
+    $key: $breakpoint,
+  );
+  // add 1px to the breakpoint
+  $breakpoint_value: $breakpoint_value + 1px;
+
+  @media only screen and (width >= $breakpoint_value) {
+    @content;
+  }
+}
+
+@mixin min-width-custom($breakpoint) {
+  @media only screen and (width >= $breakpoint) {
+    @content;
+  }
+}

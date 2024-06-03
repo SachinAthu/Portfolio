@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+
+@layer base {
+  @import './base';
+}
+
+@layer components {
+  @import './components';
+  @import './pages';
+}
+
+@tailwind utilities;
