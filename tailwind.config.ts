@@ -25,23 +25,42 @@ const config: Config = {
           xl: '1280px',
         },
         padding: {
-          DEFAULT: '2%',
-          xl: '5%',
+          DEFAULT: '3%',
+          xl: '0%',
         },
       },
       colors: {
         background: '#F5F5F5',
         primary: '#E91E63',
-        secondary: '#FE654F',
+        accent: '#008080',
         text: '#212121',
         subtext: '#757575',
 
         d: {
           background: '#1E1E1E',
-          primary: '#E91E63',
-          secondary: '#FE654F',
           text: '#F5F5F5',
           subtext: '#9E9E9E',
+        },
+      },
+      boxShadow: {
+        header: '0px 1px 5px 0px rgba(30, 30, 30, 0.075)',
+      },
+      keyframes: {
+        logo: {
+          '0%': { color: '#e91e63' },
+          '20%': { color: '#2F2D2E' },
+          '40%': { color: '#e98a15' },
+          '60%': { color: '#008080' },
+          '80%': { color: '#59114d' },
+          '100%': { color: '#192BC2' },
+        },
+        'logo-d': {
+          '0%': { color: '#e91e63' },
+          '20%': { color: '#ece5f0' },
+          '40%': { color: '#e98a15' },
+          '60%': { color: '#008080' },
+          '80%': { color: '#59114d' },
+          '100%': { color: '#61E786' },
         },
       },
     },

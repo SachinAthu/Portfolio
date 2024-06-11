@@ -1,0 +1,55 @@
+.theme-btn {
+  --width: 72px;
+  --height: 36px;
+  --padding: 4px;
+  --after-height: calc(var(--height) - var(--padding) * 2);
+  --after-width: var(--after-height);
+
+  width: var(--width);
+  height: var(--height);
+  position: relative;
+  padding: var(--padding);
+
+  .icon {
+    svg {
+      width: 22px;
+      height: 22px;
+      transition: transform 0.5s;
+      @apply fill-text dark:fill-d-text;
+    }
+  }
+
+  .icon-sun svg {
+    transform: scale(0.75) translateX(3px);
+  }
+
+  .icon-moon svg {
+    transform: scale(0.75) translateX(-3px);
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    top: calc(50% - var(--after-width) / 2);
+    left: var(--padding);
+    width: var(--after-width);
+    height: var(--after-height);
+    border-radius: 9999px;
+    transition:
+      left 0.5s,
+      background-color 0.5s;
+    @apply bg-gray-700 dark:bg-gray-300;
+  }
+
+  &[data-dark='true']::after {
+    left: calc(100% - (var(--after-width) + var(--padding)));
+  }
+
+  &[data-dark='true'] .icon-sun svg {
+    transform: scale(1) translateX(0px);
+  }
+
+  &[data-dark='false'] .icon-moon svg {
+    transform: scale(1) translateX(0px);
+  }
+}

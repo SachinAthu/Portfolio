@@ -1,0 +1,101 @@
+@mixin icon($height, $width) {
+  transition: transform 0.5s;
+  position: absolute;
+  height: $height;
+  width: $width;
+  top: calc(50% - $height / 2);
+  background-color: currentColor;
+}
+
+@mixin icon-before($height, $width, $top) {
+  transition: transform 0.5s;
+  position: absolute;
+  width: $width;
+  height: $height;
+  background-color: currentColor;
+  content: '';
+  top: $top;
+  left: 0;
+}
+
+@mixin icon-after($height, $width, $top) {
+  transition: transform 0.5s;
+  position: absolute;
+  width: $width;
+  height: $height;
+  background-color: currentColor;
+  content: '';
+  top: $top;
+  left: 0;
+}
+
+.menu-btn {
+  --width: 34px;
+  --height: 26px;
+  --part-width: calc(var(--width) / 2);
+  --part-height: 4px;
+  --part-top: calc(var(--height) / 2 - var(--part-height) / 2);
+  --border-radius: 9999px;
+
+  width: var(--width);
+  height: var(--height);
+  @apply bg-transparent text-text dark:text-d-text;
+
+  .icon-left {
+    @include icon(var(--part-height), var(--part-width));
+    left: 0px;
+    transition: background-color 0.5s;
+
+    &:before {
+      @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
+      transform-origin: left;
+    }
+
+    &:after {
+      @include icon-after(var(--part-height), var(--part-width), var(--part-top));
+      transform-origin: left;
+    }
+  }
+
+  .icon-right {
+    @include icon(var(--part-height), var(--part-width));
+    left: calc(var(--width) / 2);
+    transition: background-color 0.5s;
+
+    &:before {
+      @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
+      transform-origin: right;
+    }
+
+    &:after {
+      @include icon-after(var(--part-height), var(--part-width), var(--part-top));
+      transform-origin: right;
+    }
+  }
+}
+
+.menu-btn.open {
+  .icon-left {
+    background-color: transparent;
+
+    &:before {
+      transform: rotateZ(45deg) translate(4px, -4px);
+    }
+
+    &:after {
+      transform: rotateZ(-45deg) translate(4px, 4px);
+    }
+  }
+
+  .icon-right {
+    background-color: transparent;
+
+    &:before {
+      transform: rotateZ(-45deg) translate(-4px, -4px);
+    }
+
+    &:after {
+      transform: rotateZ(45deg) translate(-4px, 4px);
+    }
+  }
+}

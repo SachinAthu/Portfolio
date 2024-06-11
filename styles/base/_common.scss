@@ -1,4 +1,33 @@
+@use './mixings' as mix;
+
 body {
-  @apply bg-background dark:bg-d-background text-text dark:text-d-text font-body;
+  @apply bg-background font-body text-text dark:bg-d-background dark:text-d-text;
   font-stretch: normal;
+}
+
+a,
+button,
+input,
+label {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-moz-selection {
+  color: white;
+  background: theme('colors.primary');
+}
+
+::selection {
+  color: white;
+  background: theme('colors.primary');
+}
+
+:focus-visible {
+  outline: 2px solid theme('colors.primary');
+  outline-offset: 2px;
+
+  @include mix.max-width(sm) {
+    outline: 1px solid theme('colors.primary');
+    outline-offset: 1px;
+  }
 }

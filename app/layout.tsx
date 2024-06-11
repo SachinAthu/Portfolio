@@ -3,7 +3,7 @@ import { Inter, Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import '@/styles/main.scss';
-import { Footer, Header } from '@/components';
+import { Footer, Header, SmoothScroll } from '@/components';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -102,9 +102,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${montserrat.variable}`}>
         <ThemeProvider attribute="class">
+          <SmoothScroll />
+
           <Header />
 
-          <main>{children}</main>
+          <main className="pt-[var(--header-height)]">{children}</main>
 
           <Footer />
         </ThemeProvider>
