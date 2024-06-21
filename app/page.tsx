@@ -5,11 +5,11 @@ export default function HomePage() {
     <div className="home-page">
       <div className="container">
         <Hero />
+        <About />
+        <TechStack />
+        <Works />
+        <Contact />
       </div>
-      <About />
-      <TechStack />
-      <Works />
-      <Contact />
     </div>
   );
 }

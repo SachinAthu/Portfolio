@@ -3,7 +3,8 @@ import { Inter, Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import '@/styles/main.scss';
-import { Footer, Header, SmoothScroll } from '@/components';
+import { Footer, Header, SplashScreen, NavMenu, SideMenu, ScrollNav } from '@/components';
+import { LayoutProvider } from '@/context/LayoutContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -102,14 +103,25 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${montserrat.variable}`}>
         <ThemeProvider attribute="class">
-          <SmoothScroll />
+          <LayoutProvider>
+            <Header />
 
-          <Header />
+            <NavMenu />
+            <SideMenu />
+            <ScrollNav />
 
-          <main className="pt-[var(--header-height)]">{children}</main>
+            <main className="pt-[var(--header-height)]">{children}</main>
 
-          <Footer />
+            <Footer />
+
+            <SplashScreen />
+          </LayoutProvider>
         </ThemeProvider>
+
+        {/* Tell the browser to never restore the scroll position on load. Always scroll position is on top on page load. */}
+        {/* <Script
+        id="scroll-top-script"
+        dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }}></Script> */}
       </body>
     </html>
   );

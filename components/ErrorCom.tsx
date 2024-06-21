@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-import { FillUpBtn } from '.';
+import { Button } from '.';
 
 export default function ErrorCom({ reset }: { reset: () => void }) {
   const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
@@ -36,7 +36,9 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
 
       <p className="mb-4 text-lg font-medium">Please use the button below to try again.</p>
 
-      <FillUpBtn onClick={reset}>Try again</FillUpBtn>
+      <Button onClick={reset} className="font-medium">
+        Try again
+      </Button>
     </div>
   );
 }

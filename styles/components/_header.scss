@@ -1,0 +1,22 @@
+.header {
+  .header-inner.scrolled {
+    @apply max-w-[1280px] translate-y-3 px-[3%] xl:px-0;
+  }
+}
+
+.nav-menu {
+  .nav-menu-links li button {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.4s ease-out;
+  }
+
+  .nav-menu-links:has(li button:hover) li button {
+    opacity: 0.3;
+  }
+
+  .nav-menu-links li button:hover {
+    opacity: 1 !important;
+    transform: scale(1.01);
+  }
+}

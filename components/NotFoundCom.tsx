@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { FillUpLink } from '.';
+import { CustomLink } from '.';
 
 export default function NotFoundCom() {
   const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
@@ -33,7 +33,9 @@ export default function NotFoundCom() {
 
       <p className="mb-4 text-lg font-medium">Damm! Page Not Found.</p>
 
-      <FillUpLink href="/">Return Home</FillUpLink>
+      <CustomLink href="/" className="font-medium">
+        Return Home
+      </CustomLink>
     </div>
   );
 }

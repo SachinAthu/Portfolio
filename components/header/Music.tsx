@@ -3,42 +3,38 @@
 import { useEffect, useRef, useState } from 'react';
 import { RiMusicFill } from 'react-icons/ri';
 
-export default function Music() {
+import { useLayoutContext } from '@/context/LayoutContext';
+import { useMobileViewport } from '@/lib/hooks';
+import { cn } from '@/lib/common';
+
+function Music() {
   const player = useRef<HTMLAudioElement | null>(null);
-  const [play, setPlay] = useState(true);
+  const [play, setPlay] = useState(false);
+  const { isNavOpen } = useLayoutContext();
 
   useEffect(() => {
     // play audio
-    const p = document.createElement('audio');
-    p.src = '/static/music/kaer_morhen.mp3';
-    p.style.display = 'none';
-    document.body.appendChild(p);
-
-    p.onended = function () {
-      p.play()
-        .then()
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    p
-      ?.play()
-      .then()
-      .catch((err) => {
-        console.log(err);
-      });
-
-    player.current = p;
+    initPlay();
 
     return () => {
       if (player.current) {
         player.current.pause();
-        player.current.remove();
         player.current = null;
       }
     };
   }, []);
+
+  const initPlay = () => {
+    if (player.current) return;
+
+    const p = new Audio('/static/music/kaer_morhen.mp3');
+    p.volume = 0.2;
+    p.controls = false;
+    p.autoplay = false;
+    p.loop = true;
+
+    player.current = p;
+  };
 
   const togglePlay = () => {
     if (play) {
@@ -56,8 +52,18 @@ export default function Music() {
 
   return (
     <div className="hidden md:block">
-      <div className="music | flex h-[var(--height)] items-center gap-2 rounded-full border border-solid border-text dark:border-d-text">
-        <div className="wave | ml-3 mr-1 flex items-center gap-1" id="musicWave" data-play={play}>
+      <div
+        className={cn(
+          'music | flex h-[var(--height)] items-center gap-2 rounded-full border border-solid',
+          isNavOpen ? 'border-d-text' : 'border-text dark:border-d-text'
+        )}>
+        <div
+          className={cn(
+            'wave | ml-3 mr-1 flex items-center gap-1',
+            isNavOpen ? '[&>div]:bg-gray-300' : '[&>div]:bg-gray-700 dark:[&>div]:bg-gray-300'
+          )}
+          id="musicWave"
+          data-play={play}>
           <div className="wave-1"></div>
           <div className="wave-2"></div>
           <div className="wave-3"></div>
@@ -72,7 +78,12 @@ export default function Music() {
 
         <button
           type="button"
-          className="control-btn | relative grid h-[var(--btn-height)] w-[var(--btn-width)] place-items-center rounded-full border border-solid border-text dark:border-d-text [&>svg]:h-[18px] [&>svg]:w-[18px]"
+          className={cn(
+            'control-btn | relative grid h-[var(--btn-height)] w-[var(--btn-width)] place-items-center rounded-full border border-solid [&>svg]:h-[18px] [&>svg]:w-[18px]',
+            isNavOpen
+              ? 'border-d-text after:bg-d-text [&>svg]:fill-d-text'
+              : 'border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text'
+          )}
           onClick={togglePlay}
           data-play={play}>
           <RiMusicFill />
@@ -80,4 +91,12 @@ export default function Music() {
       </div>
     </div>
   );
+}
+
+export default function MusicWrapper() {
+  const isMobile = useMobileViewport();
+
+  if (isMobile) return null;
+
+  return <Music />;
 }

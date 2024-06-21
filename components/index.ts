@@ -9,7 +9,12 @@ export { default as TechStack } from './TechStack';
 export { default as Works } from './Works';
 export { default as Contact } from './Contact';
 export { default as Section } from './Section';
-export { default as SmoothScroll } from './SmoothScroll';
+export { default as SplashScreen } from './SplashScreen';
+export { default as NavMenu } from './navigation/NavMenu';
+export { default as SideMenu } from './navigation/SideNav';
+export { default as ScrollNav } from './navigation/ScrollNav';
 
-export { default as FillUpLink } from './links/FillUpLink';
-export { default as FillUpBtn } from './buttons/FillUpBtn';
+export { default as CustomLink } from './links/CustomLink';
+export { default as Button } from './buttons/Button';
+
+export { default as RevealText } from './RevealText';

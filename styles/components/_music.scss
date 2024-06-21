@@ -37,7 +37,6 @@
       transform: scaleY(0.15);
       -webkit-animation: wave 1.25s linear infinite;
       animation: wave 1.25s linear infinite;
-      @apply bg-gray-700 dark:bg-gray-300;
     }
 
     div:nth-child(2) {
@@ -97,7 +96,6 @@
       width: var(--btn-width);
       height: 2px;
       transition: transform 0.5s;
-      @apply bg-text dark:bg-d-text;
     }
   }
 

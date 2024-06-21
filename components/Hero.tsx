@@ -2,7 +2,9 @@ import { Section } from '.';
 
 export default function Hero() {
   return (
-    <Section id="hero">
+    <Section id="hero" paddingTop={false}>
+      <div id="headerWatcher"></div>
+
       <p>Hero</p>
 
       <p>

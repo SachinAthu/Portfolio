@@ -35,6 +35,7 @@ const config: Config = {
         accent: '#008080',
         text: '#212121',
         subtext: '#757575',
+        nav: '#303030',
 
         d: {
           background: '#1E1E1E',
