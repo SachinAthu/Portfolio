@@ -83,6 +83,8 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
+    setIsScrolled(window.scrollY > 100);
+
     window.addEventListener('scroll', onScroll);
 
     return () => {

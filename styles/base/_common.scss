@@ -31,3 +31,11 @@ label {
     outline-offset: 1px;
   }
 }
+
+.app-toast-component {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  // background: var(--toaster-background) !important;
+  // color: var(--toaster-color) !important;
+  // box-shadow: var(--toaster-box-shadow) !important;
+  // padding: 16px 20px !important;
+}

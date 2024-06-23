@@ -1,10 +1,13 @@
+'use client';
+
+import toast from 'react-hot-toast';
 import { Section, RevealText } from '.';
 
 export default function About() {
   return (
     <Section id="about">
       <RevealText id="aboutHeading">
-        <h2 className="heading-2">About Me</h2>
+        <h2 className="heading-1">About Me</h2>
       </RevealText>
 
       <p>
@@ -15,6 +18,14 @@ export default function About() {
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
+
+      <button
+        type="button"
+        onClick={() => {
+          toast.custom('Completed');
+        }}>
+        Toast
+      </button>
     </Section>
   );
 }

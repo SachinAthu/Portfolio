@@ -75,7 +75,7 @@ function ScrollNav() {
   return (
     <div
       ref={scrollNav}
-      className="fixed right-5 top-[var(--scroll-nav-top)] hidden h-[var(--scroll-nav-height)] translate-x-[100px] p-[6px] opacity-0 2xl:block">
+      className="fixed right-6 top-[var(--scroll-nav-top)] hidden h-[var(--scroll-nav-height)] translate-x-[100px] opacity-0 2xl:block">
       <div className="grid h-full grid-cols-1 grid-rows-[1fr_1.5fr_1fr] gap-1">
         <div className="flex items-center justify-center">
           <Button onClick={() => scroll('up')} icon>

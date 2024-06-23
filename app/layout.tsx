@@ -3,7 +3,7 @@ import { Inter, Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import '@/styles/main.scss';
-import { Footer, Header, SplashScreen, NavMenu, SideMenu, ScrollNav } from '@/components';
+import { Footer, Header, SplashScreen, NavMenu, SideMenu, ScrollNav, ToasterCom } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 
 const montserrat = Montserrat({
@@ -115,6 +115,8 @@ export default function RootLayout({
             <Footer />
 
             <SplashScreen />
+
+            <ToasterCom />
           </LayoutProvider>
         </ThemeProvider>
 

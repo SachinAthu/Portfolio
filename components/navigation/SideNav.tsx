@@ -14,7 +14,7 @@ function SideNav() {
   const sideNav = useRef<HTMLDivElement>(null);
   const btnIndicater = useRef<HTMLDivElement>(null);
   const show = useRef(false);
-  const btnHeight = 56,
+  const btnHeight = 60,
     btnGap = 8;
 
   useGSAP(
@@ -59,7 +59,7 @@ function SideNav() {
   return (
     <div
       ref={sideNav}
-      className="fixed left-5 top-[var(--side-nav-top)] hidden h-[var(--side-nav-height)] -translate-x-[100px] overflow-hidden rounded-3xl border border-text opacity-0 dark:border-d-text 2xl:block">
+      className="fixed left-6 top-[var(--side-nav-top)] hidden h-[var(--side-nav-height)] -translate-x-[100px] overflow-hidden rounded-3xl border border-text opacity-0 dark:border-d-text 2xl:block">
       <div className="relative grid h-full grid-cols-1 gap-[var(--side-nav-gap)]">
         <div
           ref={btnIndicater}
@@ -71,7 +71,7 @@ function SideNav() {
             type="button"
             onClick={() => navigate(l.id)}
             className={cn(
-              'flex h-[var(--side-nav-btn-height)] w-[52px] items-center justify-center rounded-3xl transition-colors duration-500 [&>svg]:h-7 [&>svg]:w-7',
+              'flex h-[var(--side-nav-btn-height)] w-[56px] items-center justify-center rounded-3xl transition-colors duration-500 [&>svg]:h-7 [&>svg]:w-7',
               activeSection.id === l.id ? 'text-white' : 'text-current'
             )}>
             {l.icon}

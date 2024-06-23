@@ -1,5 +1,6 @@
 export { default as NotFoundCom } from './NotFoundCom';
 export { default as ErrorCom } from './ErrorCom';
+export { default as ToasterCom } from './ToasterCom';
 
 export { default as Header } from './header/Header';
 export { default as Footer } from './Footer';
