@@ -73,7 +73,7 @@ export default function Section({
       <div
         id={id}
         className={cn(
-          'relative min-h-[100vh]',
+          'relative',
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
           paddingBottom ? 'pb-20 sm:pb-32 lg:pb-40' : ''

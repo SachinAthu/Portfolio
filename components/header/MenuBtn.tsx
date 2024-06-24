@@ -11,11 +11,11 @@ export default function MenuBtn() {
       type="button"
       className={cn(
         'menu-btn relative block overflow-hidden border-none bg-transparent 2xl:hidden',
-        isNavOpen ? 'open text-d-text' : 'text-text dark:text-d-text'
+        isNavOpen ? 'open' : ''
       )}
       aria-label="Navigation Menu"
       onClick={() => setIsNavOpen(!isNavOpen)}>
-      <div className="icon-left"></div>
+      <div className="icon-left transition-colors"></div>
       <div className="icon-right"></div>
     </button>
   );

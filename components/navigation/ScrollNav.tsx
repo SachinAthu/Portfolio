@@ -7,7 +7,7 @@ import { IoArrowDown, IoArrowUp } from 'react-icons/io5';
 
 import { useMobileViewport } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
-import { Button } from '..';
+import { IconButton } from '..';
 import { navLinks } from '@/lib/data';
 
 function ScrollNav() {
@@ -78,9 +78,9 @@ function ScrollNav() {
       className="fixed right-6 top-[var(--scroll-nav-top)] hidden h-[var(--scroll-nav-height)] translate-x-[100px] opacity-0 2xl:block">
       <div className="grid h-full grid-cols-1 grid-rows-[1fr_1.5fr_1fr] gap-1">
         <div className="flex items-center justify-center">
-          <Button onClick={() => scroll('up')} icon>
+          <IconButton onClick={() => scroll('up')}>
             <IoArrowUp />
-          </Button>
+          </IconButton>
         </div>
 
         <div className="flex justify-center">
@@ -88,9 +88,9 @@ function ScrollNav() {
         </div>
 
         <div className="flex items-center justify-center" ref={downButton}>
-          <Button onClick={() => scroll('down')} icon>
+          <IconButton onClick={() => scroll('down')} direction="down">
             <IoArrowDown />
-          </Button>
+          </IconButton>
         </div>
       </div>
     </div>

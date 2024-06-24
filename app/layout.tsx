@@ -17,7 +17,7 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const title = 'Sachin Athukorala';
+const title = 'Sachin Athukorala | Fullstack Developer';
 const description = 'The portfolio of Sachin Athukorala, Fullstack Developer.';
 const websiteURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
 export const metadata: Metadata = {

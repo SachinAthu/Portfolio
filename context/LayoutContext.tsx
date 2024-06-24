@@ -82,10 +82,11 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
         setIsScrolled(false);
       }
     }
-
     setIsScrolled(window.scrollY > 100);
-
     window.addEventListener('scroll', onScroll);
+
+    // network state listener
+    //
 
     return () => {
       scrollRef.current?.destroy();

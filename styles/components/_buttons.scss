@@ -1,7 +1,9 @@
 /* menu button */
 
 @mixin icon($height, $width) {
-  transition: transform 0.5s;
+  transition:
+    background-color 0.5s,
+    transform 0.5s;
   position: absolute;
   height: $height;
   width: $width;
@@ -10,7 +12,9 @@
 }
 
 @mixin icon-before($height, $width, $top) {
-  transition: transform 0.5s;
+  transition:
+    background-color 0.5s,
+    transform 0.5s;
   position: absolute;
   width: $width;
   height: $height;
@@ -21,7 +25,9 @@
 }
 
 @mixin icon-after($height, $width, $top) {
-  transition: transform 0.5s;
+  transition:
+    background-color 0.5s,
+    transform 0.5s;
   position: absolute;
   width: $width;
   height: $height;
@@ -80,10 +86,12 @@
     background-color: transparent;
 
     &:before {
+      background-color: theme('colors.d.text');
       transform: rotateZ(45deg) translate(4px, -4px);
     }
 
     &:after {
+      background-color: theme('colors.d.text');
       transform: rotateZ(-45deg) translate(4px, 4px);
     }
   }
@@ -92,10 +100,13 @@
     background-color: transparent;
 
     &:before {
+      background-color: theme('colors.d.text');
+
       transform: rotateZ(-45deg) translate(-4px, -4px);
     }
 
     &:after {
+      background-color: theme('colors.d.text');
       transform: rotateZ(45deg) translate(-4px, 4px);
     }
   }
@@ -175,6 +186,33 @@
     transition: transform 0.5s;
     @apply bg-text dark:bg-d-text;
   }
+
+  .custom-button-content {
+    display: inline-block;
+    color: transparent;
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+
+    &::before {
+      content: attr(data-content);
+      display: block;
+      position: absolute;
+      top: 0;
+      transform-origin: right bottom;
+      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+      @apply text-text dark:text-d-text;
+    }
+
+    &::after {
+      content: attr(data-content);
+      display: block;
+      position: absolute;
+      top: 105%;
+      transform: skewY(7deg);
+      transform-origin: left top;
+      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+      @apply text-text dark:text-d-text;
+    }
+  }
 }
 
 .custom-button:hover,
@@ -183,6 +221,97 @@
 
   .flair::after {
     transform: scale(1);
+  }
+
+  .custom-button-content {
+    transform: translateY(-105%);
+
+    &::before {
+      transform: skewY(7deg);
+      @apply text-d-text dark:text-text;
+    }
+
+    &::after {
+      transform: skewY(0);
+      @apply text-d-text dark:text-text;
+    }
+  }
+}
+/**/
+
+/* custom button */
+.custom-icon-button {
+  .flair::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.5s;
+    @apply bg-text dark:bg-d-text;
+  }
+
+  .custom-icon-button-1 {
+    display: inline-block;
+    color: transparent;
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .custom-icon-button-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .custom-icon-button-3 {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}
+
+.custom-icon-button.down {
+  .custom-icon-button-2 {
+    top: -150%;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-icon-button-3 {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.custom-icon-button:hover {
+  @apply text-d-text dark:text-text;
+
+  .flair::after {
+    transform: scale(1);
+  }
+
+  .custom-icon-button-2 {
+    transform: translate(-50%, -150%);
+  }
+
+  .custom-icon-button-3 {
+    transform: translate(-50%, -150%);
+  }
+}
+
+.custom-icon-button.down:hover {
+  .custom-icon-button-2 {
+    transform: translate(-50%, 150%);
+  }
+
+  .custom-icon-button-3 {
+    transform: translate(-50%, 150%);
   }
 }
 /**/

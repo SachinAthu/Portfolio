@@ -17,5 +17,6 @@ export { default as ScrollNav } from './navigation/ScrollNav';
 
 export { default as CustomLink } from './links/CustomLink';
 export { default as Button } from './buttons/Button';
+export { default as IconButton } from './buttons/IconButton';
 
 export { default as RevealText } from './RevealText';
