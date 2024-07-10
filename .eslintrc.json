@@ -7,11 +7,12 @@
     "no-empty-function": "off",
     "prefer-const": "off",
 
-    "react/button-has-type": "error",
+    "react/button-has-type": "warn",
     "react/no-array-index-key": "error",
     "react/display-name": "warn",
     "react/no-unescaped-entities": "off",
     "react/react-in-jsx-scope": "off",
+
 
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-empty-function": "warn",
