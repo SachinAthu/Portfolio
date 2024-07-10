@@ -9,7 +9,7 @@ type UnderlineButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export default function UnderlineButton({ children, className, onClick, type, ...rest }: UnderlineButtonProps) {
   return (
     <button
-      type={type || 'button'}
+      type={type ? type : 'button'}
       className={cn('underline-button | relative text-base', className || '')}
       onClick={onClick}
       {...rest}>

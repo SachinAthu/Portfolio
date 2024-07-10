@@ -5,9 +5,9 @@ export default function HomePage() {
     <div className="home-page">
       <Hero />
       <About />
-      {/* <TechStack />
+      <TechStack />
       <Works />
-      <Contact /> */}
+      <Contact />
     </div>
   );
 }

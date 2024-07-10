@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 import { useMobileViewport, useMounted } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
@@ -51,7 +50,6 @@ export default function PageLoader() {
     openLoaderTween.current = gsap
       .timeline({
         paused: true,
-        onStart: () => {},
       })
       .set('.page-loader', { pointerEvents: 'auto' })
       .to('.page-loader-inner .box', {

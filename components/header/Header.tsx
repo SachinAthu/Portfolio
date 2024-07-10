@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { Flip } from 'gsap/Flip';
