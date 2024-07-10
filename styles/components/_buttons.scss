@@ -1,3 +1,5 @@
+@use '../base/mixings' as mix;
+
 /* menu button */
 
 @mixin icon($height, $width) {
@@ -174,6 +176,8 @@
 /* custom button */
 .custom-button,
 .custom-link {
+  transform-style: preserve-3d;
+
   .flair::after {
     content: '';
     position: absolute;
@@ -191,6 +195,7 @@
     display: inline-block;
     color: transparent;
     transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
 
     &::before {
       content: attr(data-content);
@@ -239,7 +244,7 @@
 }
 /**/
 
-/* custom button */
+/* custom icon button */
 .custom-icon-button {
   .flair::after {
     content: '';
@@ -315,3 +320,41 @@
   }
 }
 /**/
+
+.underline-button {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    @apply border-b-2 border-dashed border-text dark:border-d-text;
+
+    @include mix.min-width(sm) {
+      bottom: -3px;
+    }
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    @apply border-b-2 border-solid border-text dark:border-d-text;
+
+    @include mix.min-width(sm) {
+      bottom: -3px;
+    }
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}

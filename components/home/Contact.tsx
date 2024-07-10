@@ -1,4 +1,4 @@
-import { RevealText, Section } from '.';
+import { RevealText, Section } from '..';
 
 export default function Contact() {
   return (

@@ -12,9 +12,17 @@
 
 @tailwind utilities;
 @layer utilities {
+  /* custom containers */
+  .container-wide {
+    max-width: 1536px;
+    margin-inline: auto;
+  }
+
+  /**/
+
   /* headings */
   .heading-1 {
-    @apply font-heading text-6xl font-normal sm:text-8xl sm:font-medium lg:text-9xl;
+    @apply text-6xl font-medium sm:text-8xl lg:text-9xl;
   }
   /**/
 

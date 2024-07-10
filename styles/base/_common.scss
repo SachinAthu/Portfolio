@@ -1,7 +1,7 @@
 @use './mixings' as mix;
 
 body {
-  @apply bg-background font-body text-text transition-colors duration-500 dark:bg-d-background dark:text-d-text;
+  @apply bg-background font-body text-text transition-colors duration-200 dark:bg-d-background dark:text-d-text;
   font-stretch: normal;
 }
 

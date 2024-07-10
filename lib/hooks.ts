@@ -1,6 +1,16 @@
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
 
+export function useMounted() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted;
+}
+
 export function useMobileViewport(mini = false) {
   const [isMobileV, setIsMobileV] = useState(false);
   const bp = mini ? 640 : 768;
@@ -57,7 +67,7 @@ export function useWindowResize() {
   const [vw, setVW] = useState(0);
 
   const onResize = useCallback(() => {
-    setVW(window.innerWidth);
+    if (vw !== window.innerWidth) setVW(window.innerWidth);
   }, []);
 
   function debounce(func: () => void) {

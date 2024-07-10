@@ -10,7 +10,6 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['var(--font-inter)', ...fontFamily.sans],
         body: ['var(--font-montserrat)', ...fontFamily.sans],
       },
       screens: {
@@ -25,7 +24,7 @@ const config: Config = {
           xl: '1280px',
         },
         padding: {
-          DEFAULT: '3%',
+          DEFAULT: '5%',
           xl: '0%',
         },
       },
@@ -35,7 +34,9 @@ const config: Config = {
         accent: '#008080',
         text: '#212121',
         subtext: '#757575',
-        nav: '#303030',
+        // nav: '#303030',
+        nav: '#494949',
+        // nav: '#424242',
 
         d: {
           background: '#1E1E1E',

@@ -1,20 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter, Montserrat } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import '@/styles/main.scss';
-import { Footer, Header, SplashScreen, NavMenu, SideMenu, ScrollNav, ToasterCom } from '@/components';
+import { Footer, Header, PageLoader, NavMenu, SideMenu, ScrollNav, ToasterCom, AnimGrid, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-montserrat',
-});
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
 });
 
 const title = 'Sachin Athukorala | Fullstack Developer';
@@ -101,20 +96,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${montserrat.variable}`}>
+      <body className={montserrat.variable}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
+            <AnimGrid />
+
             <Header />
 
             <NavMenu />
             <SideMenu />
             <ScrollNav />
 
-            <main className="pt-[var(--header-height)]">{children}</main>
+            <main>{children}</main>
 
             <Footer />
 
-            <SplashScreen />
+            <PageLoader />
+
+            <Welcome />
 
             <ToasterCom />
           </LayoutProvider>

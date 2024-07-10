@@ -8,6 +8,7 @@
 
   --nav-menu-height: calc(100vh - var(--header-height));
   --nav-menu-links-height: calc(90vh - var(--header-height));
+  --nav-bg-color: #303030;
 
   --side-nav-padding-y: 0px;
   --side-nav-gap: 8px;
@@ -18,7 +19,7 @@
   --scroll-nav-height: 300px;
   --scroll-nav-top: calc(var(--header-height) + (var(--nav-menu-height) / 2) - (var(--scroll-nav-height) / 2));
 
-  --hero-height: calc(100vh - var(--header-height));
+  --hero-height: calc(105vh - var(--header-height));
 }
 
 @include mix.max-width(sm) {

@@ -25,6 +25,7 @@ export default function Section({
   paddingTop = true,
   paddingBottom = true,
   borderBottom = true,
+  ...rest
 }: SectionProps) {
   const container = useRef<HTMLDivElement>(null);
   const { setActiveSection } = useLayoutContext();
@@ -73,16 +74,17 @@ export default function Section({
       <div
         id={id}
         className={cn(
-          'relative',
+          'relative min-h-screen',
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
           paddingBottom ? 'pb-20 sm:pb-32 lg:pb-40' : ''
-        )}>
+        )}
+        {...rest}>
         {children}
 
         {borderBottom && (
           <div className="absolute bottom-0 left-0 right-0" id={`${id}-border`}>
-            <div className="h-[2px] w-full origin-left scale-x-0 bg-text dark:bg-d-text"></div>
+            <div className="h-[2px] w-full origin-center scale-x-0 bg-text dark:bg-d-text"></div>
           </div>
         )}
       </div>

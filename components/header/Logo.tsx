@@ -10,7 +10,7 @@ export default function Logo() {
     <Link
       href={'/'}
       className={cn(
-        'flex items-center font-heading text-xl font-bold transition-colors duration-500',
+        'flex items-center text-xl font-bold transition-colors duration-500',
         isNavOpen ? 'text-zinc-200' : 'text-gray-900 dark:text-zinc-200'
       )}>
       <span className="hidden sm:block">SachinAthu</span>

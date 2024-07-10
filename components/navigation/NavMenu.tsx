@@ -1,28 +1,58 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { navLinks } from '@/lib/data';
 
-function NavMenu() {
-  const container = useRef<HTMLDivElement>(null);
-  const { setIsNavOpen, scrollRef } = useLayoutContext();
+export default function NavMenu() {
+  const showNavLinksTween = useRef<gsap.core.Timeline>();
+  const hideNavLinksTween = useRef<gsap.core.Timeline>();
+  const { isNavShow, setIsNavOpen, scrollRef } = useLayoutContext();
 
-  useGSAP(
-    () => {
-      gsap.to('.nav-menu-link', {
+  useEffect(() => {
+    const navMenu = document.querySelector('.nav-menu');
+
+    showNavLinksTween.current = gsap
+      .timeline({ onStart: () => navMenu?.classList.remove('hidden'), paused: true })
+      .to('.nav-menu-link', {
         y: 0,
         opacity: 1,
         duration: 1.25,
-        stagger: 0.1,
+        stagger: {
+          amount: 0.5,
+          from: 'start',
+        },
         ease: 'power3.out',
       });
-    },
-    { scope: container }
-  );
+
+    hideNavLinksTween.current = gsap
+      .timeline({ onComplete: () => navMenu?.classList.add('hidden'), paused: true })
+      .to('.nav-menu-link', {
+        y: 40,
+        opacity: 0,
+        duration: 1.25,
+        stagger: {
+          amount: 0.5,
+          from: 'end',
+        },
+        ease: 'power3.out',
+      });
+
+    return () => {
+      showNavLinksTween.current?.kill();
+      hideNavLinksTween.current?.kill();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isNavShow) {
+      showNavLinksTween.current?.invalidate().restart();
+    } else {
+      hideNavLinksTween.current?.invalidate().restart();
+    }
+  }, [isNavShow]);
 
   function navigate(id: string) {
     setIsNavOpen(false);
@@ -33,8 +63,7 @@ function NavMenu() {
 
   return (
     <nav
-      ref={container}
-      className={'nav-menu | fixed left-0 right-0 top-[var(--header-height)] z-20 h-[var(--nav-menu-height)]'}
+      className={'nav-menu | fixed left-0 right-0 top-[var(--header-height)] z-50 hidden h-[var(--nav-menu-height)]'}
       data-lenis-prevent>
       <ul className="nav-menu-links hide-scrollbar | mx-auto h-full overflow-y-auto pt-36 lg:pt-32">
         {navLinksArr && (
@@ -54,14 +83,4 @@ function NavMenu() {
       </ul>
     </nav>
   );
-}
-
-export default function NavMenuWrapper() {
-  const { isNavShow } = useLayoutContext();
-
-  if (!isNavShow) {
-    return null;
-  }
-
-  return <NavMenu />;
 }

@@ -9,12 +9,20 @@ import { cn } from '@/lib/common';
 
 function Music() {
   const player = useRef<HTMLAudioElement | null>(null);
-  const [play, setPlay] = useState(false);
-  const { isNavOpen } = useLayoutContext();
+  const { isNavOpen, isPlay, setIsPlay } = useLayoutContext();
 
   useEffect(() => {
-    // play audio
-    initPlay();
+    // initialize audio
+
+    if (!player.current) {
+      const p = new Audio('/static/music/kaer_morhen.mp3');
+      p.volume = 0.2;
+      p.controls = false;
+      p.autoplay = false;
+      p.loop = true;
+
+      player.current = p;
+    }
 
     return () => {
       if (player.current) {
@@ -24,34 +32,27 @@ function Music() {
     };
   }, []);
 
-  const initPlay = () => {
-    if (player.current) return;
-
-    const p = new Audio('/static/music/kaer_morhen.mp3');
-    p.volume = 0.2;
-    p.controls = false;
-    p.autoplay = false;
-    p.loop = true;
-
-    player.current = p;
-  };
-
-  const togglePlay = () => {
-    if (play) {
-      player.current?.pause();
-    } else {
+  useEffect(() => {
+    if (isPlay) {
       player.current
         ?.play()
         .then()
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      player.current?.pause();
     }
-    setPlay(!play);
-  };
+  }, [isPlay]);
+
+  function togglePlay() {
+    setIsPlay(!isPlay);
+  }
 
   return (
     <div className="hidden md:block">
+      {/* <audio ref={player} id='music-player' className='w-0 h-0 opacity-0' src="/static/music/kaer_morhen.mp3" autoPlay={false} controls={false} loop></audio> */}
+
       <div
         className={cn(
           'music | flex h-[var(--height)] items-center gap-2 rounded-full border border-solid',
@@ -63,7 +64,7 @@ function Music() {
             isNavOpen ? '[&>div]:bg-gray-300' : '[&>div]:bg-gray-700 dark:[&>div]:bg-gray-300'
           )}
           id="musicWave"
-          data-play={play}>
+          data-play={isPlay}>
           <div className="wave-1"></div>
           <div className="wave-2"></div>
           <div className="wave-3"></div>
@@ -85,7 +86,7 @@ function Music() {
               : 'border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text'
           )}
           onClick={togglePlay}
-          data-play={play}>
+          data-play={isPlay}>
           <RiMusicFill />
         </button>
       </div>

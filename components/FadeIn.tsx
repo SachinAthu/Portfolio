@@ -4,41 +4,25 @@ import React, { ReactElement, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitType from 'split-type';
 
-type RevealTextProps = {
+type FadeInProps = {
   children: React.ReactNode;
   id: string;
   duration?: number;
   delay?: number;
-  stagger?: number;
-  multiple?: boolean;
 };
 
-export default function RevealText({
-  children,
-  id,
-  duration = 1,
-  delay = 0,
-  stagger = 0.1,
-  multiple = false,
-}: RevealTextProps) {
+export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeInProps) {
   const container = useRef<HTMLDivElement>(null);
-  const child = children as ReactElement;
+  const trigger = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      SplitType.create(`#${id} > ${child.type}`, { types: multiple ? 'words' : 'chars' });
-      const el = multiple ? `#${id} .word` : `#${id} .char`;
-
-      gsap.set(`#${id}`, { opacity: 1 });
-
-      gsap.to(el, {
+      gsap.to(`#${id}`, {
         y: 0,
         opacity: 1,
-        stagger,
         duration,
         delay,
         ease: 'power2.out',
@@ -54,8 +38,10 @@ export default function RevealText({
 
   return (
     <div ref={container}>
-      <div id={id} className="reveal-text opacity-0">
-        {children}
+      <div ref={trigger}>
+        <div id={id} className="translate-y-[15px] opacity-0 sm:translate-y-[30px]">
+          {children}
+        </div>
       </div>
     </div>
   );

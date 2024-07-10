@@ -14,7 +14,7 @@ import { cn } from '@/lib/common';
 import Logo from './Logo';
 
 export default function Header() {
-  const { isScrolled } = useLayoutContext();
+  const { activeSection } = useLayoutContext();
   const header = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Header() {
   useEffect(() => {
     const state = Flip.getState('.header-inner-1, .header-inner-2');
 
-    if (isScrolled) {
+    if (activeSection.id !== 'hero') {
       header.current?.classList.add('scrolled');
     } else {
       header.current?.classList.remove('scrolled');
@@ -35,15 +35,15 @@ export default function Header() {
       duration: 0.5,
       ease: 'power2.out',
     });
-  }, [isScrolled]);
+  }, [activeSection]);
 
   return (
     <>
-      <header className="header | fixed left-0 right-0 top-0 z-20 flex h-[var(--header-height)] w-full items-center">
+      <header className="header | fixed left-0 right-0 top-0 z-50 flex h-[var(--header-height)] w-full items-center">
         <div
           ref={header}
           className={cn(
-            'header-inner | mx-auto hidden h-[var(--header-content-height)] w-full max-w-[1536px] items-center justify-between rounded-full px-[3%] sm:flex sm:rounded-none 2xl:px-0'
+            'header-inner | container-wide hidden h-[var(--header-content-height)] w-full items-center justify-between rounded-full px-[3%] sm:flex sm:rounded-none 2xl:px-0'
           )}>
           <div className="header-inner-1 | flex h-full items-center justify-center rounded-full px-8 backdrop-blur-lg">
             <Logo />
