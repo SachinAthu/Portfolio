@@ -74,6 +74,10 @@ const config: Config = {
           '90%': { color: '#f43f5e' },
           '100%': { color: '#F5F5F5' },
         },
+        sunicon: {
+          '0%': { transform: 'scale(1) translateX(0px) rotate(0deg)' },
+          '100%': { transform: 'scale(1) translateX(0px) rotate(360deg)' },
+        },
       },
     },
   },

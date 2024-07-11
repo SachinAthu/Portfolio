@@ -29,6 +29,7 @@ export default function ToolTip({ children, id, toolTip, toolTipClassName }: Too
           gsap.set(`#${id}`, { display: 'block' });
         },
       });
+
       const leaveAnim = gsap.to(`#${id}`, {
         opacity: 0,
         duration: 0.1,
@@ -44,6 +45,7 @@ export default function ToolTip({ children, id, toolTip, toolTipClassName }: Too
       }
 
       function mouseLeave() {
+        enterAnim.pause().invalidate();
         leaveAnim.invalidate().restart();
       }
 

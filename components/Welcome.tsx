@@ -34,13 +34,13 @@ function Welcome() {
 
       <div className="mb-8">
         <FadeIn id="welcome-btn-1" delay={1}>
-          <Button className="rounded-full px-28 py-12 text-2xl" onClick={() => clickHandler(true)}>
+          <Button className="rounded-full px-16 py-8 text-2xl md:px-28 md:py-12" onClick={() => clickHandler(true)}>
             Enter
           </Button>
         </FadeIn>
       </div>
 
-      <div>
+      <div className="hidden md:block">
         <FadeIn id="welcome-btn-2" delay={1.2}>
           <UnderlineButton className="text-xl" onClick={() => clickHandler(false)}>
             Enter without sound

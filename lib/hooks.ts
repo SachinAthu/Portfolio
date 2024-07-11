@@ -41,8 +41,14 @@ export function useMobileViewport(mini = false) {
 }
 
 export function useDark() {
+  const [isDark, setIsDark] = useState(false);
   const { theme } = useTheme();
-  return theme === 'dark';
+
+  useEffect(() => {
+    setIsDark(theme === 'dark');
+  }, [theme]);
+
+  return isDark;
 }
 
 export function usePageVisible() {

@@ -139,10 +139,22 @@
 
   .icon-sun svg {
     transform: scale(0.75) translateX(3px);
+    @apply dark:animate-[sunicon_8s_linear_infinite];
+    -webkit-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+    -webkit-animation-delay: 0.5s !important;
+    animation-delay: 0.5s !important;
   }
 
   .icon-moon svg {
     transform: scale(0.75) translateX(-3px);
+  }
+
+  &:hover {
+    .icon-sun svg {
+      -webkit-animation-play-state: running !important;
+      animation-play-state: running !important;
+    }
   }
 
   &::after {
@@ -330,6 +342,7 @@
     left: 0;
     right: 0;
     height: 2px;
+    width: 100%;
     @apply border-b-2 border-dashed border-text dark:border-d-text;
 
     @include mix.min-width(sm) {
@@ -345,6 +358,7 @@
     left: 0;
     right: 0;
     height: 2px;
+    width: 100%;
     transform: scaleX(0);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     @apply border-b-2 border-solid border-text dark:border-d-text;
