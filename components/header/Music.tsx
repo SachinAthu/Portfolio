@@ -63,6 +63,7 @@ function Music() {
   }, []);
 
   function playWave() {
+    if (pauseTween.current?.isActive) pauseTween.current?.pause();
     tweens.current?.forEach((t) => t.invalidate().restart());
   }
 
@@ -71,29 +72,21 @@ function Music() {
     pauseTween.current?.invalidate().restart();
   }
 
-  function togglePlay() {
-    if (!isPlay) {
+  useEffect(() => {
+    if (isPlay) {
+      player.current
+        ?.play()
+        .then()
+        .catch((err) => {
+          console.log(err);
+        });
       playWave();
     } else {
-      stopWave();
+      if (!player.current?.paused) {
+        player.current?.pause();
+        stopWave();
+      }
     }
-    setIsPlay(!isPlay);
-  }
-
-  useEffect(() => {
-    // if (isPlay) {
-    //   player.current
-    //     ?.play()
-    //     .then()
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    //   if (!player.current?.paused) {
-    //     player.current?.pause();
-    //     // resetWaveTween.current?.invalidate().restart();
-    //   }
-    // }
   }, [isPlay]);
 
   return (
@@ -154,7 +147,7 @@ function Music() {
               ? 'border-d-text after:bg-d-text [&>svg]:fill-d-text'
               : 'border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text'
           )}
-          onClick={togglePlay}
+          onClick={() => setIsPlay(!isPlay)}
           data-play={isPlay}>
           <RiMusicFill />
         </button>
