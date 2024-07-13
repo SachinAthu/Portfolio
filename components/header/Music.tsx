@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { RiMusicFill } from 'react-icons/ri';
+import gsap from 'gsap';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { useMobileViewport } from '@/lib/hooks';
@@ -9,11 +10,13 @@ import { cn } from '@/lib/common';
 
 function Music() {
   const player = useRef<HTMLAudioElement | null>(null);
+  const wave = useRef<HTMLDivElement>(null);
   const { isNavOpen, isPlay, setIsPlay } = useLayoutContext();
+  const tweens = useRef<gsap.core.Timeline[]>();
+  const pauseTween = useRef<gsap.core.Tween>();
 
   useEffect(() => {
     // initialize audio
-
     if (!player.current) {
       const p = new Audio('/static/music/kaer_morhen.mp3');
       p.volume = 0.2;
@@ -24,30 +27,74 @@ function Music() {
       player.current = p;
     }
 
+    // initialize tween
+    const wavebars = wave.current?.querySelectorAll('svg rect');
+    wavebars?.forEach((r, i) => {
+      tweens.current?.push(
+        gsap
+          .timeline({
+            paused: true,
+            defaults: { repeat: -1, duration: 1.2, yoyo: true, ease: 'none' },
+          })
+          .to(r, {
+            scaleY: 1,
+            delay: i * 0.2,
+            y: 0,
+          })
+          .to(r, {
+            scaleY: 0.2,
+            y: 7,
+          })
+      );
+    });
+
+    pauseTween.current = gsap.to('.wave svg rect', { scaleY: 0.2, y: 7, paused: true, duration: 1 });
+
     return () => {
       if (player.current) {
         player.current.pause();
         player.current = null;
       }
+
+      tweens.current?.forEach((t) => t.kill());
+      tweens.current = [];
+      pauseTween.current?.kill();
     };
   }, []);
 
-  useEffect(() => {
-    if (isPlay) {
-      player.current
-        ?.play()
-        .then()
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      player.current?.pause();
-    }
-  }, [isPlay]);
+  function playWave() {
+    tweens.current?.forEach((t) => t.invalidate().restart());
+  }
+
+  function stopWave() {
+    tweens.current?.forEach((t) => t.pause());
+    pauseTween.current?.invalidate().restart();
+  }
 
   function togglePlay() {
+    if (!isPlay) {
+      playWave();
+    } else {
+      stopWave();
+    }
     setIsPlay(!isPlay);
   }
+
+  useEffect(() => {
+    // if (isPlay) {
+    //   player.current
+    //     ?.play()
+    //     .then()
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   if (!player.current?.paused) {
+    //     player.current?.pause();
+    //     // resetWaveTween.current?.invalidate().restart();
+    //   }
+    // }
+  }, [isPlay]);
 
   return (
     <div className="hidden md:block">
@@ -58,7 +105,7 @@ function Music() {
           'music | flex h-[var(--height)] items-center gap-2 rounded-full border border-solid',
           isNavOpen ? 'border-d-text' : 'border-text dark:border-d-text'
         )}>
-        <div
+        {/* <div
           className={cn(
             'wave | ml-3 mr-1 flex items-center gap-1',
             isNavOpen ? '[&>div]:bg-gray-300' : '[&>div]:bg-gray-700 dark:[&>div]:bg-gray-300'
@@ -75,6 +122,28 @@ function Music() {
           <div className="wave-8"></div>
           <div className="wave-9"></div>
           <div className="wave-10"></div>
+        </div> */}
+
+        <div className="wave | ml-3 w-[60px]" ref={wave}>
+          <svg
+            id="musicWave"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 48 16"
+            shapeRendering="geometricPrecision"
+            textRendering="geometricPrecision"
+            className={isNavOpen ? '[&>rect]:fill-gray-300' : '[&>rect]:fill-gray-700 dark:[&>rect]:fill-gray-300'}>
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 0.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 5.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 10.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 15.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 20.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 25.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 30.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 35.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 40.425721 7)" strokeWidth="0" />
+            <rect width="2" height="16" transform="matrix(1 0 0 0.2 45.425721 7)" strokeWidth="0" />
+          </svg>
         </div>
 
         <button

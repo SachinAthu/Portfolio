@@ -29,7 +29,7 @@ export function useMobileViewport(mini = false) {
   }
 
   useEffect(() => {
-    setIsMobileV(window.innerWidth <= bp);
+    setIsMobileV(window.innerWidth < bp);
     window.addEventListener('resize', debounce(onResize));
 
     return () => {

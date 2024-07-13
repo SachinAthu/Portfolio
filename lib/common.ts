@@ -12,3 +12,29 @@ export function truncateText(value: string, limit: number) {
 
   return value.slice(0, limit) + '...';
 }
+
+export function getAnimGridSize(vw: number) {
+  let grid = { cols: 16, rows: 10 };
+
+  if (vw > 3840) {
+    // 8k
+    grid = { cols: 64, rows: 40 };
+  } else if (vw > 2560) {
+    // 4k
+    grid = { cols: 32, rows: 20 };
+  } else if (vw > 1920) {
+    // 2k
+    grid = { cols: 22, rows: 14 };
+  } else if (vw > 1024) {
+    // 1080P
+    grid = { cols: 16, rows: 10 };
+  } else if (vw > 768) {
+    // tab
+    grid = { cols: 10, rows: 10 };
+  } else {
+    // mobile
+    grid = { cols: 6, rows: 10 };
+  }
+
+  return grid;
+}

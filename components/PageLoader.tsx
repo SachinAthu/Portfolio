@@ -3,13 +3,14 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-import { useMobileViewport, useMounted } from '@/lib/hooks';
+import { useMounted, useWindowResize } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
+import { getAnimGridSize } from '@/lib/common';
 
 export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
-  const isMobile = useMobileViewport();
+  const vw = useWindowResize();
   const isMounted = useMounted();
   const { isNavOpen, isPageLoading, setIsNavShow } = useLayoutContext();
 
@@ -25,12 +26,15 @@ export default function PageLoader() {
 
   useEffect(() => {
     // create grid
-    function createGrid() {
-      if (loader.current?.innerHTML) {
-        loader.current.innerHTML = '';
-      }
+    const grid = getAnimGridSize(vw);
 
-      const grid = isMobile ? { cols: 6, rows: 10 } : { cols: 16, rows: 10 };
+    if (loader.current?.innerHTML) {
+      loader.current.innerHTML = '';
+    }
+
+    if (loader.current) {
+      loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
+      loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
 
       for (let i = 0; i < grid.cols * grid.rows; i++) {
         const d = document.createElement('div');
@@ -39,13 +43,9 @@ export default function PageLoader() {
       }
     }
 
-    createGrid();
-
     // setup tweens
     openLoaderTween.current?.kill();
     closeLoaderTween.current?.kill();
-
-    const grid: 'auto' | [number, number] | undefined = isMobile ? [10, 6] : [10, 16];
 
     openLoaderTween.current = gsap
       .timeline({
@@ -58,7 +58,7 @@ export default function PageLoader() {
         ease: 'power2.out',
         stagger: {
           amount: 1,
-          grid,
+          grid: [grid.rows, grid.cols],
           from: 'start',
         },
       })
@@ -68,7 +68,7 @@ export default function PageLoader() {
       .timeline({
         paused: true,
       })
-      .to('.page-loader-inner', { gap: isMobile ? 12 : 16, duration: 0.2, ease: 'power2.out' })
+      .to('.page-loader-inner', { gap: vw < 768 ? 12 : 16, duration: 0.2, ease: 'power2.out' })
       .to('.page-loader-inner .box', {
         opacity: 0,
         duration: 0.5,
@@ -76,12 +76,12 @@ export default function PageLoader() {
         ease: 'power2.out',
         stagger: {
           amount: 1,
-          grid,
+          grid: [grid.rows, grid.cols],
           from: 'end',
         },
       })
       .set('.page-loader', { pointerEvents: 'none' });
-  }, [isMobile]);
+  }, [vw]);
 
   // nav menu toggle
   useEffect(() => {
@@ -120,7 +120,7 @@ export default function PageLoader() {
   return (
     <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
       <div
-        className="page-loader-inner | grid h-full w-full grid-cols-6 grid-rows-10 gap-3 sm:gap-4 md:grid-cols-[repeat(16,1fr)] md:grid-rows-10 [&>div]:border-none [&>div]:bg-nav [&>div]:opacity-0"
+        className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav [&>div]:opacity-0"
         ref={loader}></div>
     </div>
   );
