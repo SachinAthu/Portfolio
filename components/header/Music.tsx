@@ -12,7 +12,7 @@ function Music() {
   const player = useRef<HTMLAudioElement | null>(null);
   const wave = useRef<HTMLDivElement>(null);
   const { isNavOpen, isPlay, setIsPlay } = useLayoutContext();
-  const tweens = useRef<gsap.core.Timeline[]>();
+  const tweens = useRef<gsap.core.Timeline[]>([]);
   const pauseTween = useRef<gsap.core.Tween>();
 
   useEffect(() => {
@@ -63,7 +63,9 @@ function Music() {
   }, []);
 
   function playWave() {
-    if (pauseTween.current?.isActive) pauseTween.current?.pause();
+    if (pauseTween.current?.isActive) {
+      pauseTween.current?.pause();
+    }
     tweens.current?.forEach((t) => t.invalidate().restart());
   }
 
