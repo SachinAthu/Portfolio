@@ -30,7 +30,7 @@ export default function AnimGrid() {
   }, [vw]);
 
   return (
-    <div className="animgrid | pointer-events-none fixed left-0 top-0 h-lvh w-full">
+    <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full">
       <div
         className="back-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:border-text [&>div]:bg-transparent [&>div]:opacity-10 dark:[&>div]:border-d-text"
         ref={animgrid}></div>

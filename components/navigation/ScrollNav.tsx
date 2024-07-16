@@ -26,31 +26,33 @@ function ScrollNav() {
           ease: 'power2.out',
           delay: 0.75,
         });
-      } else if (activeSection.id === 'contact') {
-        gsap.to(downButton.current, {
-          x: 100,
-          opacity: 0,
+      } else {
+        gsap.to(scrollNav.current, {
+          x: 0,
+          opacity: 1,
           duration: 0.5,
           ease: 'power2.out',
           delay: 0.75,
+          onComplete: () => {
+            if (activeSection.id === 'contact') {
+              gsap.to(downButton.current, {
+                x: 100,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+                delay: 0.75,
+              });
+            } else {
+              gsap.to(downButton.current, {
+                x: 0,
+                opacity: 1,
+                duration: 0.5,
+                ease: 'power2.out',
+                delay: 0.75,
+              });
+            }
+          },
         });
-      } else {
-        gsap
-          .timeline({ defaults: { ease: 'power2.out', delay: 0.75 } })
-          .to(scrollNav.current, {
-            x: 0,
-            opacity: 1,
-            duration: 0.5,
-          })
-          .to(
-            downButton.current,
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.5,
-            },
-            '<'
-          );
       }
     },
     { dependencies: [activeSection] }

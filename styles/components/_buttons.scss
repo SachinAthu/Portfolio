@@ -333,6 +333,41 @@
 }
 /**/
 
+// footer - scroll to top button
+.scroll-top-button {
+  .scroll-top-button-1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .scroll-top-button-2 {
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 1s cubic-bezier(0.19, 1, 0.22, 1),
+      opacity 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}
+
+.scroll-top-button:hover,
+.scroll-top-button.scrolling {
+  .scroll-top-button-1 {
+    transform: translate(-50%, -70%);
+  }
+
+  .scroll-top-button-2 {
+    transform: translate(-50%, -180%);
+    opacity: 1;
+  }
+}
+/**/
+
 .underline-button {
   &::before {
     content: '';
