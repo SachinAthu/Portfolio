@@ -30,7 +30,9 @@ export default function Footer() {
   });
 
   return (
-    <footer ref={container} className="relative border-t border-t-text pt-20 dark:border-t-d-text">
+    <footer
+      ref={container}
+      className="relative border-t border-t-text bg-background pb-4 pt-20 dark:border-t-d-text dark:bg-d-background sm:pb-0">
       <div className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-sm dark:bg-d-background">
         <div className="pointer-events-none absolute h-32 w-32">
           <svg
@@ -46,16 +48,17 @@ export default function Footer() {
               cx="50%"
               strokeDasharray={2 * 3.14 * 100}
               strokeDashoffset={0}
-              className="stroke-text stroke-[2px] dark:stroke-d-text"
+              className="stroke-text stroke-[3px] dark:stroke-d-text"
             />
           </svg>
         </div>
 
         <button
+          type="button"
           ref={scrollBtn}
           className="scroll-top-button | flex h-full w-full items-center justify-center overflow-hidden rounded-full"
           onClick={scrollToTop}>
-          <span className="relative h-12 w-12 [&_svg]:h-12 [&_svg]:w-12">
+          <span className="relative h-14 w-14 [&_svg]:h-14 [&_svg]:w-14">
             <span className="scroll-top-button-1">
               <RiArrowUpWideFill />
             </span>

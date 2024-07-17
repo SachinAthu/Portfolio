@@ -45,9 +45,6 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       });
     })();
 
-    // network state listener
-    //
-
     return () => {
       scrollRef.current?.destroy();
     };

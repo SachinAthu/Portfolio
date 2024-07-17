@@ -1,6 +1,5 @@
 'use client';
 
-import toast from 'react-hot-toast';
 import { Section, RevealText } from '..';
 
 export default function About() {
@@ -19,14 +18,6 @@ export default function About() {
           sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
           PageMaker including versions of Lorem Ipsum.
         </p>
-
-        <button
-          type="button"
-          onClick={() => {
-            toast.custom('Completed');
-          }}>
-          Toast
-        </button>
       </div>
     </Section>
   );

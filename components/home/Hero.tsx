@@ -1,8 +1,15 @@
 'use client';
 
+import { useLayoutContext } from '@/context/LayoutContext';
 import { Button, Section } from '..';
 
 export default function Hero() {
+  const { scrollRef } = useLayoutContext();
+
+  function scrollToContact() {
+    scrollRef.current?.scrollTo('#contact');
+  }
+
   return (
     <Section
       id="hero"
@@ -27,13 +34,15 @@ export default function Hero() {
       <div
         data-scroll
         data-scroll-speed="-0.5"
-        className="container-wide flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1rem)] pb-28 pt-12 sm:flex-col sm:px-[calc(3%+2rem)] sm:pb-20 2xl:px-8">
+        className="container-wide flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 sm:flex-col sm:px-[calc(3%+2rem)] sm:pb-20 2xl:px-8">
         <div className="flex flex-col items-end">
           <div className="mb-8 sm:mb-12">
             <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Fullstack Developer;</p>
           </div>
 
-          <Button className="rounded-full border-2 px-6 py-4 text-xl sm:px-8 sm:py-6 sm:text-2xl">Contact Me</Button>
+          <Button className="rounded-full border-2 px-6 py-6 text-xl sm:px-8 sm:text-2xl" onClick={scrollToContact}>
+            Contact Me
+          </Button>
         </div>
 
         <div>

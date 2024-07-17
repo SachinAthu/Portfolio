@@ -17,7 +17,7 @@ export default function MenuBtn() {
     <button
       ref={menuBtn}
       type="button"
-      className={cn('menu-btn relative block overflow-hidden border-none bg-transparent', isNavOpen ? 'open' : '')}
+      className={cn('menu-btn | relative block overflow-hidden border-none bg-transparent', isNavOpen ? 'open' : '')}
       aria-label="Navigation Menu"
       onClick={handleClick}>
       <div className="icon-left transition-colors"></div>

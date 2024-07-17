@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import '@/styles/main.scss';
 import { Footer, Header, PageLoader, NavMenu, SideMenu, ScrollNav, ToasterCom, AnimGrid, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
+import { EventsProvider } from '@/context/EventsContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -99,23 +100,25 @@ export default function RootLayout({
       <body className={montserrat.variable}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
-            <AnimGrid />
+            <EventsProvider>
+              <AnimGrid />
 
-            <Header />
+              <Header />
 
-            <NavMenu />
-            <SideMenu />
-            <ScrollNav />
+              <NavMenu />
+              <SideMenu />
+              <ScrollNav />
 
-            <main>{children}</main>
+              <main>{children}</main>
 
-            <Footer />
+              <Footer />
 
-            <PageLoader />
+              <PageLoader />
 
-            {/* <Welcome /> */}
+              {/* <Welcome /> */}
 
-            <ToasterCom />
+              <ToasterCom />
+            </EventsProvider>
           </LayoutProvider>
         </ThemeProvider>
 
