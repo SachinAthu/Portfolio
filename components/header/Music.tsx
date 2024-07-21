@@ -5,7 +5,7 @@ import { RiMusicFill } from 'react-icons/ri';
 import gsap from 'gsap';
 
 import { useLayoutContext } from '@/context/LayoutContext';
-import { useMobileViewport } from '@/lib/hooks';
+import { useMobileViewport, usePageVisible } from '@/lib/hooks';
 import { cn } from '@/lib/common';
 
 function Music() {
@@ -14,6 +14,7 @@ function Music() {
   const { isNavOpen, isPlay, setIsPlay } = useLayoutContext();
   const tweens = useRef<gsap.core.Timeline[]>([]);
   const pauseTween = useRef<gsap.core.Tween>();
+  const isPageVisible = usePageVisible();
 
   useEffect(() => {
     // initialize audio
@@ -62,34 +63,41 @@ function Music() {
     };
   }, []);
 
-  function playWave() {
+  function playMusic() {
+    player.current
+      ?.play()
+      .then()
+      .catch((err) => {
+        console.log(err);
+      });
+
     if (pauseTween.current?.isActive) {
       pauseTween.current?.pause();
     }
     tweens.current?.forEach((t) => t.invalidate().restart());
   }
 
-  function stopWave() {
+  function stopMusic() {
+    if (!player.current?.paused) {
+      player.current?.pause();
+      stopMusic();
+    }
+
     tweens.current?.forEach((t) => t.pause());
     pauseTween.current?.invalidate().restart();
   }
 
   useEffect(() => {
-    if (isPlay) {
-      player.current
-        ?.play()
-        .then()
-        .catch((err) => {
-          console.log(err);
-        });
-      playWave();
-    } else {
-      if (!player.current?.paused) {
-        player.current?.pause();
-        stopWave();
+    if (isPageVisible) {
+      if (isPlay) {
+        playMusic();
+      } else {
+        stopMusic();
       }
+    } else {
+      stopMusic();
     }
-  }, [isPlay]);
+  }, [isPlay, isPageVisible]);
 
   return (
     <div className="hidden md:block">

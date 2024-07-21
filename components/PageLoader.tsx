@@ -28,10 +28,6 @@ export default function PageLoader() {
     // create grid
     const grid = getAnimGridSize(vw);
 
-    if (loader.current?.innerHTML) {
-      loader.current.innerHTML = '';
-    }
-
     if (loader.current) {
       loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
       loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
@@ -44,9 +40,6 @@ export default function PageLoader() {
     }
 
     // setup tweens
-    openLoaderTween.current?.kill();
-    closeLoaderTween.current?.kill();
-
     openLoaderTween.current = gsap
       .timeline({
         paused: true,
@@ -81,6 +74,14 @@ export default function PageLoader() {
         },
       })
       .set('.page-loader', { pointerEvents: 'none' });
+
+    return () => {
+      if (loader.current?.innerHTML) {
+        loader.current.innerHTML = '';
+      }
+      openLoaderTween.current?.kill();
+      closeLoaderTween.current?.kill();
+    };
   }, [vw]);
 
   // nav menu toggle

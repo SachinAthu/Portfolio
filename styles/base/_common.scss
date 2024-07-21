@@ -32,6 +32,18 @@ label {
   }
 }
 
+@media (prefers-reduced-motion) {
+  *,
+  *::before,
+  *::after {
+    -webkit-animation-duration: 0s !important;
+    animation-duration: 0s !important;
+    /* additional recommendation */
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .app-toast-component {
   font-family: var(--font-montserrat), system-ui, sans-serif;
   // background: var(--toaster-background) !important;
