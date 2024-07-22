@@ -9,7 +9,7 @@ export default function Button({ children, className, onClick, type, ...rest }: 
     <button
       type={type ? type : 'button'}
       className={cn(
-        'custom-button | relative block overflow-hidden rounded-xl border border-text px-4 py-2 dark:border-d-text',
+        'custom-button | relative block w-fit overflow-hidden rounded-xl border border-text px-4 py-2 dark:border-d-text',
         className || ''
       )}
       onClick={onClick}

@@ -1,7 +1,9 @@
 'use client';
 
 import { useLayoutContext } from '@/context/LayoutContext';
-import { Button, Section } from '..';
+import { Button, CustomLink, Section } from '..';
+
+import { SiGithub, SiLinkedin, SiHackerrank, SiCodepen, SiLeetcode, SiCodesandbox } from 'react-icons/si';
 
 export default function Hero() {
   const { scrollRef } = useLayoutContext();
@@ -17,20 +19,6 @@ export default function Hero() {
       paddingBottom={false}
       className="relative h-[max(100svh,50rem)] pt-[var(--header-height)]"
       borderBottom={false}>
-      {/* <div className="flex min-h-[var(--hero-height)] flex-col items-center">
-        <div className="mt-40">
-          <h1 className="text-center text-9xl font-semibold tracking-[2px]">Hey. I'm Sachin.</h1>
-        </div>
-
-        <div className="mt-20">
-          <p className="text-center text-6xl font-medium">Fullstack Developer;</p>
-        </div>
-
-        <div className="mt-40">
-          <Button className="rounded-full border-2 px-8 py-4 text-2xl">Contact Me</Button>
-        </div>
-      </div> */}
-
       <div
         data-scroll
         data-scroll-speed="-0.5"
@@ -40,9 +28,30 @@ export default function Hero() {
             <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Fullstack Developer;</p>
           </div>
 
-          <Button className="rounded-full px-6 py-6 text-xl sm:px-8 sm:py-8 sm:text-2xl" onClick={scrollToContact}>
+          {/* <Button className="rounded-full px-6 py-6 text-xl sm:px-8 sm:py-8 sm:text-2xl" onClick={scrollToContact}>
             Contact Me
-          </Button>
+          </Button> */}
+
+          <div className="flex flex-wrap items-center justify-end gap-3">
+            <CustomLink href="https://github.com/SachinAthu" target="_blank" className="p-3" icon>
+              <SiGithub />
+            </CustomLink>
+            <CustomLink href="https://www.linkedin.com/in/sachinathu/" target="_blank" className="p-3" icon>
+              <SiLinkedin />
+            </CustomLink>
+            <CustomLink href="https://www.hackerrank.com/profile/sachin2262716" target="_blank" className="p-3" icon>
+              <SiHackerrank />
+            </CustomLink>
+            <CustomLink href="https://leetcode.com/sachin2262716" target="_blank" className="p-3" icon>
+              <SiLeetcode />
+            </CustomLink>
+            <CustomLink href="https://codepen.io/sachinathu" target="_blank" className="p-3" icon>
+              <SiCodepen />
+            </CustomLink>
+            <CustomLink href="https://codesandbox.io/u/sachinAthu" target="_blank" className="p-3" icon>
+              <SiCodesandbox />
+            </CustomLink>
+          </div>
         </div>
 
         <div>

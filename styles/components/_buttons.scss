@@ -257,7 +257,8 @@
 /**/
 
 /* custom icon button */
-.custom-icon-button {
+.custom-icon-button,
+.custom-icon-link {
   .flair::after {
     content: '';
     position: absolute;
@@ -271,10 +272,10 @@
     @apply bg-text dark:bg-d-text;
   }
 
-  .custom-icon-button-1 {
+  .custom-icon-button-1,
+  .custom-icon-link-1 {
     display: inline-block;
     color: transparent;
-    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .custom-icon-button-2 {
@@ -306,7 +307,16 @@
   }
 }
 
-.custom-icon-button:hover {
+.custom-icon-button.is-static,
+.custom-icon-link {
+  .custom-icon-button-1,
+  .custom-icon-link-1 {
+    color: currentColor;
+  }
+}
+
+.custom-icon-button:hover,
+.custom-icon-link:hover {
   @apply text-d-text dark:text-text;
 
   .flair::after {

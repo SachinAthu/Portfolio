@@ -1,7 +1,7 @@
 'use client';
 
 import { WORK_EXPERIENCE } from '@/lib/data';
-import { Section, RevealText, Button, FadeIn, PopIn } from '..';
+import { Section, RevealText, FadeIn, PopIn, CustomLink } from '..';
 import { cn } from '@/lib/common';
 
 export default function About() {
@@ -36,9 +36,13 @@ export default function About() {
 
           <div className="lg:pl-32 lg:pt-2">
             <PopIn id="aboutResumeBtn" duration={2}>
-              <Button onClick={() => {}} className="rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl">
+              <CustomLink
+                href="/static/sample_resume.pdf"
+                rel="noopener noreferrer"
+                download
+                className="rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl">
                 My Resume
-              </Button>
+              </CustomLink>
             </PopIn>
           </div>
 
