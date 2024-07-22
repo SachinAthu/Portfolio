@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { cn } from '@/lib/common';
 import { useLayoutContext } from '@/context/LayoutContext';
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 
 type SectionProps = {
   id: string;
@@ -48,7 +48,7 @@ export default function Section({
       }
 
       function getSection(id: string) {
-        return navLinks.find((l) => l.id === id) || navLinks[0];
+        return NAV_LINKS.find((l) => l.id === id) || NAV_LINKS[0];
       }
 
       ScrollTrigger.create({
@@ -77,7 +77,7 @@ export default function Section({
           'relative min-h-screen',
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
-          paddingBottom ? 'pb-20 sm:pb-32 lg:pb-40' : ''
+          paddingBottom ? 'pb-28 sm:pb-48 lg:pb-56' : ''
         )}
         {...rest}>
         {children}

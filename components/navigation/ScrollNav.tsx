@@ -8,7 +8,7 @@ import { IoArrowDown, IoArrowUp } from 'react-icons/io5';
 import { useMobileViewport } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
 import { IconButton } from '..';
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 
 function ScrollNav() {
   const { scrollRef, activeSection } = useLayoutContext();
@@ -62,15 +62,15 @@ function ScrollNav() {
     const index = parseInt(activeSection.key) - 1;
 
     if (direction === 'down') {
-      if (index + 1 >= navLinks.length) {
+      if (index + 1 >= NAV_LINKS.length) {
         return;
       }
-      scrollRef.current?.scrollTo(`#${navLinks[index + 1].id}`);
+      scrollRef.current?.scrollTo(`#${NAV_LINKS[index + 1].id}`);
     } else {
       if (index - 1 < 0) {
         return;
       }
-      scrollRef.current?.scrollTo(`#${navLinks[index - 1].id}`);
+      scrollRef.current?.scrollTo(`#${NAV_LINKS[index - 1].id}`);
     }
   }
 

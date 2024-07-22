@@ -24,9 +24,28 @@
   .heading-1 {
     @apply text-6xl font-medium sm:text-8xl lg:text-9xl;
   }
+
+  .heading-2 {
+    @apply text-4xl font-medium sm:text-6xl;
+  }
   /**/
 
   /* paragraphs */
+  .paragraph-1 {
+    @apply pb-8 text-xl leading-relaxed text-subtext dark:text-d-subtext sm:text-2xl sm:leading-relaxed;
+
+    span {
+      @apply font-medium text-text dark:text-d-text;
+    }
+  }
+
+  .paragraph-2 {
+    @apply pb-6 text-lg leading-relaxed text-subtext dark:text-d-subtext sm:text-xl sm:leading-relaxed;
+
+    span {
+      @apply font-medium text-text dark:text-d-text;
+    }
+  }
   /**/
 
   .hide-scrollbar {

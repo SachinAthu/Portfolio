@@ -25,3 +25,4 @@ export { default as UnderlineButton } from './buttons/UnderlineButton';
 
 export { default as RevealText } from './RevealText';
 export { default as FadeIn } from './FadeIn';
+export { default as PopIn } from './PopIn';

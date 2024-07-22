@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 import { useLayoutContext } from '@/context/LayoutContext';
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 
 export default function NavMenu() {
   const showNavLinksTween = useRef<gsap.core.Timeline>();
@@ -59,7 +59,7 @@ export default function NavMenu() {
     scrollRef.current?.scrollTo(`#${id}`);
   }
 
-  const navLinksArr = navLinks.slice(1);
+  const navLinksArr = NAV_LINKS.slice(1);
 
   return (
     <nav

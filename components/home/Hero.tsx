@@ -40,7 +40,7 @@ export default function Hero() {
             <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Fullstack Developer;</p>
           </div>
 
-          <Button className="rounded-full border-2 px-6 py-6 text-xl sm:px-8 sm:text-2xl" onClick={scrollToContact}>
+          <Button className="rounded-full px-6 py-6 text-xl sm:px-8 sm:py-8 sm:text-2xl" onClick={scrollToContact}>
             Contact Me
           </Button>
         </div>

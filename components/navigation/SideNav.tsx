@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 import { useLayoutContext } from '@/context/LayoutContext';
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 import { useMobileViewport } from '@/lib/hooks';
 import { cn } from '@/lib/common';
 import { ToolTip } from '..';
@@ -64,7 +64,7 @@ function SideNav() {
       </div>
 
       <div className="relative grid h-full grid-cols-1 gap-[var(--side-nav-gap)]">
-        {navLinks.map((l) => (
+        {NAV_LINKS.map((l) => (
           <ToolTip key={l.key} toolTip={l.title} id={`tootip-${l.id}`}>
             <button
               type="button"

@@ -1,12 +1,12 @@
 @use '../base/mixings' as mix;
 
 .reveal-text {
-  -webkit-clip-path: polygon(0 0, 100% 0%, 100% 180%, 0% 100%);
-  clip-path: polygon(0 0, 100% 0%, 100% 180%, 0% 100%);
+  -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
 
   .word,
   .char {
-    transform: translateY(60px);
+    transform: translateY(115px);
     opacity: 0;
   }
 }

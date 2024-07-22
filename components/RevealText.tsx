@@ -20,7 +20,7 @@ export default function RevealText({
   id,
   duration = 1,
   delay = 0,
-  stagger = 0.1,
+  stagger = 0.05,
   multiple = false,
 }: RevealTextProps) {
   const container = useRef<HTMLDivElement>(null);

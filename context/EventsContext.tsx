@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect } from 'react';
 
 import { useLayoutContext } from './LayoutContext';
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 
 export type EventsContextType = {};
 
@@ -27,7 +27,7 @@ const EventsProvider = ({ children }: { children: React.ReactNode }) => {
         case '3':
         case '4':
         case '5':
-          scrollRef.current?.scrollTo(`#${navLinks[parseInt(e.key) - 1].id}`);
+          scrollRef.current?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
           break;
         default:
           return;

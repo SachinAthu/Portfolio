@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from 'react';
 
-import { navLinks } from '@/lib/data';
+import { NAV_LINKS } from '@/lib/data';
 import { NavLinkType } from '@/lib/types';
 
 export type LayoutContextType = {
@@ -31,7 +31,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [isNavShow, setIsNavShow] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
-  const [activeSection, setActiveSection] = useState(navLinks[0]);
+  const [activeSection, setActiveSection] = useState(NAV_LINKS[0]);
 
   useEffect(() => {
     // setup locomotive scroll

@@ -5,14 +5,14 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-type FadeInProps = {
+type PopInProps = {
   children: React.ReactNode;
   id: string;
   duration?: number;
   delay?: number;
 };
 
-export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeInProps) {
+export default function PopIn({ children, id, duration = 1, delay = 0 }: PopInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,6 @@ export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeIn
       gsap.registerPlugin(ScrollTrigger);
 
       gsap.to(`#${id}`, {
-        y: 0,
         opacity: 1,
         duration,
         delay,
@@ -39,7 +38,7 @@ export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeIn
   return (
     <div ref={container}>
       <div ref={trigger}>
-        <div id={id} className="translate-y-[30px] opacity-0">
+        <div id={id} className="opacity-0">
           {children}
         </div>
       </div>
