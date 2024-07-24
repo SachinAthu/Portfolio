@@ -14,11 +14,13 @@ export { default as TechStack } from './home/TechStack';
 export { default as Works } from './home/Works';
 export { default as Contact } from './home/Contact';
 export { default as Section } from './Section';
-export { default as NavMenu } from './navigation/NavMenu';
-export { default as SideMenu } from './navigation/SideNav';
-export { default as ScrollNav } from './navigation/ScrollNav';
+export { default as NavMenu } from './NavMenu';
+export { default as HomeSideMenu } from './home/HomeSideNav';
+export { default as HomeScrollNav } from './home/HomeScrollNav';
 
 export { default as CustomLink } from './links/CustomLink';
+export { default as DelayedLink } from './links/DelayedLink';
+
 export { default as Button } from './buttons/Button';
 export { default as IconButton } from './buttons/IconButton';
 export { default as UnderlineButton } from './buttons/UnderlineButton';

@@ -1,7 +1,7 @@
 'use client';
 
 import { WORK_EXPERIENCE } from '@/lib/data';
-import { Section, RevealText, FadeIn, PopIn, CustomLink } from '..';
+import { Section, RevealText, FadeIn, CustomLink } from '..';
 import { cn } from '@/lib/common';
 
 export default function About() {
@@ -19,8 +19,8 @@ export default function About() {
                 <p className="paragraph-1">
                   I’m a <span>Full-stack Developer</span> from Sri Lanka, currently freelancing since April 2023,
                   primarily focused on <span>Web Development</span>, creating beautiful and efficient web applications.
-                  I’m also interested in <span>mobile and desktop applications</span>. I spend my time learning new
-                  things, developing some cool stuff, and messing around with my computer.
+                  I’m also interested in developing <span>mobile and desktop applications</span>. I spend my time
+                  learning new things, developing some cool stuff, and messing around with my computer.
                 </p>
               </FadeIn>
 
@@ -35,7 +35,7 @@ export default function About() {
           </div>
 
           <div className="lg:pl-32 lg:pt-2">
-            <PopIn id="aboutResumeBtn" duration={2}>
+            <FadeIn id="aboutResumeBtn" delay={0.5}>
               <CustomLink
                 href="/static/sample_resume.pdf"
                 rel="noopener noreferrer"
@@ -43,7 +43,7 @@ export default function About() {
                 className="rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl">
                 My Resume
               </CustomLink>
-            </PopIn>
+            </FadeIn>
           </div>
 
           <div className="mt-28 sm:mt-40 lg:col-span-2">

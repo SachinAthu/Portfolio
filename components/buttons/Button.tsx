@@ -1,10 +1,12 @@
 import { cn } from '@/lib/common';
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode;
-};
-
-export default function Button({ children, className, onClick, type, ...rest }: ButtonProps) {
+export default function Button({
+  children,
+  className,
+  onClick,
+  type,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       type={type ? type : 'button'}

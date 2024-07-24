@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { Flip } from 'gsap/Flip';
+import { usePathname } from 'next/navigation';
 
 import MenuBtn from './MenuBtn';
 import Music from './Music';
@@ -15,26 +17,28 @@ import Logo from './Logo';
 export default function Header() {
   const { activeSection } = useLayoutContext();
   const header = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
-  useEffect(() => {
-    gsap.registerPlugin(Flip);
-  }, []);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(Flip);
 
-  useEffect(() => {
-    const state = Flip.getState('.header-inner-1, .header-inner-2');
+      const state = Flip.getState('.header-inner-1, .header-inner-2');
 
-    if (activeSection.id !== 'hero') {
-      header.current?.classList.add('scrolled');
-    } else {
-      header.current?.classList.remove('scrolled');
-    }
+      if (activeSection.id !== 'hero' || pathname !== '/') {
+        header.current?.classList.add('scrolled');
+      } else {
+        header.current?.classList.remove('scrolled');
+      }
 
-    Flip.from(state, {
-      absolute: true,
-      duration: 0.5,
-      ease: 'power2.out',
-    });
-  }, [activeSection]);
+      Flip.from(state, {
+        absolute: true,
+        duration: 0.5,
+        ease: 'power2.out',
+      });
+    },
+    { dependencies: [activeSection, pathname] }
+  );
 
   return (
     <>

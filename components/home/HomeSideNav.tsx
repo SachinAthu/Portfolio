@@ -14,7 +14,6 @@ function SideNav() {
   const { scrollRef, activeSection } = useLayoutContext();
   const sideNav = useRef<HTMLDivElement>(null);
   const btnIndicater = useRef<HTMLDivElement>(null);
-  const show = useRef(false);
   const btnHeight = 60,
     btnGap = 8;
 
@@ -22,7 +21,6 @@ function SideNav() {
     () => {
       // hide side menu in hero section
       if (activeSection.id === 'hero') {
-        show.current = false;
         gsap.to(sideNav.current, {
           x: -100,
           opacity: 0,
@@ -31,16 +29,13 @@ function SideNav() {
           delay: 0.75,
         });
       } else {
-        if (!show.current) {
-          show.current = true;
-          gsap.to(sideNav.current, {
-            x: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: 'power2.out',
-            delay: 0.75,
-          });
-        }
+        gsap.to(sideNav.current, {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+          delay: 0.75,
+        });
       }
 
       // move indicator in current link

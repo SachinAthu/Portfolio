@@ -10,9 +10,10 @@ type PopInProps = {
   id: string;
   duration?: number;
   delay?: number;
+  markers?: boolean;
 };
 
-export default function PopIn({ children, id, duration = 1, delay = 0 }: PopInProps) {
+export default function PopIn({ children, id, duration = 1, delay = 0, markers = false }: PopInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
 
@@ -26,9 +27,11 @@ export default function PopIn({ children, id, duration = 1, delay = 0 }: PopInPr
         delay,
         ease: 'power2.out',
         scrollTrigger: {
+          id: `${id}-popIn`,
           trigger: `#${id}`,
           start: 'top 90%',
           end: 'top top',
+          markers,
         },
       });
     },

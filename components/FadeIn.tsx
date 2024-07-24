@@ -10,9 +10,10 @@ type FadeInProps = {
   id: string;
   duration?: number;
   delay?: number;
+  markers?: boolean;
 };
 
-export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeInProps) {
+export default function FadeIn({ children, id, duration = 1, delay = 0, markers = false }: FadeInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
 
@@ -27,9 +28,11 @@ export default function FadeIn({ children, id, duration = 1, delay = 0 }: FadeIn
         delay,
         ease: 'power2.out',
         scrollTrigger: {
+          id: `${id}-fadeIn`,
           trigger: `#${id}`,
           start: 'top 90%',
           end: 'top top',
+          markers,
         },
       });
     },

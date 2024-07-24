@@ -3,7 +3,7 @@ import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import '@/styles/main.scss';
-import { Footer, Header, PageLoader, NavMenu, SideMenu, ScrollNav, ToasterCom, AnimGrid, Welcome } from '@/components';
+import { Footer, Header, PageLoader, NavMenu, ToasterCom, AnimGrid, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { EventsProvider } from '@/context/EventsContext';
 
@@ -13,7 +13,7 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
-const title = 'Sachin Athukorala | Fullstack Developer';
+const title = 'Sachin Athukorala | Full-stack Developer';
 const description = 'The portfolio of Sachin Athukorala, Fullstack Developer.';
 const websiteURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
 export const metadata: Metadata = {
@@ -106,8 +106,6 @@ export default function RootLayout({
               <Header />
 
               <NavMenu />
-              <SideMenu />
-              <ScrollNav />
 
               <main>{children}</main>
 

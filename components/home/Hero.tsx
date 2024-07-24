@@ -17,15 +17,15 @@ export default function Hero() {
       id="hero"
       paddingTop={false}
       paddingBottom={false}
-      className="relative h-[max(100svh,50rem)] pt-[var(--header-height)]"
+      className="relative h-[max(100svh,50rem)]"
       borderBottom={false}>
       <div
         data-scroll
         data-scroll-speed="-0.5"
-        className="container-wide flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 sm:flex-col sm:px-[calc(3%+2rem)] sm:pb-20 2xl:px-8">
+        className="container-wide flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 sm:flex-col sm:px-[calc(3%+2rem)] 2xl:px-8">
         <div className="flex flex-col items-end">
           <div className="mb-8 sm:mb-12">
-            <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Fullstack Developer;</p>
+            <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Full-stack Developer;</p>
           </div>
 
           {/* <Button className="rounded-full px-6 py-6 text-xl sm:px-8 sm:py-8 sm:text-2xl" onClick={scrollToContact}>

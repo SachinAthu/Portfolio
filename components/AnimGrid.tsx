@@ -9,7 +9,6 @@ import { useLayoutContext } from '@/context/LayoutContext';
 
 export default function AnimGrid() {
   const animgrid = useRef<HTMLDivElement>(null);
-  const container = useRef<HTMLDivElement>(null);
   const vw = useWindowResize();
   const isPageVisible = usePageVisible();
   const { activeSection } = useLayoutContext();
@@ -109,7 +108,7 @@ export default function AnimGrid() {
   }, [activeSection]);
 
   return (
-    <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full" ref={container}>
+    <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full">
       <div
         className="animgrid-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:border-text [&>div]:bg-transparent [&>div]:opacity-10 dark:[&>div]:border-d-text"
         ref={animgrid}></div>

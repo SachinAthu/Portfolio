@@ -2,11 +2,13 @@
 
 import { cn } from '@/lib/common';
 
-type UnderlineButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode;
-};
-
-export default function UnderlineButton({ children, className, onClick, type, ...rest }: UnderlineButtonProps) {
+export default function UnderlineButton({
+  children,
+  className,
+  onClick,
+  type,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       type={type ? type : 'button'}

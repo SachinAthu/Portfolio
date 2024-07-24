@@ -1,7 +1,6 @@
 import { cn } from '@/lib/common';
 
 type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode;
   direction?: 'up' | 'down';
   isStatic?: boolean;
 };
@@ -11,7 +10,7 @@ export default function IconButton({
   className,
   onClick,
   direction = 'up',
-  isStatic = true,
+  isStatic = false,
   ...rest
 }: IconButtonProps) {
   return (

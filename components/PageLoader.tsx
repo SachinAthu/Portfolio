@@ -119,10 +119,14 @@ export default function PageLoader() {
   }, [isPageLoading, isMounted]);
 
   return (
-    <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
-      <div
-        className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav [&>div]:opacity-0"
-        ref={loader}></div>
-    </div>
+    <>
+      <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
+        <div
+          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav [&>div]:opacity-0"
+          ref={loader}></div>
+      </div>
+
+      <div className="page-loader-2 | pointer-events-none fixed left-0 top-0 z-[80] h-lvh w-full bg-background opacity-0 dark:bg-d-background"></div>
+    </>
   );
 }

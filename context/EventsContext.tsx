@@ -1,6 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 import { useLayoutContext } from './LayoutContext';
 import { NAV_LINKS } from '@/lib/data';
@@ -11,10 +12,30 @@ const EventsContext = createContext<EventsContextType | null>(null);
 
 const EventsProvider = ({ children }: { children: React.ReactNode }) => {
   const { scrollRef, setIsNavOpen } = useLayoutContext();
+  const shortPageLoaderTween = useRef<gsap.core.Timeline>();
 
   useEffect(() => {
     // network state listener
     //
+
+    // browser back and forward button click listener
+    shortPageLoaderTween.current = gsap
+      .timeline({
+        paused: true,
+      })
+      .set('.page-loader-2', {
+        opacity: 1,
+      })
+      .to('.page-loader-2', {
+        delay: 1,
+        duration: 0.5,
+        opacity: 0,
+        ease: 'power2.out',
+      });
+
+    function onPopState(e: PopStateEvent) {
+      shortPageLoaderTween.current?.invalidate().restart();
+    }
 
     // key press listener
     function onKeyDown(e: KeyboardEvent) {
@@ -34,10 +55,14 @@ const EventsProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
+    window.addEventListener('popstate', onPopState);
     window.addEventListener('keydown', onKeyDown);
 
     return () => {
+      window.removeEventListener('popstate', onPopState);
       window.removeEventListener('keydown', onKeyDown);
+      shortPageLoaderTween.current?.kill();
+      shortPageLoaderTween.current = undefined;
     };
   }, []);
 

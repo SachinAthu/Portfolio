@@ -1,11 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { cn } from '@/lib/common';
 
-export default function MenuBtn() {
+function MenuBtn() {
   const { isNavOpen, setIsNavOpen } = useLayoutContext();
   const menuBtn = useRef<HTMLButtonElement>(null);
 
@@ -24,4 +25,12 @@ export default function MenuBtn() {
       <div className="icon-right"></div>
     </button>
   );
+}
+
+export default function MenuBtnWrapper() {
+  const pathname = usePathname();
+
+  if (pathname !== '/') return null;
+
+  return <MenuBtn />;
 }
