@@ -32,9 +32,9 @@ export default function Footer() {
   return (
     <footer
       ref={container}
-      className="relative border-t border-t-text bg-background pb-4 pt-20 dark:border-t-d-text dark:bg-d-background sm:pb-0">
-      <div className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-sm dark:bg-d-background">
-        <div className="pointer-events-none absolute h-32 w-32">
+      className="relative border-t border-t-text bg-background pb-4 pt-16 dark:border-t-d-text dark:bg-d-background sm:pb-0 sm:pt-20">
+      <div className="absolute left-1/2 top-0 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-sm dark:bg-d-background sm:h-32 sm:w-32">
+        <div className="pointer-events-none absolute h-24 w-24 sm:h-32 sm:w-32">
           <svg
             className="absolute left-1/2 top-1/2 h-[122%] w-[122%] -translate-x-1/2 -translate-y-1/2 -rotate-90"
             fill="none"
@@ -58,7 +58,7 @@ export default function Footer() {
           ref={scrollBtn}
           className="scroll-top-button | flex h-full w-full items-center justify-center overflow-hidden rounded-full"
           onClick={scrollToTop}>
-          <span className="relative h-14 w-14 [&_svg]:h-14 [&_svg]:w-14">
+          <span className="relative h-12 w-12 sm:h-14 sm:w-14 [&_svg]:h-12 [&_svg]:w-12 sm:[&_svg]:h-14 sm:[&_svg]:w-14">
             <span className="scroll-top-button-1">
               <RiArrowUpWideFill />
             </span>

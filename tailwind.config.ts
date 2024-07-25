@@ -78,6 +78,11 @@ const config: Config = {
           '0%': { transform: 'scale(1) translateX(0px) rotate(0deg)' },
           '100%': { transform: 'scale(1) translateX(0px) rotate(360deg)' },
         },
+        headingDot: {
+          '0%': { opacity: '1' },
+          '50%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
     },
   },

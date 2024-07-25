@@ -14,8 +14,8 @@ function SideNav() {
   const { scrollRef, activeSection } = useLayoutContext();
   const sideNav = useRef<HTMLDivElement>(null);
   const btnIndicater = useRef<HTMLDivElement>(null);
-  const btnHeight = 60,
-    btnGap = 8;
+  const btnHeight = 56,
+    btnGap = 4;
 
   useGSAP(
     () => {
@@ -65,7 +65,7 @@ function SideNav() {
               type="button"
               onClick={() => scrollRef.current?.scrollTo(`#${l.id}`)}
               className={cn(
-                'flex h-[var(--side-nav-btn-height)] w-[56px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7',
+                'flex h-[var(--side-nav-btn-height)] w-[54px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7',
                 activeSection.id === l.id ? 'text-white' : 'text-current'
               )}>
               {l.icon}

@@ -1,4 +1,4 @@
-import { About, Contact, Hero, HomeScrollNav, HomeSideMenu, TechStack, Works } from '@/components';
+import { About, Contact, Experience, Hero, HomeScrollNav, HomeSideMenu, TechStack, Works } from '@/components';
 
 export default function HomePage() {
   return (
@@ -9,6 +9,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <TechStack />
+      <Experience />
       <Works />
       <Contact />
     </div>

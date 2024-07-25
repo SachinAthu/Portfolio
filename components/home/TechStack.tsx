@@ -5,7 +5,9 @@ export default function TechStack() {
     <Section id="techstack" borderBottom={false}>
       <div className="container">
         <RevealText id="techStackHeading">
-          <h2 className="heading-1">Tech Stack</h2>
+          <h2 className="heading-1">
+            Tech Stack<span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">.</span>
+          </h2>
         </RevealText>
 
         <p>

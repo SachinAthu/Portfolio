@@ -32,19 +32,11 @@
 
   /* paragraphs */
   .paragraph-1 {
-    @apply pb-8 text-xl leading-relaxed text-subtext dark:text-d-subtext sm:text-2xl sm:leading-relaxed;
-
-    span {
-      @apply font-medium text-text dark:text-d-text;
-    }
+    @apply pb-8 text-xl leading-relaxed sm:text-2xl sm:leading-relaxed;
   }
 
   .paragraph-2 {
-    @apply pb-6 text-lg leading-relaxed text-subtext dark:text-d-subtext sm:text-xl sm:leading-relaxed;
-
-    span {
-      @apply font-medium text-text dark:text-d-text;
-    }
+    @apply pb-6 text-lg leading-relaxed sm:text-xl sm:leading-relaxed;
   }
   /**/
 

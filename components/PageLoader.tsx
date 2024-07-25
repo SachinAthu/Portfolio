@@ -10,6 +10,7 @@ import { getAnimGridSize } from '@/lib/common';
 export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
+  const isNavOpenRef = useRef(false);
   const vw = useWindowResize();
   const isMounted = useMounted();
   const { isNavOpen, isPageLoading, setIsNavShow } = useLayoutContext();
@@ -35,6 +36,7 @@ export default function PageLoader() {
       for (let i = 0; i < grid.cols * grid.rows; i++) {
         const d = document.createElement('div');
         d.className = 'box';
+        d.style.opacity = isNavOpenRef.current ? '1' : '0';
         loader.current?.appendChild(d);
       }
     }
@@ -88,6 +90,7 @@ export default function PageLoader() {
   useEffect(() => {
     if (!isMounted) return;
 
+    isNavOpenRef.current = isNavOpen;
     loaderWrapper.current?.classList.remove('z-[70]');
 
     if (isNavOpen) {
@@ -122,7 +125,7 @@ export default function PageLoader() {
     <>
       <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
         <div
-          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav [&>div]:opacity-0"
+          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav"
           ref={loader}></div>
       </div>
 
