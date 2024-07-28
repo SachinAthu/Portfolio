@@ -1,0 +1,7 @@
+.techstack {
+  .filters {
+    label:has(input[type='radio']:checked) {
+      color: white;
+    }
+  }
+}

@@ -26,7 +26,11 @@
   }
 
   .heading-2 {
-    @apply text-4xl font-medium sm:text-6xl;
+    @apply text-3xl font-medium sm:text-6xl;
+  }
+
+  .heading-3 {
+    @apply text-xl font-medium sm:text-3xl;
   }
   /**/
 
