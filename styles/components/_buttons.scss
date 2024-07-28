@@ -186,27 +186,46 @@
 /**/
 
 /* custom button */
-.custom-button,
-.custom-link {
+.custom-button {
   transform-style: preserve-3d;
 
-  .flair::after {
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.5s;
+    height: 100%;
+    z-index: -1;
+    border-radius: 9999px;
+    pointer-events: none;
+    -webkit-clip-path: circle(0px at 0 0);
+    clip-path: circle(0px at 0 0);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     @apply bg-text dark:bg-d-text;
   }
 
-  .custom-button-content {
+  .inner {
+    -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 100%, 0% 100%);
+    clip-path: polygon(0 10%, 100% 10%, 100% 100%, 0% 100%);
+  }
+
+  // .flair::after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   aspect-ratio: 1;
+  //   border-radius: 50%;
+  //   transform: scale(0);
+  //   transition: transform 0.5s;
+  //   @apply bg-text dark:bg-d-text;
+  // }
+
+  .inner-content {
     display: inline-block;
     color: transparent;
-    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     will-change: transform;
 
     &::before {
@@ -215,7 +234,7 @@
       position: absolute;
       top: 0;
       transform-origin: right bottom;
-      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
       @apply text-text dark:text-d-text;
     }
 
@@ -226,21 +245,25 @@
       top: 105%;
       transform: skewY(7deg);
       transform-origin: left top;
-      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
       @apply text-text dark:text-d-text;
     }
   }
 }
 
-.custom-button:hover,
-.custom-link:hover {
+.custom-button:hover {
   @apply text-d-text dark:text-text;
 
-  .flair::after {
-    transform: scale(1);
+  // .flair::after {
+  //   transform: scale(1);
+  // }
+
+  &::after {
+    -webkit-clip-path: circle(250% at 0 0);
+    clip-path: circle(250% at 0 0);
   }
 
-  .custom-button-content {
+  .inner-content {
     transform: translateY(-105%);
 
     &::before {
@@ -257,28 +280,32 @@
 /**/
 
 /* custom icon button */
-.custom-icon-button,
-.custom-icon-link {
-  .flair::after {
+.custom-icon-button {
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: all 0.5s;
+    height: 100%;
+    border-radius: 9999px;
+    pointer-events: none;
+    -webkit-clip-path: circle(0px at 0 0);
+    clip-path: circle(0px at 0 0);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     @apply bg-text dark:bg-d-text;
   }
 
-  .custom-icon-button-1,
-  .custom-icon-link-1 {
+  .inner {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .inner-1 {
     display: inline-block;
     color: transparent;
   }
 
-  .custom-icon-button-2 {
+  .inner-2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -286,7 +313,7 @@
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .custom-icon-button-3 {
+  .inner-3 {
     position: absolute;
     top: 150%;
     left: 50%;
@@ -296,48 +323,46 @@
 }
 
 .custom-icon-button.down {
-  .custom-icon-button-2 {
+  .inner-2 {
     top: -150%;
     transform: translate(-50%, -50%);
   }
 
-  .custom-icon-button-3 {
+  .inner-3 {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 }
 
-.custom-icon-button.is-static,
-.custom-icon-link {
-  .custom-icon-button-1,
-  .custom-icon-link-1 {
+.custom-icon-button.is-static {
+  .inner-1 {
     color: currentColor;
   }
 }
 
-.custom-icon-button:hover,
-.custom-icon-link:hover {
+.custom-icon-button:hover {
   @apply text-d-text dark:text-text;
 
-  .flair::after {
-    transform: scale(1);
+  &::after {
+    -webkit-clip-path: circle(250% at 0 0);
+    clip-path: circle(250% at 0 0);
   }
 
-  .custom-icon-button-2 {
+  .inner-2 {
     transform: translate(-50%, -150%);
   }
 
-  .custom-icon-button-3 {
+  .inner-3 {
     transform: translate(-50%, -150%);
   }
 }
 
 .custom-icon-button.down:hover {
-  .custom-icon-button-2 {
+  .inner-2 {
     transform: translate(-50%, 150%);
   }
 
-  .custom-icon-button-3 {
+  .inner-3 {
     transform: translate(-50%, 150%);
   }
 }

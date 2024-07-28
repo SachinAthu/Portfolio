@@ -8,7 +8,6 @@ import { TECH_STACK } from '@/lib/data';
 import { Section, RevealText, FadeIn } from '..';
 import { useRef } from 'react';
 import { useMobileViewport } from '@/lib/hooks';
-import { cn } from '@/lib/common';
 
 const tsFilters = [
   {
