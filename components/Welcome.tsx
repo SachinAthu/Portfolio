@@ -34,7 +34,10 @@ function Welcome() {
 
       <div className="mb-8">
         <FadeIn id="welcome-btn-1" delay={1}>
-          <Button className="rounded-full px-16 py-8 text-2xl md:px-28 md:py-12" onClick={() => clickHandler(true)}>
+          <Button
+            id="welcomeEnterBtn"
+            className="rounded-full px-16 py-8 text-2xl md:px-28 md:py-12"
+            onClick={() => clickHandler(true)}>
             Enter
           </Button>
         </FadeIn>

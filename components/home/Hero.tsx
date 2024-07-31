@@ -33,22 +33,52 @@ export default function Hero() {
           </Button> */}
 
           <div className="flex flex-wrap items-center justify-end gap-3">
-            <CustomLink href="https://github.com/SachinAthu" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialGithubLink"
+              href="https://github.com/SachinAthu"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiGithub />
             </CustomLink>
-            <CustomLink href="https://www.linkedin.com/in/sachinathu/" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialLinkedinLink"
+              href="https://www.linkedin.com/in/sachinathu/"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiLinkedin />
             </CustomLink>
-            <CustomLink href="https://www.hackerrank.com/profile/sachin2262716" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialHRLink"
+              href="https://www.hackerrank.com/profile/sachin2262716"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiHackerrank />
             </CustomLink>
-            <CustomLink href="https://leetcode.com/sachin2262716" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialLeetcodeLink"
+              href="https://leetcode.com/sachin2262716"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiLeetcode />
             </CustomLink>
-            <CustomLink href="https://codepen.io/sachinathu" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialCodepenLink"
+              href="https://codepen.io/sachinathu"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiCodepen />
             </CustomLink>
-            <CustomLink href="https://codesandbox.io/u/sachinAthu" target="_blank" className="p-3" icon>
+            <CustomLink
+              id="heroSocialCodeSBLink"
+              href="https://codesandbox.io/u/sachinAthu"
+              target="_blank"
+              className="p-3"
+              icon>
               <SiCodesandbox />
             </CustomLink>
           </div>

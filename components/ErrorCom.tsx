@@ -36,7 +36,7 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
 
       <p className="mb-4 text-lg font-medium">Please use the button below to try again.</p>
 
-      <Button onClick={reset} className="font-medium">
+      <Button id="errorComTryBtn" onClick={reset} className="font-medium">
         Try again
       </Button>
     </div>

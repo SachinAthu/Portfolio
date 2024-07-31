@@ -32,9 +32,7 @@ export default function NotFoundCom() {
 
       <p className="mb-4 text-lg font-medium">Damm! Page Not Found.</p>
 
-      <CustomLink href="/" className="font-medium">
-        Return Home
-      </CustomLink>
+      <CustomLink id="notFoundHomeLink" content="Return Home" href="/" className="font-medium" />
     </div>
   );
 }
