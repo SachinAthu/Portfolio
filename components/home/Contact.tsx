@@ -2,7 +2,10 @@ import { RevealText, Section } from '..';
 
 export default function Contact() {
   return (
-    <Section id="contact" className="container-wide bg-background dark:bg-d-background" borderBottom={false}>
+    <Section
+      id="contact"
+      className="container-wide min-h-screen bg-background dark:bg-d-background"
+      borderBottom={false}>
       <div className="container">
         <RevealText id="contactHeading">
           <h2 className="heading-1">

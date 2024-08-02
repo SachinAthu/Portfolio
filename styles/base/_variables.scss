@@ -4,7 +4,6 @@
   --header-height: 80px;
   --header-content-height: calc(var(--header-height) * 0.75);
   --footer-height: 100px;
-  --404-height: calc(100vh - var(--header-height));
 
   --nav-menu-height: calc(100vh - var(--header-height));
   --nav-menu-links-height: calc(90vh - var(--header-height));
@@ -26,7 +25,6 @@
   :root {
     --header-height: 100px;
     --header-content-width: 98vw;
-    --404-height: calc(100svh - (var(--header-height) + var(--footer-height)));
     --nav-menu-height: calc(100svh - var(--header-height));
   }
 }

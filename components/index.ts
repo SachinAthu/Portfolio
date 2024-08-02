@@ -11,7 +11,7 @@ export { default as Section } from './Section';
 export { default as NavMenu } from './NavMenu';
 
 export { default as CustomLink } from './links/CustomLink';
-export { default as DelayedLink } from './links/DelayedLink';
+export { default as PageLink } from './links/PageLink';
 
 export { default as Button } from './buttons/Button';
 export { default as IconButton } from './buttons/IconButton';

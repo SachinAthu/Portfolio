@@ -21,8 +21,8 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
   };
 
   return (
-    <div className="flex h-[var(--404-height)] flex-col items-center justify-center">
-      <div className="h-[450px] w-[450px]">
+    <div className="flex h-[100svh] flex-col items-center justify-center">
+      <div className="h-[350px] w-[350px] sm:h-[450px] sm:w-[450px]">
         <DotLottieReact
           src="/static/lotties/error.lottie"
           loop={false}
@@ -34,10 +34,10 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
 
       <p className="text-lg font-medium">Damm! Something went wrong.</p>
 
-      <p className="mb-4 text-lg font-medium">Please use the button below to try again.</p>
+      <p className="mb-6 text-lg font-medium">Please use the button below to try again.</p>
 
-      <Button id="errorComTryBtn" onClick={reset} className="font-medium">
-        Try again
+      <Button id="errorComTryBtn" onClick={reset} className="p-6 text-2xl font-medium">
+        Try Again
       </Button>
     </div>
   );

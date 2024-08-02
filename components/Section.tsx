@@ -74,7 +74,7 @@ export default function Section({
       <div
         id={id}
         className={cn(
-          'relative min-h-screen',
+          'relative',
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
           paddingBottom ? 'pb-28 sm:pb-48 lg:pb-56' : ''

@@ -20,8 +20,8 @@ export default function NotFoundCom() {
   };
 
   return (
-    <div className="flex h-[var(--404-height)] flex-col items-center justify-center">
-      <div className="h-[450px] w-[450px]">
+    <div className="flex h-[100svh] flex-col items-center justify-center">
+      <div className="h-[350px] w-[350px] sm:h-[450px] sm:w-[450px]">
         <DotLottieReact
           src="/static/lotties/notFound.lottie"
           loop={false}
@@ -30,9 +30,9 @@ export default function NotFoundCom() {
         />
       </div>
 
-      <p className="mb-4 text-lg font-medium">Damm! Page Not Found.</p>
+      <p className="mb-6 text-lg font-medium">Damm! Page Not Found.</p>
 
-      <CustomLink id="notFoundHomeLink" content="Return Home" href="/" className="font-medium" />
+      <CustomLink id="notFoundHomeLink" content="Return Home" href="/" className="p-6 text-2xl font-medium" />
     </div>
   );
 }

@@ -1,23 +1,14 @@
-'use client';
-
-import { useLayoutContext } from '@/context/LayoutContext';
-import { Button, CustomLink, Section } from '..';
+import { CustomLink, Section } from '..';
 
 import { SiGithub, SiLinkedin, SiHackerrank, SiCodepen, SiLeetcode, SiCodesandbox } from 'react-icons/si';
 
 export default function Hero() {
-  const { scrollRef } = useLayoutContext();
-
-  function scrollToContact() {
-    scrollRef.current?.scrollTo('#contact');
-  }
-
   return (
     <Section
       id="hero"
       paddingTop={false}
       paddingBottom={false}
-      className="relative h-[max(100svh,50rem)]"
+      className="relative h-[clamp(50rem,100svh,60rem)]"
       borderBottom={false}>
       <div
         data-scroll
@@ -27,10 +18,6 @@ export default function Hero() {
           <div className="mb-8 sm:mb-12">
             <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Full-stack Developer;</p>
           </div>
-
-          {/* <Button className="rounded-full px-6 py-6 text-xl sm:px-8 sm:py-8 sm:text-2xl" onClick={scrollToContact}>
-            Contact Me
-          </Button> */}
 
           <div className="flex flex-wrap items-center justify-end gap-3">
             <CustomLink
@@ -65,7 +52,7 @@ export default function Hero() {
               icon>
               <SiLeetcode />
             </CustomLink>
-            <CustomLink
+            {/* <CustomLink
               id="heroSocialCodepenLink"
               href="https://codepen.io/sachinathu"
               target="_blank"
@@ -80,7 +67,7 @@ export default function Hero() {
               className="p-3"
               icon>
               <SiCodesandbox />
-            </CustomLink>
+            </CustomLink> */}
           </div>
         </div>
 

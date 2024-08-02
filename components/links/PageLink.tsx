@@ -4,9 +4,9 @@ import { useLayoutContext } from '@/context/LayoutContext';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/navigation';
 
-type DelayedLinkProps = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+type PageLinkProps = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export default function DelayedLink({ children, href, target = '_self', className }: DelayedLinkProps) {
+export default function PageLink({ children, href, target = '_self', className }: PageLinkProps) {
   const { setIsPageLoading } = useLayoutContext();
   const router = useRouter();
 

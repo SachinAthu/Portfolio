@@ -1,6 +1,7 @@
 import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlane } from 'react-icons/io';
 
-import { NavLinkType, TechStackType } from './types';
+import { NavLinkType, TechStackType, WorkType } from './types';
+import assets from './assets';
 
 export const NAV_LINKS: NavLinkType[] = [
   {
@@ -137,4 +138,21 @@ export const TECH_STACK: TechStackType[] = [
   { title: 'Vercel', categories: ['other'] },
   { title: 'GitHub', categories: ['other'] },
   { title: 'Railway', categories: ['other'] },
+];
+
+export const WORKS: WorkType[] = [
+  {
+    key: '1',
+    title: 'Voxitec',
+    slug: 'voxitec',
+    titleImage: assets.WORK_VOXITEC,
+    readme: '',
+  },
+  {
+    key: '2',
+    title: 'Portfolio',
+    slug: 'portfolio',
+    titleImage: assets.WORK_PORTFOLIO,
+    readme: '',
+  },
 ];

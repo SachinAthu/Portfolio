@@ -5,21 +5,22 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 import { cn } from '@/lib/common';
+import { useMobileViewport } from '@/lib/hooks';
 
 type ToolTipProps = {
   children: React.ReactNode;
   id: string;
   toolTip: string;
-  toolTipClassName?: string;
+  className?: string;
 };
 
-export default function ToolTip({ children, id, toolTip, toolTipClassName }: ToolTipProps) {
+function ToolTip({ children, id, toolTip, className }: ToolTipProps) {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      const xTo = gsap.quickTo(`#${id}`, 'x', { duration: 0.4, ease: 'power' });
-      const yTo = gsap.quickTo(`#${id}`, 'y', { duration: 0.4, ease: 'power' });
+      const xTo = gsap.quickTo(`#${id}`, 'x', { duration: 0.4, ease: 'power2.out' });
+      const yTo = gsap.quickTo(`#${id}`, 'y', { duration: 0.4, ease: 'power2.out' });
       const enterAnim = gsap.to(`#${id}`, {
         opacity: 1,
         duration: 0.5,
@@ -79,14 +80,22 @@ export default function ToolTip({ children, id, toolTip, toolTipClassName }: Too
         <div
           id={id}
           className={cn(
-            'absolute left-0 top-0 hidden rounded-full border border-subtext bg-background p-2 opacity-0 dark:border-d-subtext dark:bg-d-background',
-            toolTipClassName || ''
+            'absolute left-0 top-0 hidden rounded-full border border-subtext bg-[rgba(245,245,245,0.9)] p-2 text-base opacity-0 dark:border-d-subtext dark:bg-[rgba(30,30,30,0.9)]',
+            className || ''
           )}>
           <div className="flex items-center justify-center">
-            <span className="whitespace-nowrap text-base font-medium text-subtext dark:text-d-subtext">{toolTip}</span>
+            <span className="whitespace-nowrap font-medium text-subtext dark:text-d-subtext">{toolTip}</span>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+export default function ToolTipWrapper(props: ToolTipProps) {
+  const isMobile = useMobileViewport();
+
+  if (isMobile) return props.children;
+
+  return <ToolTip {...props} />;
 }

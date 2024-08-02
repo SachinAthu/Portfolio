@@ -18,7 +18,7 @@ type RevealTextProps = {
 export default function RevealText({
   children,
   id,
-  duration = 1,
+  duration = 0.8,
   delay = 0,
   stagger = 0.05,
   multiple = false,
