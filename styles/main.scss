@@ -12,10 +12,13 @@
 
 @tailwind utilities;
 @layer utilities {
-  /* custom containers */
+  /* containers */
+  .container {
+    @apply mx-auto max-w-[1280px] px-4 sm:px-8 2xl:px-0;
+  }
+
   .container-wide {
-    max-width: 1536px;
-    margin-inline: auto;
+    @apply mx-auto max-w-[1536px];
   }
 
   /**/
@@ -50,6 +53,10 @@
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
+  }
+
+  .skeleton {
+    @apply bg-skeleton dark:bg-d-skeleton rounded-full;
   }
 }
 

@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 import { IoArrowDown, IoArrowUp } from 'react-icons/io5';
 
 import { useMobileViewport } from '@/lib/hooks';

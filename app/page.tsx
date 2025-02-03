@@ -1,9 +1,14 @@
-import { About, Contact, Experience, Hero, HomeScrollNav, HomeSideMenu, TechStack, Works } from '@/components';
+import dynamic from 'next/dynamic';
+
+import { About, Contact, Experience, Hero, TechStack, Works } from '@/components';
+
+const HomeScrollNav = dynamic(() => import('@/components/home/HomeScrollNav'));
+const HomeSideNav = dynamic(() => import('@/components/home/HomeSideNav'));
 
 export default function HomePage() {
   return (
     <div className="home-page | pt-[var(--header-height)]">
-      <HomeSideMenu />
+      <HomeSideNav />
       <HomeScrollNav />
 
       <Hero />

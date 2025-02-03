@@ -1,6 +1,6 @@
 import { CustomLink, Section } from '..';
 
-import { SiGithub, SiLinkedin, SiHackerrank, SiCodepen, SiLeetcode, SiCodesandbox } from 'react-icons/si';
+import { SiGithub, SiLinkedin } from 'react-icons/si';
 
 export default function Hero() {
   return (
@@ -8,7 +8,7 @@ export default function Hero() {
       id="hero"
       paddingTop={false}
       paddingBottom={false}
-      className="relative h-[clamp(50rem,100svh,60rem)]"
+      className="relative h-[clamp(40rem,96svh,60rem)] sm:h-[clamp(50rem,100vh,60rem)]"
       borderBottom={false}>
       <div
         data-scroll
@@ -36,22 +36,22 @@ export default function Hero() {
               icon>
               <SiLinkedin />
             </CustomLink>
-            <CustomLink
+            {/* <CustomLink
               id="heroSocialHRLink"
               href="https://www.hackerrank.com/profile/sachin2262716"
               target="_blank"
               className="p-3"
               icon>
               <SiHackerrank />
-            </CustomLink>
-            <CustomLink
+            </CustomLink> */}
+            {/* <CustomLink
               id="heroSocialLeetcodeLink"
               href="https://leetcode.com/sachin2262716"
               target="_blank"
               className="p-3"
               icon>
               <SiLeetcode />
-            </CustomLink>
+            </CustomLink> */}
             {/* <CustomLink
               id="heroSocialCodepenLink"
               href="https://codepen.io/sachinathu"

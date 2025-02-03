@@ -1,7 +1,6 @@
 'use client';
 
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 import { Flip } from 'gsap/Flip';
 
 import { TECH_STACK } from '@/lib/data';

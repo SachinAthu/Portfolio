@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap-config';
 
 import { usePageVisible, useWindowResize } from '@/lib/hooks';
 import { getAnimGridSize } from '@/lib/common';

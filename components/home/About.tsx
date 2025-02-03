@@ -1,5 +1,3 @@
-'use client';
-
 import { Section, RevealText, FadeIn, CustomLink } from '..';
 
 export default function About() {

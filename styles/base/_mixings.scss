@@ -11,25 +11,6 @@ $breakpoints: (
   5xl: 3840px,
 );
 
-@mixin max-width($breakpoint) {
-  $breakpoint_value: map-get(
-    $map: $breakpoints,
-    $key: $breakpoint,
-  );
-  // reduce 1px from the breakpoint
-  $breakpoint_value: $breakpoint_value - 1px;
-
-  @media only screen and (width <= $breakpoint_value) {
-    @content;
-  }
-}
-
-@mixin max-width-custom($breakpoint) {
-  @media only screen and (width <= $breakpoint) {
-    @content;
-  }
-}
-
 @mixin min-width($breakpoint) {
   $breakpoint_value: map-get(
     $map: $breakpoints,

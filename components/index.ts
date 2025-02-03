@@ -1,14 +1,11 @@
 export { default as NotFoundCom } from './NotFoundCom';
 export { default as ErrorCom } from './ErrorCom';
-export { default as ToasterCom } from './ToasterCom';
 export { default as PageLoader } from './PageLoader';
 export { default as AnimGrid } from './AnimGrid';
 export { default as ToolTip } from './ToolTip';
 export { default as Welcome } from './Welcome';
-export { default as Header } from './header/Header';
 export { default as Footer } from './Footer';
 export { default as Section } from './Section';
-export { default as NavMenu } from './NavMenu';
 
 export { default as CustomLink } from './links/CustomLink';
 export { default as PageLink } from './links/PageLink';
@@ -28,5 +25,3 @@ export { default as TechStack } from './home/TechStack';
 export { default as Works } from './home/Works';
 export { default as Contact } from './home/Contact';
 export { default as Experience } from './home/Experience';
-export { default as HomeSideMenu } from './home/HomeSideNav';
-export { default as HomeScrollNav } from './home/HomeScrollNav';

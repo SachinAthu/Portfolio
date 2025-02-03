@@ -2,6 +2,9 @@ import type { Config } from 'tailwindcss';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
+  corePlugins: {
+    container: false,
+  },
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,30 +21,31 @@ const config: Config = {
         '4xl': '2560px',
         '5xl': '3840px',
       },
-      container: {
-        center: true,
-        screens: {
-          xl: '1280px',
-        },
-        padding: {
-          DEFAULT: '5%',
-          xl: '0%',
-        },
-      },
+      // container: {
+      //   center: true,
+      //   screens: {
+      //     xl: '1280px',
+      //   },
+      //   padding: {
+      //     DEFAULT: '5%',
+      //     xl: '0%',
+      //   },
+      // },
       colors: {
         background: '#F5F5F5',
         primary: '#E91E63',
         accent: '#008080',
         text: '#212121',
         subtext: '#757575',
-        // nav: '#303030',
         nav: '#494949',
-        // nav: '#424242',
+        'border-content': 'rgba(33, 33, 33, 0.2)',
+        skeleton: 'hsl(220, 13%, 91%)',
 
         d: {
           background: '#1E1E1E',
           text: '#F5F5F5',
           subtext: '#9E9E9E',
+          skeleton: 'hsla(220, 7%, 17%, 78%)',
         },
       },
       boxShadow: {

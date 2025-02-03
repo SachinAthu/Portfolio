@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { NAV_LINKS } from '@/lib/data';
@@ -60,7 +59,7 @@ function SideNav() {
 
       <div className="relative grid h-full grid-cols-1 gap-[var(--side-nav-gap)]">
         {NAV_LINKS.map((l) => (
-          <ToolTip key={l.key} toolTip={l.title} id={`tootip-sidenav-${l.id}`}>
+          <ToolTip key={l.key} toolTip={l.title}>
             <button
               type="button"
               onClick={() => scrollRef.current?.scrollTo(`#${l.id}`)}

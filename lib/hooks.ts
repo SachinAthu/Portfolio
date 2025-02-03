@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useMounted() {
   const [mounted, setMounted] = useState(false);
@@ -123,4 +123,16 @@ export const useObserver = (selector: string, rootMargin?: string, defaultVal: b
   }, [selector, rootMargin]);
 
   return isIntersecting;
+};
+
+export const useDebouncedCallback = (callback: (...args: any[]) => void, delay: number) => {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  return useCallback(
+    (...args: any[]) => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => callback(...args), delay);
+    },
+    [callback, delay]
+  );
 };

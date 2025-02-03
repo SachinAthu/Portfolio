@@ -1,45 +1,45 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useCallback, useEffect, useRef } from 'react';
+import { gsap, ScrollTrigger } from '@/lib/gsap-config';
+import { usePathname } from 'next/navigation';
 
-import { useMounted, useWindowResize } from '@/lib/hooks';
+import { useWindowResize } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
 import { getAnimGridSize } from '@/lib/common';
 
 export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
-  const isNavOpenRef = useRef(false);
   const vw = useWindowResize();
-  const isMounted = useMounted();
-  const { isNavOpen, isPageLoading, setIsNavShow } = useLayoutContext();
+  const pathname = usePathname();
+  const { isNavOpen, isPageLoading, setIsNavShow, setIsPageLoading } = useLayoutContext();
 
   const openLoaderTween = useRef<gsap.core.Timeline>();
   const closeLoaderTween = useRef<gsap.core.Timeline>();
 
-  useEffect(() => {
-    return () => {
-      openLoaderTween.current?.kill();
-      closeLoaderTween.current?.kill();
-    };
-  }, []);
+  const createGrid = useCallback(
+    (grid: { cols: number; rows: number }) => {
+      if (loader.current) {
+        loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
+        loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
+
+        for (let i = 0; i < grid.cols * grid.rows; i++) {
+          const d = document.createElement('div');
+          d.className = 'box';
+          d.style.opacity = isNavOpen ? '1' : '0';
+          loader.current?.appendChild(d);
+        }
+      }
+    },
+    [isNavOpen]
+  );
 
   useEffect(() => {
-    // create grid
     const grid = getAnimGridSize(vw);
 
-    if (loader.current) {
-      loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
-      loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
-
-      for (let i = 0; i < grid.cols * grid.rows; i++) {
-        const d = document.createElement('div');
-        d.className = 'box';
-        d.style.opacity = isNavOpenRef.current ? '1' : '0';
-        loader.current?.appendChild(d);
-      }
-    }
+    // create grid
+    createGrid(grid);
 
     // setup tweens
     openLoaderTween.current = gsap
@@ -88,9 +88,6 @@ export default function PageLoader() {
 
   // nav menu toggle
   useEffect(() => {
-    if (!isMounted) return;
-
-    isNavOpenRef.current = isNavOpen;
     loaderWrapper.current?.classList.remove('z-[70]');
 
     if (isNavOpen) {
@@ -104,12 +101,10 @@ export default function PageLoader() {
         closeLoaderTween.current?.invalidate().restart();
       }, 2000);
     }
-  }, [isNavOpen, isMounted]);
+  }, [isNavOpen]);
 
   // page load
   useEffect(() => {
-    if (!isMounted) return;
-
     if (isPageLoading) {
       loaderWrapper.current?.classList.add('z-[70]');
       openLoaderTween.current?.invalidate().restart();
@@ -119,7 +114,15 @@ export default function PageLoader() {
         loaderWrapper.current?.classList.remove('z-[70]');
       }, 1900);
     }
-  }, [isPageLoading, isMounted]);
+  }, [isPageLoading]);
+
+  useEffect(() => {
+    setIsPageLoading(false);
+
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 5000);
+  }, [pathname]);
 
   return (
     <>

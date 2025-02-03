@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap-config';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { NAV_LINKS } from '@/lib/data';

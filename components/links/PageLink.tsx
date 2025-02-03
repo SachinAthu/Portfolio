@@ -17,10 +17,6 @@ export default function PageLink({ children, href, target = '_self', className }
 
     setTimeout(() => {
       router.push(href);
-
-      setTimeout(() => {
-        setIsPageLoading(false);
-      }, 1000);
     }, 1900);
   }
 

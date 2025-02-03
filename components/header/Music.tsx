@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { RiMusicFill } from 'react-icons/ri';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap-config';
 
 import { useLayoutContext } from '@/context/LayoutContext';
 import { useMobileViewport, usePageVisible } from '@/lib/hooks';

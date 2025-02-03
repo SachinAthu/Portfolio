@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 import { RiArrowUpWideFill } from 'react-icons/ri';
 
 import { useLayoutContext } from '@/context/LayoutContext';

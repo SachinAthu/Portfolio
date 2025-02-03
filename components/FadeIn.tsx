@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 
 type FadeInProps = {
   children: React.ReactNode;
@@ -16,12 +14,11 @@ type FadeInProps = {
 export default function FadeIn({ children, id, duration = 1, delay = 0, markers = false }: FadeInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
+  const fade = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      gsap.to(`#${id}`, {
+      gsap.to(fade.current, {
         y: 0,
         opacity: 1,
         duration,
@@ -29,7 +26,7 @@ export default function FadeIn({ children, id, duration = 1, delay = 0, markers 
         ease: 'power2.out',
         scrollTrigger: {
           id: `${id}-fadeIn`,
-          trigger: `#${id}`,
+          trigger: trigger.current,
           start: 'top 90%',
           end: 'top top',
           markers,
@@ -42,7 +39,7 @@ export default function FadeIn({ children, id, duration = 1, delay = 0, markers 
   return (
     <div ref={container}>
       <div ref={trigger}>
-        <div id={id} className="translate-y-[30px] opacity-0">
+        <div ref={fade} id={id} className="translate-y-[30px] opacity-0">
           {children}
         </div>
       </div>

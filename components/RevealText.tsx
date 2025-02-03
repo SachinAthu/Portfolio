@@ -1,9 +1,7 @@
 'use client';
 
 import React, { ReactElement, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 import SplitType from 'split-type';
 
 type RevealTextProps = {
@@ -24,26 +22,32 @@ export default function RevealText({
   multiple = false,
 }: RevealTextProps) {
   const container = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLDivElement>(null);
   const child = children as ReactElement;
 
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-
       SplitType.create(`#${id} > ${child.type}`, { types: multiple ? 'words' : 'chars' });
       const el = multiple ? `#${id} .word` : `#${id} .char`;
 
-      gsap.set(`#${id}`, { opacity: 1 });
+      gsap.set(trigger.current, { opacity: 1, visibility: 'visible' });
 
       gsap.to(el, {
         y: 0,
         opacity: 1,
-        stagger,
+        visibility: 'visible',
+        stagger: {
+          each: stagger,
+          from: 0,
+          onStart: (seg) => {
+            if (seg) seg.style.visibility = 'visible';
+          },
+        },
         duration,
         delay,
         ease: 'power2.out',
         scrollTrigger: {
-          trigger: `#${id}`,
+          trigger: trigger.current,
           start: 'top 90%',
           end: 'top top',
         },
@@ -54,7 +58,7 @@ export default function RevealText({
 
   return (
     <div ref={container}>
-      <div id={id} className="reveal-text opacity-0">
+      <div ref={trigger} id={id} className="reveal-text invisible opacity-0">
         {children}
       </div>
     </div>

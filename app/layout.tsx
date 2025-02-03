@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import dynamic from 'next/dynamic';
 
 import '@/styles/main.scss';
-import { Footer, Header, PageLoader, NavMenu, ToasterCom, AnimGrid, Welcome } from '@/components';
+import { Footer, PageLoader, AnimGrid, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { EventsProvider } from '@/context/EventsContext';
 
@@ -89,6 +90,43 @@ export const metadata: Metadata = {
     'msapplication-TileColor': '#00aba9',
   },
 };
+
+const Header = dynamic(() => import('@/components/header/Header'), {
+  loading: () => (
+    <div className="fixed left-0 right-0 top-0 z-50 flex h-[var(--header-height)] w-full items-center">
+      <div className="container-wide hidden h-[var(--header-content-height)] w-full items-center justify-between rounded-full px-[3%] sm:flex sm:rounded-none 2xl:px-0">
+        <div className="flex h-full items-center justify-center rounded-full px-8 backdrop-blur-lg">
+          <div className="skeleton h-7 w-[9.125rem]"></div>
+        </div>
+
+        <div className="flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
+          <div className="skeleton hidden h-9 w-[7.375rem] md:block"></div>
+          <div className="skeleton h-9 w-[4.5rem]"></div>
+          <div className="skeleton h-9 w-[2.125rem]"></div>
+        </div>
+      </div>
+
+      <div className="h-[var(--header-content-height)] w-full sm:hidden">
+        <div className="container h-full">
+          <div className="flex h-full items-center justify-between rounded-full px-[2%] backdrop-blur-lg">
+            <div className="flex h-full items-center justify-center rounded-full px-4">
+              <div className="skeleton h-7 w-[5.8125rem]"></div>
+            </div>
+
+            <div className="header-inner-2 | flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
+              <div className="skeleton h-9 w-[4.5rem]"></div>
+              <div className="skeleton h-9 w-[2.125rem]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+  ssr: false,
+});
+
+const NavMenu = dynamic(() => import('@/components/NavMenu'));
+const ToasterCom = dynamic(() => import('@/components/ToasterCom'));
 
 export default function RootLayout({
   children,

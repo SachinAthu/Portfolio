@@ -1,9 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsap-config';
 
 import { cn } from '@/lib/common';
 import { useLayoutContext } from '@/context/LayoutContext';
@@ -28,19 +26,21 @@ export default function Section({
   ...rest
 }: SectionProps) {
   const container = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLDivElement>(null);
+  const border = useRef<HTMLDivElement>(null);
+  const borderInner = useRef<HTMLDivElement>(null);
+
   const { setActiveSection } = useLayoutContext();
 
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-
       if (borderBottom) {
-        gsap.to(`#${id}-border > div`, {
+        gsap.to(borderInner.current, {
           scaleX: 1,
           ease: 'power2.out',
           duration: 2,
           scrollTrigger: {
-            trigger: `#${id}-border`,
+            trigger: border.current,
             start: 'top 90%',
             end: 'top top',
           },
@@ -52,8 +52,8 @@ export default function Section({
       }
 
       ScrollTrigger.create({
-        trigger: `#${id}`,
-        id: `trigger${id}`,
+        trigger: trigger.current,
+        id: `section-trigger-${id}`,
         start: 'top 50%',
         end: '50% top',
         onEnter: () => {
@@ -72,6 +72,7 @@ export default function Section({
   return (
     <div ref={container}>
       <div
+        ref={trigger}
         id={id}
         className={cn(
           'relative',
@@ -83,8 +84,8 @@ export default function Section({
         {children}
 
         {borderBottom && (
-          <div className="absolute bottom-0 left-0 right-0" id={`${id}-border`}>
-            <div className="h-[2px] w-full origin-center scale-x-0 bg-text dark:bg-d-text"></div>
+          <div className="absolute bottom-0 left-0 right-0" ref={border} id={`${id}-border`}>
+            <div ref={borderInner} className="h-[2px] w-full origin-center scale-x-0 bg-text dark:bg-d-text"></div>
           </div>
         )}
       </div>

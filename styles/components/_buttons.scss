@@ -2,114 +2,173 @@
 
 /* menu button */
 
-@mixin icon($height, $width) {
-  transition:
-    background-color 0.5s,
-    transform 0.5s;
-  position: absolute;
-  height: $height;
-  width: $width;
-  top: calc(50% - $height / 2);
-  background-color: currentColor;
-}
+// @mixin icon($height, $width) {
+//   transition:
+//     background-color 0.5s,
+//     transform 0.5s;
+//   position: absolute;
+//   height: $height;
+//   width: $width;
+//   top: calc(50% - $height / 2);
+//   background-color: currentColor;
+// }
 
-@mixin icon-before($height, $width, $top) {
-  transition:
-    background-color 0.5s,
-    transform 0.5s;
-  position: absolute;
-  width: $width;
-  height: $height;
-  background-color: currentColor;
-  content: '';
-  top: $top;
-  left: 0;
-}
+// @mixin icon-before($height, $width, $top) {
+//   transition:
+//     background-color 0.5s,
+//     transform 0.5s;
+//   position: absolute;
+//   width: $width;
+//   height: $height;
+//   background-color: currentColor;
+//   content: '';
+//   top: $top;
+//   left: 0;
+// }
 
-@mixin icon-after($height, $width, $top) {
-  transition:
-    background-color 0.5s,
-    transform 0.5s;
-  position: absolute;
-  width: $width;
-  height: $height;
-  background-color: currentColor;
-  content: '';
-  top: $top;
-  left: 0;
-}
+// @mixin icon-after($height, $width, $top) {
+//   transition:
+//     background-color 0.5s,
+//     transform 0.5s;
+//   position: absolute;
+//   width: $width;
+//   height: $height;
+//   background-color: currentColor;
+//   content: '';
+//   top: $top;
+//   left: 0;
+// }
+
+// .menu-btn {
+//   --width: 34px;
+//   --height: 26px;
+//   --part-width: calc(var(--width) / 2);
+//   --part-height: 4px;
+//   --part-top: calc(var(--height) / 2 - var(--part-height) / 2);
+//   --border-radius: 9999px;
+
+//   width: var(--width);
+//   height: var(--height);
+
+//   .icon-left {
+//     @include icon(var(--part-height), var(--part-width));
+//     left: 0px;
+//     transition: background-color 0.5s;
+
+//     &:before {
+//       @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
+//       transform-origin: left;
+//     }
+
+//     &:after {
+//       @include icon-after(var(--part-height), var(--part-width), var(--part-top));
+//       transform-origin: left;
+//     }
+//   }
+
+//   .icon-right {
+//     @include icon(var(--part-height), var(--part-width));
+//     left: calc(var(--width) / 2);
+//     transition: background-color 0.5s;
+
+//     &:before {
+//       @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
+//       transform-origin: right;
+//     }
+
+//     &:after {
+//       @include icon-after(var(--part-height), var(--part-width), var(--part-top));
+//       transform-origin: right;
+//     }
+//   }
+// }
+
+// .menu-btn.open {
+//   .icon-left {
+//     background-color: transparent;
+
+//     &:before {
+//       background-color: theme('colors.d.text');
+//       transform: rotateZ(45deg) translate(4px, -4px);
+//     }
+
+//     &:after {
+//       background-color: theme('colors.d.text');
+//       transform: rotateZ(-45deg) translate(4px, 4px);
+//     }
+//   }
+
+//   .icon-right {
+//     background-color: transparent;
+
+//     &:before {
+//       background-color: theme('colors.d.text');
+//       transform: rotateZ(-45deg) translate(-4px, -4px);
+//     }
+
+//     &:after {
+//       background-color: theme('colors.d.text');
+//       transform: rotateZ(45deg) translate(-4px, 4px);
+//     }
+//   }
+// }
 
 .menu-btn {
-  --width: 34px;
-  --height: 26px;
-  --part-width: calc(var(--width) / 2);
-  --part-height: 4px;
-  --part-top: calc(var(--height) / 2 - var(--part-height) / 2);
-  --border-radius: 9999px;
+  .bar {
+    width: 100%;
+    height: 3px;
+    border-radius: 9999px;
+    position: relative;
+    transform-origin: center;
 
-  width: var(--width);
-  height: var(--height);
-
-  .icon-left {
-    @include icon(var(--part-height), var(--part-width));
-    left: 0px;
-    transition: background-color 0.5s;
-
-    &:before {
-      @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
-      transform-origin: left;
-    }
-
-    &:after {
-      @include icon-after(var(--part-height), var(--part-width), var(--part-top));
-      transform-origin: left;
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform-origin: right;
+      border-radius: 9999px;
+      transition:
+        transform 0.5s,
+        background-color 1.5s;
+      @apply bg-text dark:bg-d-text;
     }
   }
 
-  .icon-right {
-    @include icon(var(--part-height), var(--part-width));
-    left: calc(var(--width) / 2);
-    transition: background-color 0.5s;
-
-    &:before {
-      @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
-      transform-origin: right;
+  .bar-2 {
+    &::after {
+      transform: scaleX(0.75);
     }
+  }
 
-    &:after {
-      @include icon-after(var(--part-height), var(--part-width), var(--part-top));
-      transform-origin: right;
+  .bar-3 {
+    &::after {
+      transform: scaleX(0.5);
+    }
+  }
+}
+
+.menu-btn:hover,
+.menu-btn:focus,
+.menu-btn.open {
+  .bar-2 {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .bar-3 {
+    &::after {
+      transform: scaleX(1);
     }
   }
 }
 
 .menu-btn.open {
-  .icon-left {
-    background-color: transparent;
-
-    &:before {
-      background-color: theme('colors.d.text');
-      transform: rotateZ(45deg) translate(4px, -4px);
-    }
-
-    &:after {
-      background-color: theme('colors.d.text');
-      transform: rotateZ(-45deg) translate(4px, 4px);
-    }
-  }
-
-  .icon-right {
-    background-color: transparent;
-
-    &:before {
-      background-color: theme('colors.d.text');
-
-      transform: rotateZ(-45deg) translate(-4px, -4px);
-    }
-
-    &:after {
-      background-color: theme('colors.d.text');
-      transform: rotateZ(45deg) translate(-4px, 4px);
+  .bar {
+    &::after {
+      @apply bg-d-text;
     }
   }
 }
@@ -235,7 +294,8 @@
   }
 }
 
-.custom-button:hover {
+.custom-button:hover,
+.custom-button:focus {
   @apply text-d-text dark:text-text;
 
   &::after {
@@ -319,7 +379,8 @@
   }
 }
 
-.custom-icon-button:hover {
+.custom-icon-button:hover,
+.custom-icon-button:focus {
   @apply text-d-text dark:text-text;
 
   &::after {
@@ -336,7 +397,8 @@
   }
 }
 
-.custom-icon-button.down:hover {
+.custom-icon-button.down:hover,
+.custom-icon-button.down:focus {
   .inner-2 {
     transform: translate(-50%, 150%);
   }
@@ -415,7 +477,8 @@
     }
   }
 
-  &:hover::after {
+  &:hover::after,
+  &:focus::after {
     transform: scaleX(1);
   }
 }

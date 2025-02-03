@@ -2,8 +2,7 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { gsap, useGSAP } from '@/lib/gsap-config';
 
 import { WORKS } from '@/lib/data';
 import { PageLink, RevealText, Section, ToolTip } from '..';
@@ -26,7 +25,7 @@ function Work({ work, index }: { work: WorkType; index: number }) {
         'mb-20 max-h-[50rem] rounded-[1rem] bg-accent sm:rounded-[2rem] lg:mb-40 lg:w-[75%]',
         (index + 1) % 2 === 0 ? 'lg:ml-auto' : ''
       )}>
-      <ToolTip id={`tooltip-work-${index}`} toolTip="Case Study" className="p-8 text-2xl">
+      <ToolTip toolTip="Case Study" className="p-8 text-2xl">
         <PageLink href={`/works/${work.slug}`}>
           <div className="px-6 pb-6 pt-10 sm:px-10 sm:pb-12 sm:pt-16 md:px-14 md:pb-16 md:pt-24">
             <div className="mb-10 flex items-center gap-4 text-d-text sm:mb-16 md:mb-24">
