@@ -1,7 +1,9 @@
 import WORK_VOXITEC from '../public/static/works/voxitec/voxitec.png';
 import WORK_PORTFOLIO from '../public/static/works/portfolio/portfolio.png';
 
-export default {
+const ASSETS = {
   WORK_VOXITEC,
   WORK_PORTFOLIO,
 };
+
+export default ASSETS;

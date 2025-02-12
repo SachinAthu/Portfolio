@@ -5,17 +5,28 @@ import { Button, FadeIn, RevealText, UnderlineButton } from '.';
 import { useMobileViewport } from '@/lib/hooks';
 
 function Welcome() {
-  const { setIsPlay, setIsPageLoading, setIsWelcome } = useLayoutContext();
+  const { setIsPageLoading, setIsWelcome } = useLayoutContext();
   const isMobile = useMobileViewport();
 
   function clickHandler(sound: boolean) {
     setIsPageLoading(true);
+
     setTimeout(() => {
       setIsWelcome(false);
 
       setTimeout(() => {
         setIsPageLoading(false);
-        if (sound && !isMobile) setIsPlay(true);
+
+        // set initial music begin
+        if (sound && !isMobile) {
+          sessionStorage.setItem('is-initial-music', 'true');
+        } else {
+          sessionStorage.setItem('is-initial-music', 'false');
+        }
+
+        // load music
+        const musicPlayBtn = document.getElementById('loadMusicBtn');
+        musicPlayBtn?.click();
       }, 1000);
     }, 1900);
   }

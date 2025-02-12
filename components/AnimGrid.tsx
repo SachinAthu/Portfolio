@@ -9,7 +9,7 @@ import { useLayoutContext } from '@/context/LayoutContext';
 
 export default function AnimGrid() {
   const animgrid = useRef<HTMLDivElement>(null);
-  const vw = useWindowResize();
+  const { vw } = useWindowResize();
   const isPageVisible = usePageVisible();
   const { activeSection } = useLayoutContext();
 
@@ -81,9 +81,11 @@ export default function AnimGrid() {
     //     '-=10%'
     //   );
 
+    const animGridRef = animgrid.current;
+
     return () => {
-      if (animgrid.current?.innerHTML) {
-        animgrid.current.innerHTML = '';
+      if (animGridRef?.innerHTML) {
+        animGridRef.innerHTML = '';
       }
       gridAnim.current?.kill();
     };

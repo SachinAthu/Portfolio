@@ -71,9 +71,11 @@ export function usePageVisible() {
 
 export function useWindowResize() {
   const [vw, setVW] = useState(0);
+  const [vh, setVH] = useState(0);
 
   const onResize = useCallback(() => {
-    if (vw !== window.innerWidth) setVW(window.innerWidth);
+    setVW(window.innerWidth);
+    setVH(window.innerHeight);
   }, []);
 
   function debounce(func: () => void) {
@@ -87,6 +89,7 @@ export function useWindowResize() {
 
   useEffect(() => {
     setVW(window.innerWidth);
+    setVH(window.innerHeight);
 
     window.addEventListener('resize', debounce(onResize));
 
@@ -95,7 +98,7 @@ export function useWindowResize() {
     };
   }, [onResize]);
 
-  return vw;
+  return { vw, vh };
 }
 
 export const useObserver = (selector: string, rootMargin?: string, defaultVal: boolean = false) => {

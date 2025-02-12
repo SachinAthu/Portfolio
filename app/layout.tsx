@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import dynamic from 'next/dynamic';
 
 import '@/styles/main.scss';
-import { Footer, PageLoader, AnimGrid, Welcome } from '@/components';
+import { Footer, PageLoader, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { EventsProvider } from '@/context/EventsContext';
 
@@ -102,7 +102,7 @@ const Header = dynamic(() => import('@/components/header/Header'), {
         <div className="flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
           <div className="skeleton hidden h-9 w-[7.375rem] md:block"></div>
           <div className="skeleton h-9 w-[4.5rem]"></div>
-          <div className="skeleton h-9 w-[2.125rem]"></div>
+          <div className="skeleton h-9 w-[2.125rem] 2xl:hidden"></div>
         </div>
       </div>
 
@@ -125,8 +125,9 @@ const Header = dynamic(() => import('@/components/header/Header'), {
   ssr: false,
 });
 
-const NavMenu = dynamic(() => import('@/components/NavMenu'));
-const ToasterCom = dynamic(() => import('@/components/ToasterCom'));
+const NavMenu = dynamic(() => import('@/components/NavMenu'), { ssr: false });
+const ToasterCom = dynamic(() => import('@/components/ToasterCom'), { ssr: false });
+const AnimGrid = dynamic(() => import('@/components/AnimGrid'), { ssr: false });
 
 export default function RootLayout({
   children,
@@ -151,7 +152,7 @@ export default function RootLayout({
 
               <PageLoader />
 
-              {/* <Welcome /> */}
+              <Welcome />
 
               <ToasterCom />
             </EventsProvider>

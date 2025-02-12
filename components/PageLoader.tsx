@@ -11,7 +11,7 @@ import { getAnimGridSize } from '@/lib/common';
 export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
-  const vw = useWindowResize();
+  const { vw } = useWindowResize();
   const pathname = usePathname();
   const { isNavOpen, isPageLoading, setIsNavShow, setIsPageLoading } = useLayoutContext();
 
@@ -77,9 +77,11 @@ export default function PageLoader() {
       })
       .set('.page-loader', { pointerEvents: 'none' });
 
+    const loaderRef = loader.current;
+
     return () => {
-      if (loader.current?.innerHTML) {
-        loader.current.innerHTML = '';
+      if (loaderRef?.innerHTML) {
+        loaderRef.innerHTML = '';
       }
       openLoaderTween.current?.kill();
       closeLoaderTween.current?.kill();
@@ -101,7 +103,7 @@ export default function PageLoader() {
         closeLoaderTween.current?.invalidate().restart();
       }, 2000);
     }
-  }, [isNavOpen]);
+  }, [isNavOpen, setIsNavShow]);
 
   // page load
   useEffect(() => {
@@ -122,7 +124,7 @@ export default function PageLoader() {
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 5000);
-  }, [pathname]);
+  }, [pathname, setIsPageLoading]);
 
   return (
     <>

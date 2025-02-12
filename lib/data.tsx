@@ -1,6 +1,6 @@
 import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlane } from 'react-icons/io';
 
-import { NavLinkType, TechStackType, WorkType } from './types';
+import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
 import assets from './assets';
 
 export const NAV_LINKS: NavLinkType[] = [
@@ -154,5 +154,12 @@ export const WORKS: WorkType[] = [
     slug: 'portfolio',
     titleImage: assets.WORK_PORTFOLIO,
     readme: '',
+  },
+];
+
+export const MUSIC_PLAYLIST: MusicTrack[] = [
+  {
+    name: 'Witcher 3 Kaer Morhen',
+    path: '/static/music/kaer_morhen.mp3',
   },
 ];

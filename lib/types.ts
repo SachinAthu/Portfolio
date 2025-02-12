@@ -19,3 +19,8 @@ export type WorkType = {
   titleImage: StaticImageData;
   readme: string;
 };
+
+export type MusicTrack = {
+  name: string;
+  path: string;
+};
