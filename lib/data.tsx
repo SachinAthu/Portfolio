@@ -3,39 +3,59 @@ import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlan
 import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
 import assets from './assets';
 
+export const COOKIE_KEYS = {
+  IS_MOBILE: 'is-mobile',
+  IS_INIT_KNOCK: 'is-init-knock',
+};
+
+export const KNOCK_CONFIG = {
+  COLLECTION: 'portfolio-collection',
+  OBJECT: 'contact-object',
+  DISCORD_CHANNEL_ID: 'acd1d671-ca67-40fc-ad98-c81186a4805f',
+  WORKFLOW_KEY: 'contact',
+  DISCORD_WEBHOOK_URL:
+    'https://discord.com/api/webhooks/1342043247396261908/m2Wo7EcTKyGqvpVu2B2ZplwAioc0SKAfwgUS5NILeQFLTsjao6dkzmZ2NvzhPdCfL27u',
+};
+
 export const NAV_LINKS: NavLinkType[] = [
   {
     title: 'SachinAthu',
+    tooltip: 'Num 1',
     id: 'hero',
     key: '1',
     icon: <IoMdHome />,
   },
   {
     title: 'About',
+    tooltip: 'Num 2',
     id: 'about',
     key: '2',
     icon: <IoMdPerson />,
   },
   {
     title: 'Tech Stack',
+    tooltip: 'Num 3',
     id: 'techstack',
     key: '3',
     icon: <IoIosApps />,
   },
   {
     title: 'Experience',
+    tooltip: 'Num 4',
     id: 'experience',
     key: '4',
     icon: <IoIosPaperPlane />,
   },
   {
     title: 'Works',
+    tooltip: 'Num 5',
     id: 'works',
     key: '5',
     icon: <IoMdApps />,
   },
   {
     title: 'Contact',
+    tooltip: 'Num 6',
     id: 'contact',
     key: '6',
     icon: <IoMdContacts />,

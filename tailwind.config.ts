@@ -38,7 +38,6 @@ const config: Config = {
         text: '#212121',
         subtext: '#757575',
         nav: '#494949',
-        'border-content': 'rgba(33, 33, 33, 0.2)',
         skeleton: 'hsl(220, 13%, 91%)',
 
         d: {

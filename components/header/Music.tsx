@@ -292,7 +292,6 @@ const MusicControlMultiple = () => {
           }
 
           const isInitialMusic = sessionStorage.getItem('is-initial-music') === 'true';
-          console.log('isInitialMusic', isInitialMusic);
           if (isInitialMusic) {
             playMusic();
           }
@@ -330,7 +329,7 @@ const MusicControlMultiple = () => {
     workerRef.current.addEventListener('message', onMessage);
 
     // only for development, because welcome screen disabled
-    // loadTrack('/static/music/output.mp3')
+    loadTrack('/static/music/output.mp3');
 
     return () => {
       workerRef.current?.terminate();

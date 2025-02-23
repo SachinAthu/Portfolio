@@ -13,7 +13,7 @@ export default function NotFoundCom() {
         dotLottie.destroy();
       }
     };
-  });
+  }, []);
 
   const dotLottieRefCallback = (dotLottie: DotLottie) => {
     setDotLottie(dotLottie);
@@ -30,7 +30,7 @@ export default function NotFoundCom() {
         />
       </div>
 
-      <p className="mb-6 text-lg font-medium">Damm! Page Not Found.</p>
+      <p className="paragraph-1 mb-1 font-medium">Damm! Page Not Found.</p>
 
       <CustomLink id="notFoundHomeLink" content="Return Home" href="/" className="p-6 text-2xl font-medium" />
     </div>

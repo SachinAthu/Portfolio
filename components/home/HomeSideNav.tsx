@@ -58,8 +58,8 @@ function SideNav() {
       </div>
 
       <div className="relative grid h-full grid-cols-1 gap-[var(--side-nav-gap)]">
-        {NAV_LINKS.map((l) => (
-          <ToolTip key={l.key} toolTip={l.title}>
+        {NAV_LINKS.map((l, i) => (
+          <ToolTip key={l.key} toolTip={`${i + 1}. ${l.title}`}>
             <button
               type="button"
               onClick={() => scrollRef.current?.scrollTo(`#${l.id}`)}

@@ -7,9 +7,19 @@ import { cn } from '@/lib/common';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   id: string;
+  isLoading?: boolean;
 };
 
-export default function Button({ id, children, className, onClick, type, ...rest }: ButtonProps) {
+export default function Button({
+  id,
+  children,
+  className,
+  onClick,
+  type,
+  isLoading = false,
+  disabled,
+  ...rest
+}: ButtonProps) {
   const btnEl = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -28,16 +38,24 @@ export default function Button({ id, children, className, onClick, type, ...rest
       id={id}
       type={type ? type : 'button'}
       className={cn(
-        'custom-button | relative block w-fit overflow-hidden rounded-full border border-text px-4 py-2 dark:border-d-text',
-        className || ''
+        'custom-button | relative block w-fit overflow-hidden rounded-full border border-text px-4 py-2 disabled:opacity-50 dark:border-d-text',
+        className || '',
+        isLoading ? 'loading' : ''
       )}
       onClick={onClick}
+      disabled={disabled || isLoading}
       {...rest}>
-      <div className="inner | relative block" data-content={children}>
+      <div className={cn('inner | relative block', isLoading ? 'opacity-0' : 'opacity-100')} data-content={children}>
         {children}
 
         <div className="chars">{children}</div>
       </div>
+
+      {isLoading && (
+        <div className="absolute inset-0 grid place-items-center">
+          <span className="loader"></span>
+        </div>
+      )}
 
       {/* <span className="flair | pointer-events-none absolute left-0 top-0 z-[-1] aspect-[1] w-[250%] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"></span> */}
     </button>

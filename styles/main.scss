@@ -14,11 +14,11 @@
 @layer utilities {
   /* containers */
   .container {
-    @apply mx-auto max-w-[1280px] px-4 sm:px-8 2xl:px-0;
+    @apply mx-auto max-w-[80rem] px-4 sm:px-8 2xl:px-0;
   }
 
   .container-wide {
-    @apply mx-auto max-w-[1536px];
+    @apply mx-auto max-w-[96rem];
   }
 
   /**/
@@ -55,6 +55,29 @@
     display: none; /* Safari and Chrome */
   }
 
+  // custom thin scrollbar
+  .scrollbar-thin {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply rounded-lg bg-[#f1f1f1] dark:bg-[#424242];
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-lg bg-neutral-300 dark:bg-neutral-500;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      @apply bg-neutral-400;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      @apply bg-neutral-500 dark:bg-neutral-300;
+    }
+  }
+
   .skeleton {
     @apply rounded-full bg-skeleton dark:bg-d-skeleton;
   }
@@ -70,6 +93,17 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  // honey pot field
+  .honey-pot {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
   }
 }
 

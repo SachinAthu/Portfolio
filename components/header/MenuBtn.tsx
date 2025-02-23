@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from '@/lib/gsap-config';
 
@@ -9,6 +9,7 @@ import { cn } from '@/lib/common';
 
 function MenuBtn() {
   const { isNavOpen, setIsNavOpen } = useLayoutContext();
+  const [isNavToggling, setIsNavToggling] = useState(false);
   const openTimeline = useRef<gsap.core.Timeline>();
   const closeTimeline = useRef<gsap.core.Timeline>();
   const bar1 = useRef<HTMLDivElement>(null);
@@ -46,6 +47,17 @@ function MenuBtn() {
     }
   }, [isNavOpen]);
 
+  function handleClick() {
+    if (isNavToggling) return;
+    setIsNavToggling(true);
+
+    setIsNavOpen(!isNavOpen);
+
+    setTimeout(() => {
+      setIsNavToggling(false);
+    }, 4000);
+  }
+
   return (
     <button
       type="button"
@@ -54,9 +66,7 @@ function MenuBtn() {
         isNavOpen ? 'open' : ''
       )}
       aria-label="Navigation Menu"
-      onClick={() => {
-        setIsNavOpen(!isNavOpen);
-      }}>
+      onClick={handleClick}>
       <div className="flex h-full w-full flex-col items-center justify-between">
         <div className="bar bar-1" ref={bar1}></div>
         <div className="bar bar-2" ref={bar2}></div>

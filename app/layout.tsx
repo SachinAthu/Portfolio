@@ -152,7 +152,7 @@ export default function RootLayout({
 
               <PageLoader />
 
-              <Welcome />
+              {/* <Welcome /> */}
 
               <ToasterCom />
             </EventsProvider>

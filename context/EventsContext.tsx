@@ -21,14 +21,14 @@ const EventsProvider = ({ children }: { children: React.ReactNode }) => {
     (e: KeyboardEvent) => {
       switch (e.key) {
         case 'Escape':
-          setIsNavOpen(false);
-          break;
         case '1':
         case '2':
         case '3':
         case '4':
         case '5':
+        case '6':
           if (pathname === '/') scrollRef.current?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
+          setIsNavOpen(false);
           break;
         default:
           return;

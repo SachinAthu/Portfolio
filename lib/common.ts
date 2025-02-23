@@ -1,5 +1,6 @@
 import { clsx, ClassArray } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import DOMPurify from 'isomorphic-dompurify';
 
 export function cn(...classes: ClassArray) {
   return twMerge(clsx(classes));
@@ -37,4 +38,16 @@ export function getAnimGridSize(vw: number) {
   }
 
   return grid;
+}
+
+export function isSanitized(value: string) {
+  if (!value) return false;
+
+  const sanitizedValue = DOMPurify.sanitize(value);
+
+  if (sanitizedValue && value.length === sanitizedValue.length) {
+    return true;
+  } else {
+    return false;
+  }
 }

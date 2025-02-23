@@ -8,7 +8,7 @@ import { useMobileViewport, useDebouncedCallback } from '@/lib/hooks';
 
 type ToolTipProps = {
   children: React.ReactNode;
-  toolTip: string;
+  toolTip: string | JSX.Element;
   className?: string;
 };
 
@@ -51,25 +51,30 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         },
       });
 
-      const mouseEnter = (e: MouseEvent) => {
-        mouseMove(e);
-        enterAnim.invalidate().restart(true);
-      };
+      const controller = new AbortController();
 
-      const mouseLeave = () => {
-        enterAnim.pause().invalidate();
-        leaveAnim.invalidate().restart();
-      };
+      container.current?.addEventListener(
+        'mouseenter',
+        (e: MouseEvent) => {
+          mouseMove(e);
+          enterAnim.invalidate().restart(true);
+        },
+        { signal: controller.signal }
+      );
 
-      const containerRef = container.current;
-      containerRef?.addEventListener('mouseenter', mouseEnter);
-      containerRef?.addEventListener('mouseleave', mouseLeave);
-      containerRef?.addEventListener('mousemove', mouseMove);
+      container.current?.addEventListener(
+        'mouseleave',
+        () => {
+          enterAnim.pause().invalidate();
+          leaveAnim.invalidate().restart();
+        },
+        { signal: controller.signal }
+      );
+
+      container.current?.addEventListener('mousemove', mouseMove, { signal: controller.signal });
 
       return () => {
-        containerRef?.removeEventListener('mouseenter', mouseEnter);
-        containerRef?.removeEventListener('mouseleave', mouseLeave);
-        containerRef?.removeEventListener('mousemove', mouseMove);
+        controller.abort();
       };
     },
     { scope: container, dependencies: [mouseMove] }

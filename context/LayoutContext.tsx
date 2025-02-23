@@ -4,11 +4,13 @@ import React, { createContext, useState, useContext, useEffect, useMemo, useRef 
 
 import { NAV_LINKS } from '@/lib/data';
 import { NavLinkType } from '@/lib/types';
+import { useMobile } from '@/lib/hooks';
 
 export type LayoutContextType = {
   isWelcome: boolean;
   isNavOpen: boolean;
   isNavShow: boolean;
+  isScrolled: boolean;
   isPageLoading: boolean;
   scrollRef: React.MutableRefObject<LocomotiveScroll | undefined>;
   activeSection: NavLinkType;
@@ -16,6 +18,7 @@ export type LayoutContextType = {
   setIsWelcome: (isWelcome: boolean) => void;
   setIsNavOpen: (isNavOpen: boolean) => void;
   setIsNavShow: (isNavShow: boolean) => void;
+  setIsScrolled: (isScrolled: boolean) => void;
   setIsPageLoading: (isPageLoading: boolean) => void;
   setActiveSection: (activeSection: NavLinkType) => void;
 };
@@ -23,12 +26,34 @@ export type LayoutContextType = {
 const LayoutContext = createContext<LayoutContextType | null>(null);
 
 const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
+  const isMobile = useMobile();
+
   const scrollRef = useRef<LocomotiveScroll>();
   const [isWelcome, setIsWelcome] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavShow, setIsNavShow] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [activeSection, setActiveSection] = useState(NAV_LINKS[0]);
+
+  useEffect(() => {
+    const header = document.getElementById('app-header');
+    const navMenu = document.getElementById('app-nav-menu');
+
+    if (!header || !navMenu) return;
+
+    // disable body scrolling when nav menu open
+    if (isNavOpen) {
+      document.body.classList.add('overflow-hidden');
+      const scrollBarWidth = isMobile ? 0 : window.innerWidth - document.documentElement.clientWidth || 12;
+      header.style.paddingRight = `${scrollBarWidth}px`;
+      navMenu.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.classList.remove('overflow-hidden');
+      header.style.paddingRight = '';
+      navMenu.style.paddingRight = '';
+    }
+  }, [isNavOpen]);
 
   useEffect(() => {
     // setup locomotive scroll
@@ -52,6 +77,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       isWelcome,
       isNavOpen,
       isNavShow,
+      isScrolled,
       isPageLoading,
       scrollRef,
       activeSection,
@@ -60,9 +86,10 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setIsNavOpen,
       setActiveSection,
       setIsNavShow,
+      setIsScrolled,
       setIsPageLoading,
     }),
-    [isWelcome, isNavOpen, isNavShow, isPageLoading, activeSection]
+    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, activeSection]
   );
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;

@@ -1,5 +1,8 @@
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { getCookie } from 'cookies-next';
+
+import { COOKIE_KEYS } from './data';
 
 export function useMounted() {
   const [mounted, setMounted] = useState(false);
@@ -9,6 +12,10 @@ export function useMounted() {
   }, []);
 
   return mounted;
+}
+
+export function useMobile() {
+  return getCookie(COOKIE_KEYS.IS_MOBILE) === 'true';
 }
 
 export function useMobileViewport(mini = false) {

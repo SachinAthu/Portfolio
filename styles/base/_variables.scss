@@ -19,6 +19,16 @@
   --scroll-nav-top: calc(var(--header-height) + (var(--nav-menu-height) / 2) - (var(--scroll-nav-height) / 2));
 
   --hero-height: calc(105vh - var(--header-height));
+
+  --toaster-bg: theme('colors.background');
+  --toaster-color: theme('colors.text');
+  --toaster-border: 1px solid theme('colors.gray.300');
+}
+
+:root.dark {
+  --toaster-bg: theme('colors.neutral.800');
+  --toaster-color: theme('colors.d.text');
+  --toaster-border: 1px solid theme('colors.gray.600');
 }
 
 @include mix.min-width(sm) {
