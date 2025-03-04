@@ -1,0 +1,78 @@
+.contact-me {
+  @keyframes bounceArrow {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(-50%);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-58%);
+    }
+  }
+
+  .contact-social-drag {
+    .social-link {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 125%;
+        height: 125%;
+        z-index: -1;
+        border-radius: 9999px;
+        pointer-events: none;
+        -webkit-clip-path: circle(0px at 0 0);
+        clip-path: circle(0px at 0 0);
+        transition: all 0.5s ease;
+        @apply bg-text dark:bg-d-text;
+      }
+
+      .social-link-inner {
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+          skew(0deg, 0deg);
+        transition: all 0.7s ease;
+        transform-style: preserve-3d;
+
+        .social-link-inner-2 {
+          transform: rotateX(-90deg) rotateY(0) rotate(0);
+          transform-style: preserve-3d;
+        }
+      }
+    }
+
+    .social-link:hover {
+      @apply text-d-text dark:text-text;
+
+      &::after {
+        -webkit-clip-path: circle(250% at 0 0);
+        clip-path: circle(250% at 0 0);
+      }
+    }
+
+    .social-link.unlock {
+      .social-link-inner {
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(90deg) rotateY(0deg) rotateZ(0deg)
+          skew(0deg, 0deg);
+
+        .social-link-inner-2 {
+          svg {
+            animation: bounceArrow 2.5s infinite ease-in-out;
+          }
+        }
+      }
+    }
+  }
+
+  .contact-social-no-drag {
+    .social-link-wrapper:not(:first-child) {
+      aspect-ratio: 1 / 0.75;
+    }
+
+    .social-link {
+      svg {
+        @apply h-10 w-10 fill-current md:h-14 md:w-14 xl:h-16 xl:w-16;
+      }
+    }
+  }
+}

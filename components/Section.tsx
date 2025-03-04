@@ -78,14 +78,16 @@ export default function Section({
           'relative',
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
-          paddingBottom ? 'pb-28 sm:pb-48 lg:pb-56' : ''
+          paddingBottom ? 'pb-48 sm:pb-64 lg:pb-72' : ''
         )}
         {...rest}>
         {children}
 
         {borderBottom && (
           <div className="absolute bottom-0 left-0 right-0" ref={border} id={`${id}-border`}>
-            <div ref={borderInner} className="h-[2px] w-full origin-center scale-x-0 bg-text dark:bg-d-text"></div>
+            <div
+              ref={borderInner}
+              className="h-[2px] w-full origin-center scale-x-0 bg-subtext dark:bg-d-subtext"></div>
           </div>
         )}
       </div>

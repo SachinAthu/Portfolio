@@ -1,12 +1,14 @@
+import dynamic from 'next/dynamic';
 import { RevealText, Section } from '../..';
 import ContactForm from './ContactForm';
-import ContactSocials from './ContactSocials';
+
+const ContactSocials = dynamic(() => import('./contactSocials/ContactSocials'), { ssr: false });
 
 export default function Contact() {
   return (
     <Section
       id="contact"
-      className="container-wide min-h-screen bg-background dark:bg-d-background"
+      className="contact-me | container-wide min-h-screen bg-background dark:bg-d-background"
       borderBottom={false}>
       <div className="container">
         <RevealText id="contactHeading">

@@ -30,7 +30,7 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(({ children, id, ar
     document.body.style.right = '';
     document.body.style.paddingRight = '';
 
-    window.scrollTo(0, scrollY);
+    if (!unmount) window.scrollTo(0, scrollY);
   }, []);
 
   const handleOpen = useCallback(() => {

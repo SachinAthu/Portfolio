@@ -39,7 +39,11 @@ export const contactAction = actionClient.schema(contactSchema).action(async ({ 
   }
 
   // save record
-  await db.insert(contactsDBSchema).values({ name, email, message });
+  try {
+    await db.insert(contactsDBSchema).values({ name, email, message });
+  } catch (err) {
+    console.error(err);
+  }
 
   // trigger knock workflow - discord notification
   // await initKnock();

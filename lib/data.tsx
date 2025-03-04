@@ -1,4 +1,5 @@
 import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlane } from 'react-icons/io';
+import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
 
 import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
 import assets from './assets';
@@ -181,5 +182,38 @@ export const MUSIC_PLAYLIST: MusicTrack[] = [
   {
     name: 'Witcher 3 Kaer Morhen',
     path: '/static/music/kaer_morhen.mp3',
+  },
+];
+
+export const SOCIAL_LINKS = [
+  {
+    id: 'sl_github',
+    title: 'Github',
+    link: 'https://github.com/SachinAthu',
+    icon: <SiGithub />,
+  },
+  {
+    id: 'sl_linkedin',
+    title: 'LinkedIn',
+    link: 'https://www.linkedin.com/in/sachinathu/',
+    icon: <SiLinkedin />,
+  },
+  {
+    id: 'sl_codepen',
+    title: 'CodePen',
+    link: 'https://codepen.io/sachinathu',
+    icon: <SiCodepen />,
+  },
+  {
+    id: 'sl_hackerrank',
+    title: 'HackerRank',
+    link: 'https://www.hackerrank.com/profile/sachin2262716',
+    icon: <SiHackerrank />,
+  },
+  {
+    id: 'sl_leetcode',
+    title: 'LeetCode',
+    link: 'https://leetcode.com/sachin2262716',
+    icon: <SiLeetcode />,
   },
 ];

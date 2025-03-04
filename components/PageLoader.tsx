@@ -49,6 +49,7 @@ export default function PageLoader() {
       .set('.page-loader', { pointerEvents: 'auto' })
       .to('.page-loader-inner .box', {
         opacity: 1,
+        scale: 1,
         duration: 0.5,
         ease: 'power2.out',
         stagger: {
@@ -66,6 +67,7 @@ export default function PageLoader() {
       .to('.page-loader-inner', { gap: vw < 768 ? 12 : 16, duration: 0.2, ease: 'power2.out' })
       .to('.page-loader-inner .box', {
         opacity: 0,
+        scale: 0.8,
         duration: 0.5,
         delay: 0.2,
         ease: 'power2.out',
@@ -130,7 +132,7 @@ export default function PageLoader() {
     <>
       <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
         <div
-          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:border-none [&>div]:bg-nav"
+          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:scale-[0.8] [&>div]:border-none [&>div]:bg-nav"
           ref={loader}></div>
       </div>
 

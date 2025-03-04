@@ -143,7 +143,7 @@ function TechStackDesktop() {
   return (
     <div className="mt-20" ref={container}>
       {/* filters */}
-      <div className="filters | relative flex items-center gap-2 border-b border-b-text dark:border-b-d-text">
+      <div className="filters | relative flex items-center gap-2 border-b border-b-subtext dark:border-b-d-subtext">
         <div
           ref={checkIndicator}
           className="absolute left-0 top-1/2 h-12 w-32 -translate-y-1/2 bg-primary [&>label]:checked:text-white"></div>
@@ -176,7 +176,7 @@ function TechStackDesktop() {
               key={ts.title}
               data-categories={ts.categories.join(' ')}
               className="ts-item | inline-flex items-center justify-center will-change-transform">
-              <span className="whitespace-nowrap rounded-full border border-subtext bg-background px-4 py-2 text-center text-lg font-medium text-subtext dark:border-d-subtext dark:bg-d-background dark:text-d-subtext lg:px-8 lg:py-4 lg:text-xl">
+              <span className="whitespace-nowrap rounded-full border border-gray-300 bg-background px-4 py-2 text-center text-lg font-medium text-subtext dark:border-gray-600 dark:bg-d-background dark:text-d-subtext lg:px-8 lg:py-4 lg:text-xl">
                 {ts.title}
               </span>
             </div>

@@ -58,6 +58,7 @@ export default function AnimGrid() {
     //   .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
     //   .to('.animgrid-inner .box', {
     //     opacity: 0.5,
+    //     scale: 1.02,
     //     duration: 0.8,
     //     ease: 'power2.out',
     //     stagger: {
@@ -70,6 +71,7 @@ export default function AnimGrid() {
     //     '.animgrid-inner .box',
     //     {
     //       opacity: 0.1,
+    //       scale: 1,
     //       duration: 0.8,
     //       ease: 'power2.out',
     //       stagger: {
@@ -92,7 +94,6 @@ export default function AnimGrid() {
   }, [vw]);
 
   // comment only for development
-
   // useEffect(() => {
   //   if (isPageVisible) {
   //     gridAnim.current?.resume();

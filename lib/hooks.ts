@@ -47,6 +47,18 @@ export function useMobileViewport(mini = false) {
   return isMobileV;
 }
 
+export function useTouch() {
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(
+      'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches
+    );
+  }, []);
+
+  return isTouch;
+}
+
 export function useDark() {
   const [isDark, setIsDark] = useState(false);
   const { theme } = useTheme();

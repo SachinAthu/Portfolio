@@ -27,7 +27,7 @@ export default function ToasterCom() {
           duration: 10000,
         },
         error: {
-          duration: 1000000,
+          duration: 10000,
           iconTheme: {
             primary: '#E91E63',
             secondary: '#F5F5F5',
