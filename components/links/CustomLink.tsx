@@ -34,7 +34,7 @@ export default function CustomLink({
     for (let i = 0; i < chars.length; i++) {
       (chars[i] as HTMLElement).style.transitionDelay = `${i * 0.01}s`;
     }
-  }, []);
+  }, [id]);
 
   if (download) {
     return (

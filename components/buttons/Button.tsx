@@ -30,7 +30,7 @@ export default function Button({
     for (let i = 0; i < chars.length; i++) {
       (chars[i] as HTMLElement).style.transitionDelay = `${i * 0.01}s`;
     }
-  }, []);
+  }, [id]);
 
   return (
     <button

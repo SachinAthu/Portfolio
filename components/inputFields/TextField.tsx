@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect } from 'react';
 import { FieldError } from 'react-hook-form';
 import { MdError } from 'react-icons/md';
 import { ScrollTrigger } from '@/lib/gsap-config';
@@ -39,7 +39,7 @@ const TextField = React.forwardRef(
       return () => {
         textfield.removeEventListener('keydown', onKeyDown);
       };
-    }, []);
+    }, [id]);
 
     return (
       <div className="form-control | relative mt-6">

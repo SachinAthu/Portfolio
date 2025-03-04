@@ -88,7 +88,7 @@ export default function PageLoader() {
       openLoaderTween.current?.kill();
       closeLoaderTween.current?.kill();
     };
-  }, [vw]);
+  }, [vw, createGrid]);
 
   // nav menu toggle
   useEffect(() => {

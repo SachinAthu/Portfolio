@@ -82,7 +82,7 @@ const TextAreaField = React.forwardRef<{ clearField: () => void }, TextAreaProps
       } else {
         // Fallback to MutationObserver
         mutationObserver = new MutationObserver((mutationList: MutationRecord[]) => {
-          mutationList.forEach((mutation) => {
+          mutationList.forEach(() => {
             if (tRef.offsetHeight !== height) {
               ScrollTrigger.refresh();
             }

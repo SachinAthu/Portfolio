@@ -24,22 +24,19 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
   const socialLinkBorderEl = useRef<HTMLDivElement>(null);
   const isUnlock = useRef(false);
 
-  const changeCursor = useCallback(
-    (isGrabbing: boolean) => {
-      if (!socialLinkEl.current) return;
+  const changeCursor = useCallback((isGrabbing: boolean) => {
+    if (!socialLinkEl.current) return;
 
-      if (isGrabbing) {
-        socialLinkEl.current.style.cursor = 'grabbing';
+    if (isGrabbing) {
+      socialLinkEl.current.style.cursor = 'grabbing';
+    } else {
+      if (isUnlock.current) {
+        socialLinkEl.current.style.cursor = 'pointer';
       } else {
-        if (isUnlock.current) {
-          socialLinkEl.current.style.cursor = 'pointer';
-        } else {
-          socialLinkEl.current.style.cursor = 'grab';
-        }
+        socialLinkEl.current.style.cursor = 'grab';
       }
-    },
-    [isUnlock.current]
-  );
+    }
+  }, []);
 
   const toggleUnlock = useCallback(() => {
     if (!socialLinkEl.current) return;
@@ -49,7 +46,7 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
     } else {
       socialLinkEl.current.classList.remove('unlock');
     }
-  }, [isUnlock.current]);
+  }, []);
 
   useEffect(() => {
     if (!socialLinkEl.current || !socialLinkWrapperEl.current) return;
@@ -156,7 +153,7 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
       xTo.tween.kill();
       scaleXTo.tween.kill();
     };
-  }, [xVal, changeCursor, toggleUnlock, isTouch]);
+  }, [xVal, index, link, changeCursor, toggleUnlock, handleMouseUp, isTouch]);
 
   return (
     <div ref={socialLinkWrapperEl} className="social-link-container overflow-hidden px-1 pt-6">
@@ -189,6 +186,8 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
   );
 });
 
+SocialLink.displayName = 'SocialLink';
+
 export default function ContactSocialsDrag() {
   const slLen = SOCIAL_LINKS.length;
   const { vw } = useWindowResize();
@@ -196,26 +195,29 @@ export default function ContactSocialsDrag() {
   const container = useRef<HTMLDivElement | null>(null);
   const isInit = useRef(false);
 
-  const handleMouseUp = useCallback((index: number, xVal: number) => {
-    // calculate x values
-    // console.log(index, xVal);
+  const handleMouseUp = useCallback(
+    (index: number, xVal: number) => {
+      // calculate x values
+      // console.log(index, xVal);
 
-    const sl = document.querySelector('.social-link') as HTMLAnchorElement;
-    if (!sl || !container.current) return;
+      const sl = document.querySelector('.social-link') as HTMLAnchorElement;
+      if (!sl || !container.current) return;
 
-    const maxX = container.current.clientWidth - sl.clientWidth - 8;
-    const diff = container.current.clientWidth * 0.05;
+      const maxX = container.current.clientWidth - sl.clientWidth - 8;
+      const diff = container.current.clientWidth * 0.05;
 
-    setXVals((prev) => {
-      const arr = [...prev];
+      setXVals((prev) => {
+        const arr = [...prev];
 
-      for (let i = 0; i < slLen; i++) {
-        arr[i] = gsap.utils.clamp(0, maxX, xVal - diff * Math.abs(i - index));
-      }
+        for (let i = 0; i < slLen; i++) {
+          arr[i] = gsap.utils.clamp(0, maxX, xVal - diff * Math.abs(i - index));
+        }
 
-      return arr;
-    });
-  }, []);
+        return arr;
+      });
+    },
+    [slLen]
+  );
 
   const resetXVals = useCallback(() => {
     if (!container.current) return;
@@ -226,14 +228,14 @@ export default function ContactSocialsDrag() {
       arr.push(w * 0.05 * (slLen - i - 1));
     }
     setXVals(arr);
-  }, []);
+  }, [slLen]);
 
   useEffect(() => {
     // update x value accrding to the index
     if (vw === 0 || !isInit.current) return;
 
     resetXVals();
-  }, [vw, resetXVals, isInit.current]);
+  }, [vw, resetXVals]);
 
   useGSAP(
     () => {

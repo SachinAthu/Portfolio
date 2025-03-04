@@ -27,7 +27,7 @@ function SuccessDialog() {
         dotLottie.destroy();
       }
     };
-  }, []);
+  }, [dotLottie]);
 
   const dotLottieRefCallback = (dotLottie: DotLottie) => {
     setDotLottie(dotLottie);

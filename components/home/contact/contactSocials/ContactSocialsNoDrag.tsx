@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-import { gsap, ScrollTrigger } from '@/lib/gsap-config';
+import { gsap } from '@/lib/gsap-config';
 import { SOCIAL_LINKS } from '@/lib/data';
 
 type SocialLinkProps = {
@@ -68,7 +68,7 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
       mm.kill();
       flairTween.current?.kill();
     };
-  }, []);
+  }, [index, link]);
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();

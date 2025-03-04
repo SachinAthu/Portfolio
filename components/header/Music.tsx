@@ -335,7 +335,7 @@ const MusicControlMultiple = () => {
       workerRef.current?.terminate();
       audioContext.current?.close();
     };
-  }, []);
+  }, [loadTrack]);
 
   useEffect(() => {
     if (!canPageVisibleStop.current) return;
@@ -378,6 +378,7 @@ const Music = memo(() => {
     </div>
   );
 });
+Music.displayName = 'Music';
 
 export default function MusicWrapper() {
   const isMobile = useMobileViewport();

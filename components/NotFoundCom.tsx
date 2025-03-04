@@ -13,7 +13,7 @@ export default function NotFoundCom() {
         dotLottie.destroy();
       }
     };
-  }, []);
+  }, [dotLottie]);
 
   const dotLottieRefCallback = (dotLottie: DotLottie) => {
     setDotLottie(dotLottie);

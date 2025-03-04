@@ -14,7 +14,7 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
         dotLottie.destroy();
       }
     };
-  }, []);
+  }, [dotLottie]);
 
   const dotLottieRefCallback = (dotLottie: DotLottie) => {
     setDotLottie(dotLottie);

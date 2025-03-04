@@ -136,5 +136,6 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(({ children, id, ar
     </dialog>
   );
 });
+Dialog.displayName = 'Dialog';
 
 export default memo(Dialog);
