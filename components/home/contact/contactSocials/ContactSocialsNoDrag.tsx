@@ -53,7 +53,7 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
         gsap.to(socialLinkEl.current, {
           scale: 1,
           duration: 1,
-          ease: 'power2.out',
+          ease: 'power1.in',
           scrollTrigger: {
             trigger: socialLinkWrapperEl.current,
             start: `top ${120 - n * 15}%`,

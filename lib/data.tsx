@@ -163,16 +163,30 @@ export const TECH_STACK: TechStackType[] = [
 
 export const WORKS: WorkType[] = [
   {
-    key: '1',
-    title: 'Voxitec',
-    slug: 'voxitec',
-    titleImage: assets.WORK_VOXITEC,
+    key: 'work1',
+    title: 'Sample Work 1 ',
+    slug: 'sample-work-1',
+    titleImage: assets.WORK_PORTFOLIO,
     readme: '',
   },
   {
-    key: '2',
-    title: 'Portfolio',
-    slug: 'portfolio',
+    key: 'work2',
+    title: 'Sample Work 2',
+    slug: 'sample-work-2',
+    titleImage: assets.WORK_PORTFOLIO,
+    readme: '',
+  },
+  {
+    key: 'work3',
+    title: 'Sample Work 3',
+    slug: 'sample-work-3',
+    titleImage: assets.WORK_PORTFOLIO,
+    readme: '',
+  },
+  {
+    key: 'work4',
+    title: 'Sample Work 4',
+    slug: 'sample-work-4',
     titleImage: assets.WORK_PORTFOLIO,
     readme: '',
   },

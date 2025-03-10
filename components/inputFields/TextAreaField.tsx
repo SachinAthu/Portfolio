@@ -118,7 +118,7 @@ const TextAreaField = React.forwardRef<{ clearField: () => void }, TextAreaProps
 
         <div
           className={cn(
-            'mt-3 rounded-lg py-1 pr-1 duration-300',
+            'mt-3 rounded-lg py-1 pr-1 transition-colors duration-300',
             errors
               ? 'border border-primary focus:border-primary dark:border-primary dark:focus:border-primary'
               : 'border border-gray-300 focus-within:border-text dark:border-gray-600 dark:focus-within:border-d-text'
@@ -132,7 +132,7 @@ const TextAreaField = React.forwardRef<{ clearField: () => void }, TextAreaProps
             aria-labelledby={`${id}-label`}
             aria-describedby={errors && `${id}-error`}
             className={cn(
-              'scrollbar-thin h-auto max-h-[50rem] min-h-[12lh] w-full overflow-y-auto border-none bg-transparent py-4 pl-6 pr-5 text-base outline-none transition-colors'
+              'scrollbar-thin h-auto max-h-[50rem] min-h-[12lh] w-full overflow-y-auto border-none bg-transparent py-4 pl-6 pr-5 text-base outline-none'
             )}
             onInput={(e) => onChange(e.currentTarget.innerText)}
             onPaste={handlePaste}
