@@ -13,71 +13,66 @@ export default function PageLoader() {
   const loaderWrapper = useRef<HTMLDivElement>(null);
   const { vw } = useWindowResize();
   const pathname = usePathname();
-  const { isNavOpen, isPageLoading, setIsNavShow, setIsPageLoading } = useLayoutContext();
+  const { isNavOpen, isPageLoading, setIsNavShow, setIsPageLoading, setIsNavOpen } = useLayoutContext();
 
-  const openLoaderTween = useRef<gsap.core.Timeline>();
-  const closeLoaderTween = useRef<gsap.core.Timeline>();
+  const openLoaderTween = useRef<gsap.core.Timeline | null>(null);
+  const closeLoaderTween = useRef<gsap.core.Timeline | null>(null);
 
-  const createGrid = useCallback(
-    (grid: { cols: number; rows: number }) => {
-      if (loader.current) {
-        loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
-        loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
+  const createGrid = useCallback(() => {
+    if (!loader.current) return;
 
-        for (let i = 0; i < grid.cols * grid.rows; i++) {
-          const d = document.createElement('div');
-          d.className = 'box';
-          d.style.opacity = isNavOpen ? '1' : '0';
-          loader.current?.appendChild(d);
-        }
-      }
-    },
-    [isNavOpen]
-  );
+    const grid = getAnimGridSize(window.innerWidth);
+
+    loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
+    loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
+
+    for (let i = 0; i < grid.cols * grid.rows; i++) {
+      const b = document.createElement('div');
+      b.className = 'box';
+      b.style.opacity = isNavOpen ? '1' : '0';
+      loader.current?.appendChild(b);
+    }
+  }, [isNavOpen]);
 
   useEffect(() => {
-    const grid = getAnimGridSize(vw);
-
     // create grid
-    createGrid(grid);
+    createGrid();
 
     // setup tweens
     openLoaderTween.current = gsap
       .timeline({
         paused: true,
       })
-      .set('.page-loader', { pointerEvents: 'auto' })
+      .set(loaderWrapper.current, { pointerEvents: 'auto' })
       .to('.page-loader-inner .box', {
         opacity: 1,
-        scale: 1,
-        duration: 0.5,
+        scale: 1.01,
         ease: 'power2.out',
         stagger: {
           amount: 1,
-          grid: [grid.rows, grid.cols],
+          grid: 'auto',
           from: 'start',
         },
       })
-      .to('.page-loader-inner', { gap: 0, duration: 0.2, delay: 0.2, ease: 'power2.out' });
+      .to(loader.current, { gap: 0, duration: 0.2, delay: 0.2, ease: 'power2.out' });
 
     closeLoaderTween.current = gsap
       .timeline({
         paused: true,
       })
-      .to('.page-loader-inner', { gap: vw < 768 ? 12 : 16, duration: 0.2, ease: 'power2.out' })
+      .to(loader.current, { gap: vw < 768 ? 12 : 16, duration: 0.2, ease: 'power2.out' })
       .to('.page-loader-inner .box', {
         opacity: 0,
         scale: 0.8,
-        duration: 0.5,
         delay: 0.2,
         ease: 'power2.out',
         stagger: {
           amount: 1,
-          grid: [grid.rows, grid.cols],
+          grid: 'auto',
           from: 'end',
         },
       })
-      .set('.page-loader', { pointerEvents: 'none' });
+      .set(loaderWrapper.current, { pointerEvents: 'none' });
 
     const loaderRef = loader.current;
 
@@ -87,12 +82,22 @@ export default function PageLoader() {
       }
       openLoaderTween.current?.kill();
       closeLoaderTween.current?.kill();
+      openLoaderTween.current = null;
+      closeLoaderTween.current = null;
     };
-  }, [vw, createGrid]);
+  }, [vw]);
+
+  useEffect(() => {
+    if (vw >= 1536) {
+      // close nav menu
+      setIsNavOpen(false);
+    }
+  }, [vw, setIsNavOpen]);
 
   // nav menu toggle
   useEffect(() => {
     loaderWrapper.current?.classList.remove('z-[70]');
+    console.log(isNavOpen);
 
     if (isNavOpen) {
       openLoaderTween.current?.invalidate().restart();

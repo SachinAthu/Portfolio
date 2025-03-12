@@ -33,7 +33,7 @@ export default function About() {
             <FadeIn id="aboutResumeBtn" delay={0.5}>
               <CustomLink
                 id="resumeDownloadLink"
-                content="My Resume"
+                content="My resume"
                 href="/static/sample_resume.pdf"
                 rel="noopener noreferrer"
                 download

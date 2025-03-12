@@ -113,7 +113,7 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
     // mouse up / touch end
     const onMouseUp = (e: MouseEvent | TouchEvent) => {
       if (!isDragging || (isTouch && e instanceof MouseEvent)) return;
-      // console.log('mouse up');
+      console.log('mouse up');
 
       isDragging = false;
       handleMouseUp(index, translateX);
@@ -165,6 +165,7 @@ const SocialLink = memo(({ index, id, title, link, xVal, handleMouseUp }: Social
         rel="noopener noreferrer"
         draggable={false}
         onClick={(e) => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
         className="social-link | relative grid h-20 w-36 cursor-grab touch-pan-x select-none place-items-center overflow-hidden rounded-full border border-gray-300 px-1 text-base will-change-transform dark:border-gray-600 sm:w-44 sm:text-lg lg:h-28 lg:w-56 lg:text-2xl">
         <div className="social-link-inner | relative origin-[50%_0]">
           <div className="social-link-inner-1 whitespace-nowrap">{title}</div>

@@ -57,12 +57,6 @@ export default function NavMenu() {
     }
   }, [isNavShow]);
 
-  useEffect(() => {
-    if (vw >= 1536 && isNavShow) {
-      setIsNavOpen(false);
-    }
-  }, [vw, isNavShow, setIsNavOpen]);
-
   function navigate(id: string) {
     setIsNavOpen(false);
     scrollRef.current?.scrollTo(`#${id}`);

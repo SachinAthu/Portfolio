@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from '@/lib/gsap-config';
+import SplitType from 'split-type';
 
 import { WORKS } from '@/lib/data';
 import { PageLink, RevealText, Section, ToolTip } from '..';
@@ -11,19 +12,27 @@ import { WorkType } from '@/lib/types';
 const BG_COLORS = ['#FC7A1E', '#008080', '#FF934F', '#79745C', '#F7B32B', '#519872'];
 
 function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor: string }) {
-  const workEl = useRef<HTMLDivElement>(null);
-  const workWrapperEl = useRef<HTMLDivElement>(null);
+  const workEl = useRef<HTMLDivElement | null>(null);
+  const workWrapperEl = useRef<HTMLDivElement | null>(null);
+  const titleEl = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!workEl.current || !workWrapperEl.current || !titleEl.current) return;
+
     const isEven = index % 2 === 0;
-    const mm = gsap.matchMedia();
+
+    SplitType.create(titleEl.current, { types: 'chars' });
 
     gsap.set(workEl.current, {
       x: isEven ? '-20vw' : '20vw',
       rotateZ: isEven ? -5 : 5,
       opacity: 0.5,
-      transformStyle: 'preserve-3d',
+      scale: 0.75,
     });
+    const titleChars = titleEl.current.querySelectorAll('.char');
+    gsap.set(titleChars, { color: '#9E9E9E' });
+
+    const mm = gsap.matchMedia();
 
     mm.add(
       {
@@ -32,22 +41,38 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
       },
       (context) => {
         let { isMobile } = context.conditions!;
-        let end = isMobile ? 'top 50%' : 'top 20%';
 
-        gsap.to(workEl.current, {
-          x: '0vw',
-          rotateZ: 0,
-          opacity: 1,
-          transformStyle: 'preserve-3d',
-          duration: 1,
-          ease: 'power1.in',
-          scrollTrigger: {
-            trigger: workWrapperEl.current,
-            start: 'top 110%',
-            end,
-            scrub: true,
-          },
-        });
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: workWrapperEl.current,
+              start: 'top 110%',
+              end: isMobile ? 'top 40%' : 'top 20%',
+              scrub: true,
+              once: isMobile,
+            },
+          })
+          .to(workEl.current, {
+            x: '0vw',
+            rotateZ: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: 'none',
+          })
+          .to(
+            titleChars,
+            {
+              color: '#F5F5F5',
+              duration: 0.5,
+              ease: 'none',
+              stagger: {
+                each: 0.1,
+                from: 0,
+              },
+            },
+            '<'
+          );
       }
     );
 
@@ -57,11 +82,11 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
   }, [index]);
 
   return (
-    <div ref={workWrapperEl} className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+    <div ref={workWrapperEl} className={`work-wrapper flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
       <div
         ref={workEl}
         style={{ backgroundColor: bgColor }}
-        className="tranform-sty mb-20 rounded-3xl sm:mb-28 lg:mb-40 lg:w-[75%]">
+        className="work mb-20 rounded-3xl sm:mb-28 lg:mb-40 lg:w-[75%]">
         <ToolTip toolTip="Case Study" className="p-8 text-2xl">
           <PageLink href={`/works/${work.slug}`}>
             <div className="px-6 pb-6 pt-10 sm:px-10 sm:pb-12 sm:pt-16 lg:px-14 lg:pb-16 lg:pt-24">
@@ -70,7 +95,9 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
                   <div className="flex gap-4">
                     <div className="font-normal text-d-subtext">{(index + 1).toString().padStart(2, '0')}.</div>
 
-                    <div className="font-medium">{work.title}</div>
+                    <div ref={titleEl} className="work-title font-medium">
+                      {work.title}
+                    </div>
                   </div>
                 </h3>
               </div>
@@ -93,15 +120,10 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
 }
 
 export default function Works() {
-  // const [bgColors, setBgColors] = useState(BG_COLORS);
   const bgColors = gsap.utils.shuffle(BG_COLORS);
 
-  // useEffect(() => {
-  //   setBgColors(gsap.utils.shuffle(BG_COLORS));
-  // }, []);
-
   return (
-    <Section id="works" borderBottom={false} className="works">
+    <Section id="works" borderBottom={false} className="my-works">
       <div className="overflow-hidden">
         <div className="container">
           <RevealText id="worksHeading">

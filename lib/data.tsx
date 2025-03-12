@@ -164,7 +164,7 @@ export const TECH_STACK: TechStackType[] = [
 export const WORKS: WorkType[] = [
   {
     key: 'work1',
-    title: 'Sample Work 1 ',
+    title: 'Sample Work 1',
     slug: 'sample-work-1',
     titleImage: assets.WORK_PORTFOLIO,
     readme: '',

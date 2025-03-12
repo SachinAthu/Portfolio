@@ -16,6 +16,7 @@ function Welcome() {
 
       setTimeout(() => {
         setIsPageLoading(false);
+        document.body.classList.remove('overflow-hidden');
 
         // set initial music begin
         if (sound && !isMobile) {
@@ -33,18 +34,18 @@ function Welcome() {
 
   return (
     <div className="fixed inset-0 z-[60] flex h-lvh w-screen flex-col items-center justify-center bg-background dark:bg-d-background">
-      <RevealText id="welcome-p-1">
+      <RevealText id="welcome-p-1" duration={1.2}>
         <p className="text-center text-[clamp(6rem,12vw,13rem)] font-medium">Hey,</p>
       </RevealText>
 
       <div className="mb-20">
-        <RevealText id="welcome-p-2" delay={0.3} multiple>
+        <RevealText id="welcome-p-2" duration={1.6} delay={1.2} multiple>
           <p className="text-center text-2xl sm:text-5xl">Welcome to my portfolio</p>
         </RevealText>
       </div>
 
       <div className="mb-8">
-        <FadeIn id="welcome-btn-1" delay={1}>
+        <FadeIn id="welcome-btn-1" delay={2.8}>
           <Button
             id="welcomeEnterBtn"
             className="rounded-full px-16 py-8 text-2xl md:px-28 md:py-12"
@@ -55,7 +56,7 @@ function Welcome() {
       </div>
 
       <div className="hidden md:block">
-        <FadeIn id="welcome-btn-2" delay={1.2}>
+        <FadeIn id="welcome-btn-2" delay={3}>
           <UnderlineButton className="text-xl" onClick={() => clickHandler(false)}>
             Enter without sound
           </UnderlineButton>

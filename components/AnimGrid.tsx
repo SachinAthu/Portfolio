@@ -13,9 +13,9 @@ export default function AnimGrid() {
   const isPageVisible = usePageVisible();
   const { activeSection } = useLayoutContext();
 
-  const gridAnim = useRef<gsap.core.Timeline>();
-  const increseOpa = useRef<gsap.core.Tween>();
-  const decreseOpa = useRef<gsap.core.Tween>();
+  const gridAnim = useRef<gsap.core.Timeline | null>(null);
+  const increseOpa = useRef<gsap.core.Tween | null>(null);
+  const decreseOpa = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     increseOpa.current = gsap.to('.animgrid-inner', {
@@ -52,14 +52,12 @@ export default function AnimGrid() {
     }
 
     // comment only for development
-
     // animate animgrid
     // gridAnim.current = gsap
     //   .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
     //   .to('.animgrid-inner .box', {
     //     opacity: 0.5,
-    //     scale: 1.02,
-    //     duration: 0.8,
+    //     scale: 0.9,
     //     ease: 'power2.out',
     //     stagger: {
     //       amount: 2,
@@ -72,7 +70,6 @@ export default function AnimGrid() {
     //     {
     //       opacity: 0.1,
     //       scale: 1,
-    //       duration: 0.8,
     //       ease: 'power2.out',
     //       stagger: {
     //         amount: 2,
@@ -90,6 +87,7 @@ export default function AnimGrid() {
         animGridRef.innerHTML = '';
       }
       gridAnim.current?.kill();
+      gridAnim.current = null;
     };
   }, [vw]);
 

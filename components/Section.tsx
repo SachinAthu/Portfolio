@@ -37,7 +37,7 @@ export default function Section({
       if (borderBottom) {
         gsap.to(borderInner.current, {
           scaleX: 1,
-          ease: 'power2.out',
+          ease: '',
           duration: 2,
           scrollTrigger: {
             trigger: border.current,

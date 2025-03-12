@@ -26,7 +26,7 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
     flairTween.current = gsap.to(flairEl.current, {
       scaleX: 1,
       duration: 1,
-      ease: 'power1.out',
+      ease: 'power2.out',
       paused: true,
       onComplete: () => {
         setTimeout(() => {
@@ -53,7 +53,7 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
         gsap.to(socialLinkEl.current, {
           scale: 1,
           duration: 1,
-          ease: 'power1.in',
+          ease: 'none',
           scrollTrigger: {
             trigger: socialLinkWrapperEl.current,
             start: `top ${120 - n * 15}%`,

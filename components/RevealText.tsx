@@ -27,7 +27,7 @@ export default function RevealText({
 
   useGSAP(
     () => {
-      SplitType.create(`#${id} > ${child.type}`, { types: multiple ? 'words' : 'chars' });
+      SplitType.create(`#${id} > ${child.type}`, { types: 'words,chars' });
       const el = multiple ? `#${id} .word` : `#${id} .char`;
 
       gsap.set(trigger.current, { opacity: 1, visibility: 'visible' });
@@ -58,7 +58,7 @@ export default function RevealText({
 
   return (
     <div ref={container}>
-      <div ref={trigger} id={id} className="reveal-text invisible opacity-0">
+      <div ref={trigger} id={id} className={`reveal-text invisible opacity-0 ${multiple ? 'multiple' : ''}`}>
         {children}
       </div>
     </div>

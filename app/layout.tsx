@@ -94,7 +94,7 @@ export const metadata: Metadata = {
 const Header = dynamic(() => import('@/components/header/Header'), {
   loading: () => (
     <div className="fixed left-0 right-0 top-0 z-50 flex h-[var(--header-height)] w-full items-center">
-      <div className="container-wide hidden h-[var(--header-content-height)] w-full items-center justify-between rounded-full px-[3%] sm:flex sm:rounded-none 2xl:px-0">
+      <div className="container-wide hidden h-[var(--header-content-height)] w-full items-center justify-between rounded-full px-[2%] sm:flex sm:rounded-none sm:px-[3%] 2xl:px-0">
         <div className="flex h-full items-center justify-center rounded-full px-8 backdrop-blur-lg">
           <div className="skeleton h-7 w-[9.125rem]"></div>
         </div>
@@ -113,7 +113,7 @@ const Header = dynamic(() => import('@/components/header/Header'), {
               <div className="skeleton h-7 w-[5.8125rem]"></div>
             </div>
 
-            <div className="header-inner-2 | flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
+            <div className="header-inner-2 | flex h-full items-center gap-4 rounded-full px-4 backdrop-blur-lg">
               <div className="skeleton h-9 w-[4.5rem]"></div>
               <div className="skeleton h-9 w-[2.125rem]"></div>
             </div>
@@ -136,7 +136,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={montserrat.variable}>
+      {/* for development remove overflow-hidden */}
+      <body className={`overflow-hidden ${montserrat.variable}`}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
             <EventsProvider>
@@ -152,6 +153,7 @@ export default function RootLayout({
 
               <PageLoader />
 
+              {/* for development comment out */}
               {/* <Welcome /> */}
 
               <ToasterCom />
@@ -159,6 +161,7 @@ export default function RootLayout({
           </LayoutProvider>
         </ThemeProvider>
 
+        {/* for development comment out */}
         {/* Tell the browser to never restore the scroll position on load. Always scroll position is on top on page load. */}
         {/* <Script
         id="scroll-top-script"
