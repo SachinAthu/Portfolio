@@ -16,9 +16,22 @@ export type TechStackType = {
 export type WorkType = {
   key: string;
   title: string;
+  description: string;
   slug: string;
-  titleImage: StaticImageData;
+  titleImage: {
+    url: string;
+    image: StaticImageData;
+  };
+  ogImage: string;
   readme: string;
+  author: string[];
+  date: {
+    dateCreated: string;
+    datePublished: string;
+    dateModified: string;
+  };
+  previewLink?: string;
+  demoLink?: string;
 };
 
 export type MusicTrack = {

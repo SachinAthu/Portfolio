@@ -380,8 +380,7 @@
   }
 }
 
-.custom-icon-button:hover,
-.custom-icon-button:focus {
+.custom-icon-button:hover {
   @apply text-d-text dark:text-text;
 
   &::after {
@@ -398,8 +397,7 @@
   }
 }
 
-.custom-icon-button.down:hover,
-.custom-icon-button.down:focus {
+.custom-icon-button.down:hover {
   .inner-2 {
     transform: translate(-50%, 150%);
   }
@@ -478,8 +476,7 @@
     }
   }
 
-  &:hover::after,
-  &:focus::after {
+  &:hover::after {
     transform: scaleX(1);
   }
 }

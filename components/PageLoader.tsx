@@ -1,8 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/gsap-config';
-import { usePathname } from 'next/navigation';
+import { gsap } from '@/lib/gsap-config';
 
 import { useWindowResize } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
@@ -12,8 +11,7 @@ export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
   const { vw } = useWindowResize();
-  const pathname = usePathname();
-  const { isNavOpen, isPageLoading, setIsNavShow, setIsPageLoading, setIsNavOpen } = useLayoutContext();
+  const { isNavOpen, isPageLoading, setIsNavShow, setIsNavOpen } = useLayoutContext();
 
   const openLoaderTween = useRef<gsap.core.Timeline | null>(null);
   const closeLoaderTween = useRef<gsap.core.Timeline | null>(null);
@@ -30,6 +28,10 @@ export default function PageLoader() {
       const b = document.createElement('div');
       b.className = 'box';
       b.style.opacity = isNavOpen ? '1' : '0';
+      b.style.scale = 'none';
+      b.style.transform = isNavOpen ? 'translate3d(0px, 0px, 0px)' : 'translate3d(0px, 0px, 0px) scale(0.8, 0.8)';
+      b.style.rotate = 'none';
+      b.style.translate = 'none';
       loader.current?.appendChild(b);
     }
   }, [isNavOpen]);
@@ -46,7 +48,7 @@ export default function PageLoader() {
       .set(loaderWrapper.current, { pointerEvents: 'auto' })
       .to('.page-loader-inner .box', {
         opacity: 1,
-        scale: 1.01,
+        scale: 1.02,
         ease: 'power2.out',
         stagger: {
           amount: 1,
@@ -97,7 +99,6 @@ export default function PageLoader() {
   // nav menu toggle
   useEffect(() => {
     loaderWrapper.current?.classList.remove('z-[70]');
-    console.log(isNavOpen);
 
     if (isNavOpen) {
       openLoaderTween.current?.invalidate().restart();
@@ -124,14 +125,6 @@ export default function PageLoader() {
       }, 1900);
     }
   }, [isPageLoading]);
-
-  useEffect(() => {
-    setIsPageLoading(false);
-
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 5000);
-  }, [pathname, setIsPageLoading]);
 
   return (
     <>

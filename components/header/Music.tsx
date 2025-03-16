@@ -155,7 +155,8 @@ function TogglePlayBtn({ onClick }: { onClick: () => void }) {
       )}
       onClick={onClick}
       data-play={isPlay}
-      disabled={isDisable}>
+      disabled={isDisable}
+      aria-label="Toggle background music">
       <RiMusicFill />
     </button>
   );
@@ -353,7 +354,7 @@ const MusicControlMultiple = () => {
         type="button"
         id="loadMusicBtn"
         tabIndex={-1}
-        className="sr-only"
+        className="invisible"
         onClick={() => loadTrack('/static/music/output.mp3')}></button>
 
       <TogglePlayBtn onClick={handleClick} />

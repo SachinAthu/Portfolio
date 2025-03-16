@@ -1,6 +1,6 @@
 import { CustomLink, Section } from '..';
 
-import { SiGithub, SiLinkedin } from 'react-icons/si';
+import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
 
 export default function Hero() {
   return (
@@ -25,7 +25,8 @@ export default function Hero() {
               href="https://github.com/SachinAthu"
               target="_blank"
               className="p-3"
-              icon>
+              icon
+              aria-label="Github account">
               <SiGithub />
             </CustomLink>
             <CustomLink
@@ -33,39 +34,43 @@ export default function Hero() {
               href="https://www.linkedin.com/in/sachinathu/"
               target="_blank"
               className="p-3"
-              icon>
+              icon
+              aria-label="LinkedIn account">
               <SiLinkedin />
             </CustomLink>
-            {/* <CustomLink
-              id="heroSocialHRLink"
-              href="https://www.hackerrank.com/profile/sachin2262716"
-              target="_blank"
-              className="p-3"
-              icon>
-              <SiHackerrank />
-            </CustomLink> */}
-            {/* <CustomLink
-              id="heroSocialLeetcodeLink"
-              href="https://leetcode.com/sachin2262716"
-              target="_blank"
-              className="p-3"
-              icon>
-              <SiLeetcode />
-            </CustomLink> */}
-            {/* <CustomLink
+            <CustomLink
               id="heroSocialCodepenLink"
               href="https://codepen.io/sachinathu"
               target="_blank"
               className="p-3"
-              icon>
+              icon
+              aria-label="Codepen account">
               <SiCodepen />
             </CustomLink>
             <CustomLink
+              id="heroSocialHRLink"
+              href="https://www.hackerrank.com/profile/sachin2262716"
+              target="_blank"
+              className="p-3"
+              icon
+              aria-label="Hackerrank account">
+              <SiHackerrank />
+            </CustomLink>
+            <CustomLink
+              id="heroSocialLeetcodeLink"
+              href="https://leetcode.com/sachin2262716"
+              target="_blank"
+              className="p-3"
+              icon
+              aria-label="Leetcode account">
+              <SiLeetcode />
+            </CustomLink>
+            {/* <CustomLink
               id="heroSocialCodeSBLink"
               href="https://codesandbox.io/u/sachinAthu"
               target="_blank"
               className="p-3"
-              icon>
+              icon aria-label='Codesandbox account'>
               <SiCodesandbox />
             </CustomLink> */}
           </div>

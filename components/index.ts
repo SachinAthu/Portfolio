@@ -29,3 +29,6 @@ export { default as TechStack } from './home/TechStack';
 export { default as Works } from './home/Works';
 export { default as Contact } from './home/contact/Contact';
 export { default as Experience } from './home/Experience';
+
+// single work page
+export { default as SingleWorkTop } from './singleWork/SingleWorkTop';

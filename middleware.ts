@@ -11,8 +11,8 @@ export function middleware(request: NextRequest) {
   const isMobile = device.type === 'mobile' || device.type === 'tablet';
 
   const requestHeaders = new Headers(request.headers);
-  const res = NextResponse.next({ request: { headers: requestHeaders } });
-  setCookie(COOKIE_KEYS.IS_MOBILE, isMobile.toString(), { res, req: request, maxAge: 3600 });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  setCookie(COOKIE_KEYS.IS_MOBILE, isMobile.toString(), { res: response, req: request, maxAge: 3600 });
 
-  return res;
+  return response;
 }

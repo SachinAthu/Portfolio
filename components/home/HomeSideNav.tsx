@@ -19,6 +19,8 @@ function SideNav() {
   useGSAP(
     () => {
       // hide side menu in hero section
+      if (!activeSection) return;
+
       if (activeSection.id === 'hero') {
         gsap.to(sideNav.current, {
           x: -100,
@@ -65,8 +67,9 @@ function SideNav() {
               onClick={() => scrollRef.current?.scrollTo(`#${l.id}`)}
               className={cn(
                 'flex h-[var(--side-nav-btn-height)] w-[54px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7',
-                activeSection.id === l.id ? 'text-white' : 'text-current'
-              )}>
+                activeSection && activeSection.id === l.id ? 'text-white' : 'text-current'
+              )}
+              aria-label={`Scroll to section ${l.title}`}>
               {l.icon}
             </button>
           </ToolTip>

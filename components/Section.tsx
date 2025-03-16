@@ -70,10 +70,9 @@ export default function Section({
   );
 
   return (
-    <div ref={container}>
+    <section ref={container} id={id}>
       <div
         ref={trigger}
-        id={id}
         className={cn(
           'relative',
           className || '',
@@ -91,6 +90,6 @@ export default function Section({
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }

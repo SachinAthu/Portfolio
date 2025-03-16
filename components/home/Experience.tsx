@@ -14,10 +14,10 @@ export default function Experience() {
         </RevealText>
 
         <div className="mt-28 sm:mt-40">
-          <ul className="mt-24 sm:mt-32">
+          <div className="mt-24 sm:mt-32">
             {WORK_EXPERIENCE.map((ex, i) => (
               <FadeIn key={ex.key} id={`experience-${ex.key}`}>
-                <li
+                <div
                   className={cn(
                     'pb-10 sm:pb-12',
                     i === WORK_EXPERIENCE.length - 1
@@ -53,10 +53,10 @@ export default function Experience() {
                       </div>
                     </div>
                   </div>
-                </li>
+                </div>
               </FadeIn>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </Section>

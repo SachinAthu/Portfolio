@@ -1,12 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 
 import '@/styles/main.scss';
 import { Footer, PageLoader, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { EventsProvider } from '@/context/EventsContext';
+import { ROOTURL } from '@/lib/data';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -14,11 +16,14 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
+export const viewport: Viewport = {
+  themeColor: '#E91E63',
+};
+
 const title = 'Sachin Athukorala | Full-stack Developer';
-const description = 'The portfolio of Sachin Athukorala, Fullstack Developer.';
-const websiteURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
+const description = 'The portfolio of Sachin Athukorala, Full-stack Developer.';
 export const metadata: Metadata = {
-  metadataBase: new URL(websiteURL),
+  metadataBase: new URL(ROOTURL),
   title,
   description,
   icons: {
@@ -32,7 +37,7 @@ export const metadata: Metadata = {
     apple: [
       {
         rel: 'apple-touch-icon',
-        url: '/apple-touch-icon.png',
+        url: '/apple-icon-180x180.png',
         sizes: '180x180',
         type: 'image/png',
       },
@@ -49,6 +54,11 @@ export const metadata: Metadata = {
         type: 'image/png',
       },
       {
+        url: '/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
         rel: 'mask-icon',
         url: '/safari-pinned-tab.svg',
         sizes: '625x625',
@@ -57,19 +67,19 @@ export const metadata: Metadata = {
       },
     ],
   },
-  alternates: { canonical: websiteURL },
+  alternates: { canonical: ROOTURL },
   openGraph: {
     title,
     description,
-    url: websiteURL,
+    url: ROOTURL,
     images: [
       {
-        url: `${websiteURL}/static/og_image.png`,
-        secureUrl: `${websiteURL}/static/og_image.png`,
+        url: `${ROOTURL}/static/og_image.jpg`,
+        secureUrl: `${ROOTURL}/static/og_image.jpg`,
         alt: 'Sachin Athukorala',
         width: 1200,
-        height: 627,
-        type: 'image/png',
+        height: 630,
+        type: 'image/jpg',
       },
     ],
     locale: 'en_US',
@@ -137,7 +147,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       {/* for development remove overflow-hidden */}
-      <body className={`overflow-hidden ${montserrat.variable}`}>
+      <body className={`${montserrat.variable}`}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
             <EventsProvider>

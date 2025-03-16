@@ -17,7 +17,7 @@ function ScrollNav() {
   useGSAP(
     () => {
       // hide side menu in hero section
-      if (activeSection.id === 'hero') {
+      if (activeSection && activeSection.id === 'hero') {
         gsap.to(scrollNav.current, {
           x: 100,
           opacity: 0,
@@ -33,7 +33,7 @@ function ScrollNav() {
           ease: 'power2.out',
           delay: 0.75,
           onComplete: () => {
-            if (activeSection.id === 'contact') {
+            if (activeSection && activeSection.id === 'contact') {
               gsap.to(downButton.current, {
                 x: 100,
                 opacity: 0,
@@ -58,6 +58,8 @@ function ScrollNav() {
   );
 
   function scroll(direction: 'up' | 'down') {
+    if (!activeSection) return;
+
     const index = parseInt(activeSection.key) - 1;
 
     if (direction === 'down') {
@@ -79,7 +81,7 @@ function ScrollNav() {
       className="fixed right-6 top-[var(--scroll-nav-top)] z-20 hidden h-[var(--scroll-nav-height)] translate-x-[100px] opacity-0 2xl:block">
       <div className="grid h-full grid-cols-1 grid-rows-[1fr_1.5fr_1fr] gap-1">
         <div className="flex items-center justify-center">
-          <IconButton onClick={() => scroll('up')}>
+          <IconButton onClick={() => scroll('up')} aria-label="Scroll section up">
             <IoArrowUp />
           </IconButton>
         </div>
@@ -89,7 +91,7 @@ function ScrollNav() {
         </div>
 
         <div className="flex items-center justify-center" ref={downButton}>
-          <IconButton onClick={() => scroll('down')} direction="down">
+          <IconButton onClick={() => scroll('down')} direction="down" aria-label="Scroll section down">
             <IoArrowDown />
           </IconButton>
         </div>

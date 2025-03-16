@@ -101,7 +101,7 @@ export default function AnimGrid() {
   // }, [isPageVisible]);
 
   useEffect(() => {
-    if (activeSection.id === 'hero') {
+    if (activeSection && activeSection.id === 'hero') {
       increseOpa.current?.invalidate().restart();
     } else {
       decreseOpa.current?.invalidate().restart();

@@ -23,6 +23,7 @@ export default function CustomLink({
   target = '_self',
   icon = false,
   download = false,
+  ...rest
 }: CustomLinkProps) {
   const linkEl = useRef<HTMLAnchorElement>(null);
 
@@ -48,7 +49,8 @@ export default function CustomLink({
           'custom-button | relative block w-fit overflow-hidden border border-text dark:border-d-text',
           icon ? 'rounded-full p-2 [&>svg]:h-6 [&>svg]:w-6' : 'rounded-xl px-4 py-2',
           className || ''
-        )}>
+        )}
+        {...rest}>
         {icon ? (
           children
         ) : (
@@ -72,7 +74,8 @@ export default function CustomLink({
         'custom-button | relative block w-fit overflow-hidden border border-text dark:border-d-text',
         icon ? 'rounded-full p-2 [&>svg]:h-6 [&>svg]:w-6' : 'rounded-xl px-4 py-2',
         className || ''
-      )}>
+      )}
+      {...rest}>
       {icon ? (
         children
       ) : (

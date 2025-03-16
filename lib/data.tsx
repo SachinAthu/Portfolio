@@ -4,6 +4,8 @@ import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react
 import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
 import assets from './assets';
 
+export const ROOTURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
+
 export const COOKIE_KEYS = {
   IS_MOBILE: 'is-mobile',
   IS_INIT_KNOCK: 'is-init-knock',
@@ -161,34 +163,50 @@ export const TECH_STACK: TechStackType[] = [
   { title: 'Railway', categories: ['other'] },
 ];
 
+const websiteURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
+
 export const WORKS: WorkType[] = [
   {
     key: 'work1',
     title: 'Sample Work 1',
+    description:
+      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
     slug: 'sample-work-1',
-    titleImage: assets.WORK_PORTFOLIO,
+    titleImage: {
+      url: `${websiteURL}/static/works/portfolio/portfolio.png`,
+      image: assets.WORK_PORTFOLIO,
+    },
+
+    ogImage: `${websiteURL}/static/works/portfolio/og_image.jpg`,
     readme: '',
+    author: ['Sachin Athukorala'],
+    date: {
+      dateCreated: '2025-03-15',
+      datePublished: '2025-03-15',
+      dateModified: '2025-03-15',
+    },
+    previewLink: 'https://portfolio-sachinathu.vercel.app/',
+    demoLink: 'https://portfolio-sachinathu.vercel.app/'
   },
   {
     key: 'work2',
     title: 'Sample Work 2',
+    description:
+      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
     slug: 'sample-work-2',
-    titleImage: assets.WORK_PORTFOLIO,
+    titleImage: {
+      url: `${websiteURL}/static/works/portfolio/portfolio.png`,
+      image: assets.WORK_PORTFOLIO,
+    },
+    ogImage: `${websiteURL}/static/works/portfolio/og_image.jpg`,
     readme: '',
-  },
-  {
-    key: 'work3',
-    title: 'Sample Work 3',
-    slug: 'sample-work-3',
-    titleImage: assets.WORK_PORTFOLIO,
-    readme: '',
-  },
-  {
-    key: 'work4',
-    title: 'Sample Work 4',
-    slug: 'sample-work-4',
-    titleImage: assets.WORK_PORTFOLIO,
-    readme: '',
+    author: ['Sachin Athukorala'],
+    date: {
+      dateCreated: '2025-03-15',
+      datePublished: '2025-03-15',
+      dateModified: '2025-03-15',
+    },
+    previewLink: 'https://portfolio-sachinathu.vercel.app/',
   },
 ];
 

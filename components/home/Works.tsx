@@ -30,7 +30,7 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
       scale: 0.75,
     });
     const titleChars = titleEl.current.querySelectorAll('.char');
-    gsap.set(titleChars, { color: '#9E9E9E' });
+    gsap.set(titleChars, { opacity: 0.5 });
 
     const mm = gsap.matchMedia();
 
@@ -63,7 +63,7 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
           .to(
             titleChars,
             {
-              color: '#F5F5F5',
+              opacity: 1,
               duration: 0.5,
               ease: 'none',
               stagger: {
@@ -93,7 +93,7 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
               <div className="mb-10 flex items-center gap-4 text-d-text sm:mb-16 md:mb-24">
                 <h3 className="text-3xl sm:text-5xl xl:text-7xl">
                   <div className="flex gap-4">
-                    <div className="font-normal text-d-subtext">{(index + 1).toString().padStart(2, '0')}.</div>
+                    <div className="font-normal opacity-75">{(index + 1).toString().padStart(2, '0')}.</div>
 
                     <div ref={titleEl} className="work-title font-medium">
                       {work.title}
@@ -104,7 +104,7 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
 
               <div className="relative h-auto overflow-hidden rounded-xl">
                 <Image
-                  src={work.titleImage}
+                  src={work.titleImage.image}
                   alt={work.title}
                   placeholder="blur"
                   className="object-cover"

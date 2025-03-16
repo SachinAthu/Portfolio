@@ -46,7 +46,7 @@ function HeaderDesktop() {
 
       const state = Flip.getState('.header-inner-1, .header-inner-2');
 
-      if (activeSection.id !== 'hero' || pathname !== '/') {
+      if ((activeSection && activeSection.id !== 'hero') || pathname !== '/') {
         header.current?.classList.add('scrolled');
         setIsScrolled(true);
       } else {

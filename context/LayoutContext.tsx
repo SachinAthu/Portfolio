@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { NAV_LINKS } from '@/lib/data';
 import { NavLinkType } from '@/lib/types';
@@ -13,20 +14,21 @@ export type LayoutContextType = {
   isScrolled: boolean;
   isPageLoading: boolean;
   scrollRef: React.MutableRefObject<LocomotiveScroll | undefined>;
-  activeSection: NavLinkType;
+  activeSection: NavLinkType | null;
 
   setIsWelcome: (isWelcome: boolean) => void;
   setIsNavOpen: (isNavOpen: boolean) => void;
   setIsNavShow: (isNavShow: boolean) => void;
   setIsScrolled: (isScrolled: boolean) => void;
   setIsPageLoading: (isPageLoading: boolean) => void;
-  setActiveSection: (activeSection: NavLinkType) => void;
+  setActiveSection: (activeSection: NavLinkType | null) => void;
 };
 
 const LayoutContext = createContext<LayoutContextType | null>(null);
 
 const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMobile();
+  const pathname = usePathname();
 
   const scrollRef = useRef<LocomotiveScroll>();
   const [isWelcome, setIsWelcome] = useState(true);
@@ -34,7 +36,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [isNavShow, setIsNavShow] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const [activeSection, setActiveSection] = useState(NAV_LINKS[0]);
+  const [activeSection, setActiveSection] = useState<NavLinkType | null>(NAV_LINKS[0]);
 
   useEffect(() => {
     const header = document.getElementById('app-header');
@@ -56,6 +58,22 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isNavOpen]);
 
   useEffect(() => {
+    setIsPageLoading(false);
+
+    if (pathname !== '/') {
+      setActiveSection(null);
+    }
+
+    setTimeout(() => {
+      // refresh Scrolltrigger
+      (async () => {
+        const { ScrollTrigger } = await import('@/lib/gsap-config');
+        ScrollTrigger.refresh();
+      })();
+    }, 5000);
+  }, [pathname]);
+
+  useEffect(() => {
     // setup locomotive scroll
     (async () => {
       const LocomotiveScroll = (await import('locomotive-scroll')).default;
@@ -69,6 +87,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       scrollRef.current?.destroy();
+      setActiveSection(null);
     };
   }, []);
 

@@ -55,6 +55,7 @@ export default function Footer() {
         <button
           type="button"
           ref={scrollBtn}
+          aria-label="Scroll to top"
           className="scroll-top-button | flex h-full w-full items-center justify-center overflow-hidden rounded-full"
           onClick={scrollToTop}>
           <span className="relative h-12 w-12 sm:h-14 sm:w-14 [&_svg]:h-12 [&_svg]:w-12 sm:[&_svg]:h-14 sm:[&_svg]:w-14">
