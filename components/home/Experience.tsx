@@ -4,7 +4,7 @@ import { cn } from '@/lib/common';
 
 export default function Experience() {
   return (
-    <Section id="experience" className="container-wide bg-background dark:bg-d-background">
+    <Section id="experience" className="experience" transparent={false}>
       <div className="container">
         <RevealText id="experienceHeading">
           <h2 className="heading-1">

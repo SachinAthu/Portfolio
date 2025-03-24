@@ -12,7 +12,7 @@ export default function UnderlineButton({
   return (
     <button
       type={type ? type : 'button'}
-      className={cn('underline-button | relative text-base', className || '')}
+      className={cn('underline-button | text-base', className || '')}
       onClick={onClick}
       {...rest}>
       {children}

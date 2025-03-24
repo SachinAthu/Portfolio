@@ -10,11 +10,14 @@ import { getAnimGridSize } from '@/lib/common';
 export default function PageLoader() {
   const loader = useRef<HTMLDivElement>(null);
   const loaderWrapper = useRef<HTMLDivElement>(null);
+  const loader2 = useRef<HTMLDivElement>(null);
   const { vw } = useWindowResize();
-  const { isNavOpen, isPageLoading, setIsNavShow, setIsNavOpen } = useLayoutContext();
+  const { isNavOpen, isPageLoading, isPageLoading2, setIsNavShow, setIsNavOpen } = useLayoutContext();
 
   const openLoaderTween = useRef<gsap.core.Timeline | null>(null);
   const closeLoaderTween = useRef<gsap.core.Timeline | null>(null);
+  const openLoader2Tween = useRef<gsap.core.Timeline | null>(null);
+  const closeLoader2Tween = useRef<gsap.core.Timeline | null>(null);
 
   const createGrid = useCallback(() => {
     if (!loader.current) return;
@@ -35,6 +38,35 @@ export default function PageLoader() {
       loader.current?.appendChild(b);
     }
   }, [isNavOpen]);
+
+  useEffect(() => {
+    openLoader2Tween.current = gsap
+      .timeline({
+        paused: true,
+      })
+      .to(loader2.current, {
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+
+    closeLoader2Tween.current = gsap
+      .timeline({
+        paused: true,
+      })
+      .to(loader2.current, {
+        duration: 0.5,
+        opacity: 0,
+        ease: 'power2.out',
+      });
+
+    return () => {
+      openLoader2Tween.current?.kill();
+      closeLoader2Tween.current?.kill();
+      openLoader2Tween.current = null;
+      closeLoader2Tween.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     // create grid
@@ -126,6 +158,15 @@ export default function PageLoader() {
     }
   }, [isPageLoading]);
 
+  // page load quick
+  useEffect(() => {
+    if (isPageLoading2) {
+      openLoader2Tween.current?.invalidate().restart();
+    } else {
+      closeLoader2Tween.current?.invalidate().restart();
+    }
+  }, [isPageLoading2]);
+
   return (
     <>
       <div ref={loaderWrapper} className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
@@ -134,7 +175,9 @@ export default function PageLoader() {
           ref={loader}></div>
       </div>
 
-      <div className="page-loader-2 | pointer-events-none fixed left-0 top-0 z-[80] h-lvh w-full bg-background opacity-0 dark:bg-d-background"></div>
+      <div
+        ref={loader2}
+        className="page-loader-2 | pointer-events-none fixed left-0 top-0 z-[80] h-lvh w-full bg-background opacity-0 dark:bg-d-background"></div>
     </>
   );
 }

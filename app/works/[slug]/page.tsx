@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 import { ROOTURL, WORKS } from '@/lib/data';
 import { WorkType } from '@/lib/types';
-import { SingleWorkTop } from '@/components';
+import { SingleWorkBody, SingleWorkTop } from '@/components';
 
 type SingleWorkPageProps = {
   params: Promise<{
@@ -119,7 +119,9 @@ export default async function SingleWorkPage(props: SingleWorkPageProps) {
         id="workSingleJsonLd"
       />
 
-      <SingleWorkTop title={work.title} />
+      <SingleWorkTop title={work.title} demoLink={work.demoLink} previewLink={work.previewLink} />
+
+      <SingleWorkBody content={work.content} />
     </article>
   );
 }

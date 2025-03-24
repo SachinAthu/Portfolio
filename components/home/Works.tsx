@@ -82,11 +82,10 @@ function Work({ work, index, bgColor }: { work: WorkType; index: number; bgColor
   }, [index]);
 
   return (
-    <div ref={workWrapperEl} className={`work-wrapper flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-      <div
-        ref={workEl}
-        style={{ backgroundColor: bgColor }}
-        className="work mb-20 rounded-3xl sm:mb-28 lg:mb-40 lg:w-[75%]">
+    <div
+      ref={workWrapperEl}
+      className={`work-wrapper mb-20 flex last:mb-0 sm:mb-28 lg:mb-40 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+      <div ref={workEl} style={{ backgroundColor: bgColor }} className="work rounded-3xl lg:w-[75%]">
         <ToolTip toolTip="Case Study" className="p-8 text-2xl">
           <PageLink href={`/works/${work.slug}`}>
             <div className="px-6 pb-6 pt-10 sm:px-10 sm:pb-12 sm:pt-16 lg:px-14 lg:pb-16 lg:pt-24">

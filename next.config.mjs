@@ -1,3 +1,5 @@
+import createMDX from '@next/mdx';
+
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
@@ -13,6 +15,9 @@ const cspHeader = `
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Configure `pageExtensions` to include MDX files
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+
   async headers() {
     return [
       {
@@ -32,4 +37,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  // Optional: Add remark and rehype plugins here
+});
+
+export default withMDX(nextConfig);

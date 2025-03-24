@@ -444,6 +444,8 @@
 /**/
 
 .underline-button {
+  position: relative;
+
   &::before {
     content: '';
     display: block;
@@ -478,5 +480,11 @@
 
   &:hover::after {
     transform: scaleX(1);
+  }
+}
+
+.back-button:hover {
+  svg {
+    transform: translateX(-4px);
   }
 }

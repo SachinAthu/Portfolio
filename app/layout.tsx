@@ -157,7 +157,7 @@ export default function RootLayout({
 
               <NavMenu />
 
-              <main>{children}</main>
+              <main className="pb-72">{children}</main>
 
               <Footer />
 

@@ -23,7 +23,7 @@ export type WorkType = {
     image: StaticImageData;
   };
   ogImage: string;
-  readme: string;
+  content: JSX.Element;
   author: string[];
   date: {
     dateCreated: string;
@@ -32,6 +32,7 @@ export type WorkType = {
   };
   previewLink?: string;
   demoLink?: string;
+  screenshots: StaticImageData[];
 };
 
 export type MusicTrack = {

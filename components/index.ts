@@ -32,3 +32,4 @@ export { default as Experience } from './home/Experience';
 
 // single work page
 export { default as SingleWorkTop } from './singleWork/SingleWorkTop';
+export { default as SingleWorkBody } from './singleWork/SingleWorkBody';

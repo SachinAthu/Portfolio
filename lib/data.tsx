@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlane } from 'react-icons/io';
 import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
 
@@ -163,7 +164,11 @@ export const TECH_STACK: TechStackType[] = [
   { title: 'Railway', categories: ['other'] },
 ];
 
-const websiteURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
+/* works */
+const SampleWork1MDX = dynamic(() => import('@/components/mdx/works/SampleWork1.mdx'), {
+  ssr: false,
+  loading: () => <div>loading mdx...</div>,
+});
 
 export const WORKS: WorkType[] = [
   {
@@ -173,12 +178,12 @@ export const WORKS: WorkType[] = [
       'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
     slug: 'sample-work-1',
     titleImage: {
-      url: `${websiteURL}/static/works/portfolio/portfolio.png`,
+      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
       image: assets.WORK_PORTFOLIO,
     },
 
-    ogImage: `${websiteURL}/static/works/portfolio/og_image.jpg`,
-    readme: '',
+    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
+    content: <SampleWork1MDX />,
     author: ['Sachin Athukorala'],
     date: {
       dateCreated: '2025-03-15',
@@ -186,7 +191,8 @@ export const WORKS: WorkType[] = [
       dateModified: '2025-03-15',
     },
     previewLink: 'https://portfolio-sachinathu.vercel.app/',
-    demoLink: 'https://portfolio-sachinathu.vercel.app/'
+    demoLink: 'https://portfolio-sachinathu.vercel.app/',
+    screenshots: [],
   },
   {
     key: 'work2',
@@ -195,11 +201,11 @@ export const WORKS: WorkType[] = [
       'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
     slug: 'sample-work-2',
     titleImage: {
-      url: `${websiteURL}/static/works/portfolio/portfolio.png`,
+      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
       image: assets.WORK_PORTFOLIO,
     },
-    ogImage: `${websiteURL}/static/works/portfolio/og_image.jpg`,
-    readme: '',
+    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
+    content: <SampleWork1MDX />,
     author: ['Sachin Athukorala'],
     date: {
       dateCreated: '2025-03-15',
@@ -207,8 +213,10 @@ export const WORKS: WorkType[] = [
       dateModified: '2025-03-15',
     },
     previewLink: 'https://portfolio-sachinathu.vercel.app/',
+    screenshots: [],
   },
 ];
+/**/
 
 export const MUSIC_PLAYLIST: MusicTrack[] = [
   {

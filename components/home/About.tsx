@@ -2,7 +2,7 @@ import { Section, RevealText, FadeIn, CustomLink } from '..';
 
 export default function About() {
   return (
-    <Section id="about" className="container-wide z-[10] bg-background dark:bg-d-background">
+    <Section id="about" className="about z-[10]" transparent={false}>
       <div className="container">
         <RevealText id="aboutHeading">
           <h2 className="heading-1">

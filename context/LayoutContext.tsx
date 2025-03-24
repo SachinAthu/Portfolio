@@ -13,6 +13,7 @@ export type LayoutContextType = {
   isNavShow: boolean;
   isScrolled: boolean;
   isPageLoading: boolean;
+  isPageLoading2: boolean;
   scrollRef: React.MutableRefObject<LocomotiveScroll | undefined>;
   activeSection: NavLinkType | null;
 
@@ -21,6 +22,7 @@ export type LayoutContextType = {
   setIsNavShow: (isNavShow: boolean) => void;
   setIsScrolled: (isScrolled: boolean) => void;
   setIsPageLoading: (isPageLoading: boolean) => void;
+  setIsPageLoading2: (isPageLoading: boolean) => void;
   setActiveSection: (activeSection: NavLinkType | null) => void;
 };
 
@@ -36,6 +38,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [isNavShow, setIsNavShow] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
   const [isPageLoading, setIsPageLoading] = useState(false);
+  const [isPageLoading2, setIsPageLoading2] = useState(false);
   const [activeSection, setActiveSection] = useState<NavLinkType | null>(NAV_LINKS[0]);
 
   useEffect(() => {
@@ -59,6 +62,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setIsPageLoading(false);
+    setIsPageLoading2(false);
 
     if (pathname !== '/') {
       setActiveSection(null);
@@ -98,6 +102,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       isNavShow,
       isScrolled,
       isPageLoading,
+      isPageLoading2,
       scrollRef,
       activeSection,
 
@@ -107,8 +112,9 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setIsNavShow,
       setIsScrolled,
       setIsPageLoading,
+      setIsPageLoading2,
     }),
-    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, activeSection]
+    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, isPageLoading2, activeSection]
   );
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;

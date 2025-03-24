@@ -6,10 +6,7 @@ const ContactSocials = dynamic(() => import('./contactSocials/ContactSocials'), 
 
 export default function Contact() {
   return (
-    <Section
-      id="contact"
-      className="contact-me | container-wide min-h-screen bg-background dark:bg-d-background"
-      borderBottom={false}>
+    <Section id="contact" className="contact-me" borderBottom={false} transparent={false}>
       <div className="container">
         <RevealText id="contactHeading">
           <h2 className="heading-1">

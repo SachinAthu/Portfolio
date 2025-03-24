@@ -21,6 +21,10 @@
     @apply mx-auto max-w-[96rem];
   }
 
+  .container-text {
+    @apply mx-auto max-w-[48.75rem] px-4 sm:px-8 2xl:px-0;
+  }
+
   /**/
 
   /* headings */

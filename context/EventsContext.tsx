@@ -1,7 +1,6 @@
 'use client';
 
-import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react';
-import { gsap } from '@/lib/gsap-config';
+import React, { createContext, useCallback, useContext, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 import { useLayoutContext } from './LayoutContext';
@@ -12,8 +11,7 @@ export type EventsContextType = {};
 const EventsContext = createContext<EventsContextType | null>(null);
 
 const EventsProvider = ({ children }: { children: React.ReactNode }) => {
-  const { scrollRef, setIsNavOpen } = useLayoutContext();
-  const shortPageLoaderTween = useRef<gsap.core.Timeline>();
+  const { scrollRef, setIsPageLoading2, setIsNavOpen } = useLayoutContext();
   const pathname = usePathname();
 
   // key press listener
@@ -56,34 +54,17 @@ const EventsProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     // browser back and forward button click listener
-    shortPageLoaderTween.current = gsap
-      .timeline({
-        paused: true,
-      })
-      .set('.page-loader-2', {
-        opacity: 1,
-      })
-      .to('.page-loader-2', {
-        delay: 1,
-        duration: 0.5,
-        opacity: 0,
-        ease: 'power2.out',
-      });
 
     function onPopState(e: PopStateEvent) {
-      shortPageLoaderTween.current?.invalidate().restart();
+      setIsPageLoading2(true);
     }
 
     window.addEventListener('popstate', onPopState);
 
-    const shortPageLoaderTweenRef = shortPageLoaderTween.current;
-
     return () => {
       window.removeEventListener('popstate', onPopState);
-      shortPageLoaderTweenRef.kill();
-      shortPageLoaderTween.current = undefined;
     };
-  }, []);
+  }, [setIsPageLoading2]);
 
   return <EventsContext.Provider value={null}>{children}</EventsContext.Provider>;
 };
