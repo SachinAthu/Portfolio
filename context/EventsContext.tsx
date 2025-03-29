@@ -11,7 +11,7 @@ export type EventsContextType = {};
 const EventsContext = createContext<EventsContextType | null>(null);
 
 const EventsProvider = ({ children }: { children: React.ReactNode }) => {
-  const { scrollRef, setIsPageLoading2, setIsNavOpen } = useLayoutContext();
+  const { locoScroll, setIsPageLoading2, setIsNavOpen } = useLayoutContext();
   const pathname = usePathname();
 
   // key press listener
@@ -30,7 +30,7 @@ const EventsProvider = ({ children }: { children: React.ReactNode }) => {
         case '5':
         case '6':
           if (pathname === '/') {
-            scrollRef.current?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
+            locoScroll?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
             setIsNavOpen(false);
           }
           break;

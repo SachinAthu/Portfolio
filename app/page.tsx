@@ -2,11 +2,13 @@ import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import dayjs from 'dayjs';
 
-import { About, Contact, Experience, Hero, TechStack, Works } from '@/components';
+import { About, Contact, Experience, Hero, TechStack } from '@/components';
 import { ROOTURL } from '@/lib/data';
+import { HomeProvider } from '@/context/HomeContext';
 
 const HomeScrollNav = dynamic(() => import('@/components/home/HomeScrollNav'), { ssr: false });
 const HomeSideNav = dynamic(() => import('@/components/home/HomeSideNav'), { ssr: false });
+const Works = dynamic(() => import('@/components/home/Works'), { ssr: false });
 
 const jsonld = {
   '@context': 'https://schema.org',
@@ -75,21 +77,23 @@ const jsonld = {
 
 export default function HomePage() {
   return (
-    <div className="home-page | pt-[var(--header-height)]">
-      <Script
-        id="homeJsonLd"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}></Script>
+    <HomeProvider>
+      <div className="home-page | pt-[var(--header-height)]">
+        <Script
+          id="homeJsonLd"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}></Script>
 
-      <HomeSideNav />
-      <HomeScrollNav />
+        <HomeSideNav />
+        <HomeScrollNav />
 
-      <Hero />
-      <About />
-      <TechStack />
-      <Experience />
-      <Works />
-      <Contact />
-    </div>
+        <Hero />
+        <About />
+        <TechStack />
+        <Experience />
+        <Works />
+        <Contact />
+      </div>
+    </HomeProvider>
   );
 }

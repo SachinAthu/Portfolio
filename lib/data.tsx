@@ -3,7 +3,7 @@ import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlan
 import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
 
 import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
-import assets from './assets';
+import IMG_WORK_PORTFOLIO from '../public/static/works/portfolio/portfolio.png';
 
 export const ROOTURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
 
@@ -167,7 +167,7 @@ export const TECH_STACK: TechStackType[] = [
 /* works */
 const SampleWork1MDX = dynamic(() => import('@/components/mdx/works/SampleWork1.mdx'), {
   ssr: false,
-  loading: () => <div>loading mdx...</div>,
+  loading: () => <div>Loading article...</div>,
 });
 
 export const WORKS: WorkType[] = [
@@ -179,7 +179,7 @@ export const WORKS: WorkType[] = [
     slug: 'sample-work-1',
     titleImage: {
       url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
-      image: assets.WORK_PORTFOLIO,
+      image: IMG_WORK_PORTFOLIO,
     },
 
     ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
@@ -202,7 +202,28 @@ export const WORKS: WorkType[] = [
     slug: 'sample-work-2',
     titleImage: {
       url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
-      image: assets.WORK_PORTFOLIO,
+      image: IMG_WORK_PORTFOLIO,
+    },
+    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
+    content: <SampleWork1MDX />,
+    author: ['Sachin Athukorala'],
+    date: {
+      dateCreated: '2025-03-15',
+      datePublished: '2025-03-15',
+      dateModified: '2025-03-15',
+    },
+    previewLink: 'https://portfolio-sachinathu.vercel.app/',
+    screenshots: [],
+  },
+  {
+    key: 'work3',
+    title: 'Sample Work 3',
+    description:
+      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
+    slug: 'sample-work-3',
+    titleImage: {
+      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
+      image: IMG_WORK_PORTFOLIO,
     },
     ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
     content: <SampleWork1MDX />,

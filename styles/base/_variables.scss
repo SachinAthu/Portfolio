@@ -1,6 +1,8 @@
 @use './mixings' as mix;
 
 :root {
+  --clr-text: theme('colors.text');
+
   --header-height: 100px;
   --header-content-height: calc(var(--header-height) * 0.75);
   --footer-height: 100px;
@@ -26,6 +28,8 @@
 }
 
 :root.dark {
+  --clr-text: theme('colors.d.text');
+
   --toaster-bg: theme('colors.neutral.800');
   --toaster-color: theme('colors.d.text');
   --toaster-border: 1px solid theme('colors.gray.600');

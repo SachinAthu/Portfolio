@@ -6,13 +6,11 @@ import { gsap } from '@/lib/gsap-config';
 import { useLayoutContext } from '@/context/LayoutContext';
 import { NAV_LINKS } from '@/lib/data';
 import { cn } from '@/lib/common';
-import { useWindowResize } from '@/lib/hooks';
 
 export default function NavMenu() {
-  const { vw } = useWindowResize();
   const showNavLinksTween = useRef<gsap.core.Timeline>();
   const hideNavLinksTween = useRef<gsap.core.Timeline>();
-  const { isNavShow, isScrolled, setIsNavOpen, scrollRef } = useLayoutContext();
+  const { isNavShow, isScrolled, setIsNavOpen, locoScroll } = useLayoutContext();
 
   useEffect(() => {
     const navMenu = document.querySelector('.nav-menu');
@@ -59,7 +57,7 @@ export default function NavMenu() {
 
   function navigate(id: string) {
     setIsNavOpen(false);
-    scrollRef.current?.scrollTo(`#${id}`);
+    locoScroll?.scrollTo(`#${id}`);
   }
 
   const navLinksArr = NAV_LINKS.slice(1);

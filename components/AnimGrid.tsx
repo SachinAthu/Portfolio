@@ -11,7 +11,7 @@ export default function AnimGrid() {
   const animgrid = useRef<HTMLDivElement>(null);
   const { vw } = useWindowResize();
   const isPageVisible = usePageVisible();
-  const { activeSection } = useLayoutContext();
+  const { isScrolled } = useLayoutContext();
 
   const gridAnim = useRef<gsap.core.Timeline | null>(null);
   const increseOpa = useRef<gsap.core.Tween | null>(null);
@@ -101,12 +101,12 @@ export default function AnimGrid() {
   // }, [isPageVisible]);
 
   useEffect(() => {
-    if (activeSection && activeSection.id === 'hero') {
+    if (!isScrolled) {
       increseOpa.current?.invalidate().restart();
     } else {
       decreseOpa.current?.invalidate().restart();
     }
-  }, [activeSection]);
+  }, [isScrolled]);
 
   return (
     <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full">

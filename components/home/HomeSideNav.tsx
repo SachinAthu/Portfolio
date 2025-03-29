@@ -4,13 +4,15 @@ import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap-config';
 
 import { useLayoutContext } from '@/context/LayoutContext';
+import { useHomeContext } from '@/context/HomeContext';
 import { NAV_LINKS } from '@/lib/data';
 import { useMobileViewport } from '@/lib/hooks';
 import { cn } from '@/lib/common';
 import { ToolTip } from '..';
 
 function SideNav() {
-  const { scrollRef, activeSection } = useLayoutContext();
+  const { locoScroll } = useLayoutContext();
+  const { activeSection } = useHomeContext();
   const sideNav = useRef<HTMLDivElement>(null);
   const btnIndicater = useRef<HTMLDivElement>(null);
   const btnHeight = 56,
@@ -64,7 +66,7 @@ function SideNav() {
           <ToolTip key={l.key} toolTip={`${i + 1}. ${l.title}`}>
             <button
               type="button"
-              onClick={() => scrollRef.current?.scrollTo(`#${l.id}`)}
+              onClick={() => locoScroll?.scrollTo(`#${l.id}`)}
               className={cn(
                 'flex h-[var(--side-nav-btn-height)] w-[54px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7',
                 activeSection && activeSection.id === l.id ? 'text-white' : 'text-current'

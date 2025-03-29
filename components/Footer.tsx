@@ -10,7 +10,7 @@ export default function Footer() {
   const container = useRef<HTMLDivElement>(null);
   const scrollBtn = useRef<HTMLButtonElement>(null);
   const circle = useRef(null);
-  const { scrollRef } = useLayoutContext();
+  const { locoScroll } = useLayoutContext();
 
   const { contextSafe } = useGSAP({ scope: container });
 
@@ -21,7 +21,7 @@ export default function Footer() {
       ease: 'power2.out',
       duration: 2,
       onComplete: () => {
-        scrollRef.current?.scrollTo(0);
+        locoScroll?.scrollTo(0);
         gsap.set(circle.current, { strokeDashoffset: 0 });
         scrollBtn.current?.classList.remove('scrolling');
       },

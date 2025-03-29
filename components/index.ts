@@ -7,6 +7,7 @@ export { default as Welcome } from './Welcome';
 export { default as Footer } from './Footer';
 export { default as Section } from './Section';
 export { default as Dialog } from './Dialog';
+export { default as ImageViewer } from './ImageViewer';
 
 export { default as CustomLink } from './links/CustomLink';
 export { default as PageLink } from './links/PageLink';
@@ -31,5 +32,4 @@ export { default as Contact } from './home/contact/Contact';
 export { default as Experience } from './home/Experience';
 
 // single work page
-export { default as SingleWorkTop } from './singleWork/SingleWorkTop';
-export { default as SingleWorkBody } from './singleWork/SingleWorkBody';
+export { default as SSCarousel } from './singleWork/SSCarousel';

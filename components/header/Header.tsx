@@ -3,7 +3,6 @@
 import { useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap-config';
 import { Flip } from 'gsap/Flip';
-import { usePathname } from 'next/navigation';
 
 import MenuBtn from './MenuBtn';
 import Music from './Music';
@@ -36,9 +35,8 @@ function HeaderMobile() {
 }
 
 function HeaderDesktop() {
-  const { activeSection, setIsScrolled } = useLayoutContext();
+  const { isScrolled } = useLayoutContext();
   const header = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
 
   useGSAP(
     () => {
@@ -46,12 +44,10 @@ function HeaderDesktop() {
 
       const state = Flip.getState('.header-inner-1, .header-inner-2');
 
-      if ((activeSection && activeSection.id !== 'hero') || pathname !== '/') {
+      if (isScrolled) {
         header.current?.classList.add('scrolled');
-        setIsScrolled(true);
       } else {
         header.current?.classList.remove('scrolled');
-        setIsScrolled(false);
       }
 
       Flip.from(state, {
@@ -60,7 +56,7 @@ function HeaderDesktop() {
         ease: 'power2.out',
       });
     },
-    { dependencies: [activeSection, pathname, setIsScrolled] }
+    { dependencies: [isScrolled] }
   );
 
   return (

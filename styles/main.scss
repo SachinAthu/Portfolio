@@ -22,7 +22,7 @@
   }
 
   .container-text {
-    @apply mx-auto max-w-[48.75rem] px-4 sm:px-8 2xl:px-0;
+    @apply mx-auto max-w-[56.25rem] px-4 sm:px-8 2xl:px-0;
   }
 
   /**/
@@ -38,6 +38,10 @@
 
   .heading-3 {
     @apply text-xl font-medium sm:text-3xl;
+  }
+
+  .heading-article {
+    @apply text-5xl font-medium sm:text-8xl lg:text-9xl;
   }
   /**/
 
@@ -83,7 +87,7 @@
   }
 
   .skeleton {
-    @apply rounded-full bg-skeleton dark:bg-d-skeleton;
+    @apply animate-pulse rounded-full bg-skeleton dark:bg-d-skeleton;
   }
 
   // screen reader only content
@@ -109,6 +113,11 @@
     width: 0;
     z-index: -1;
   }
+}
+
+.article-table-wrapper {
+  overflow-x: auto;
+  margin-top: 2.5rem;
 }
 
 @import './locomotive.scss';

@@ -4,8 +4,8 @@ import { useRef } from 'react';
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsap-config';
 
 import { cn } from '@/lib/common';
-import { useLayoutContext } from '@/context/LayoutContext';
 import { NAV_LINKS } from '@/lib/data';
+import { useHomeContext } from '@/context/HomeContext';
 
 type SectionProps = {
   id: string;
@@ -32,7 +32,7 @@ export default function Section({
   const border = useRef<HTMLDivElement>(null);
   const borderInner = useRef<HTMLDivElement>(null);
 
-  const { setActiveSection } = useLayoutContext();
+  const { setActiveSection } = useHomeContext();
 
   useGSAP(
     () => {
@@ -80,9 +80,7 @@ export default function Section({
           className || '',
           paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
           paddingBottom ? 'pb-48 sm:pb-64 lg:pb-72' : '',
-          transparent
-            ? ''
-            : 'container-wide bg-background shadow-[0_0_2px_0px_rgba(0,0,0,0.1)] dark:bg-d-background dark:shadow-[0_0_2px_0px_rgba(255,255,255,0.1)]'
+          transparent ? '' : 'container-wide shadow-section dark:shadow-d-section bg-background dark:bg-d-background'
         )}
         {...rest}>
         {children}

@@ -145,9 +145,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       {/* for development remove overflow-hidden */}
-      <body className={`${montserrat.variable}`}>
+      <body className={`${montserrat.variable}`} suppressHydrationWarning={true}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
             <EventsProvider>
@@ -157,7 +157,7 @@ export default function RootLayout({
 
               <NavMenu />
 
-              <main className="pb-72">{children}</main>
+              <main>{children}</main>
 
               <Footer />
 

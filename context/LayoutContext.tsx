@@ -1,11 +1,10 @@
 'use client';
 
-import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
+import { ScrollTrigger } from '@/lib/gsap-config';
 
-import { NAV_LINKS } from '@/lib/data';
-import { NavLinkType } from '@/lib/types';
-import { useMobile } from '@/lib/hooks';
+import { useDebouncedCallback, useMobile } from '@/lib/hooks';
 
 export type LayoutContextType = {
   isWelcome: boolean;
@@ -14,8 +13,7 @@ export type LayoutContextType = {
   isScrolled: boolean;
   isPageLoading: boolean;
   isPageLoading2: boolean;
-  scrollRef: React.MutableRefObject<LocomotiveScroll | undefined>;
-  activeSection: NavLinkType | null;
+  locoScroll: LocomotiveScroll | null;
 
   setIsWelcome: (isWelcome: boolean) => void;
   setIsNavOpen: (isNavOpen: boolean) => void;
@@ -23,7 +21,6 @@ export type LayoutContextType = {
   setIsScrolled: (isScrolled: boolean) => void;
   setIsPageLoading: (isPageLoading: boolean) => void;
   setIsPageLoading2: (isPageLoading: boolean) => void;
-  setActiveSection: (activeSection: NavLinkType | null) => void;
 };
 
 const LayoutContext = createContext<LayoutContextType | null>(null);
@@ -32,14 +29,13 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMobile();
   const pathname = usePathname();
 
-  const scrollRef = useRef<LocomotiveScroll>();
+  const [locoScroll, setLocoScroll] = useState<LocomotiveScroll | null>(null);
   const [isWelcome, setIsWelcome] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavShow, setIsNavShow] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [isPageLoading2, setIsPageLoading2] = useState(false);
-  const [activeSection, setActiveSection] = useState<NavLinkType | null>(NAV_LINKS[0]);
 
   useEffect(() => {
     const header = document.getElementById('app-header');
@@ -61,39 +57,45 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isNavOpen]);
 
   useEffect(() => {
-    setIsPageLoading(false);
-    setIsPageLoading2(false);
-
-    if (pathname !== '/') {
-      setActiveSection(null);
-    }
-
-    setTimeout(() => {
-      // refresh Scrolltrigger
-      (async () => {
-        const { ScrollTrigger } = await import('@/lib/gsap-config');
-        ScrollTrigger.refresh();
-      })();
-    }, 5000);
-  }, [pathname]);
-
-  useEffect(() => {
     // setup locomotive scroll
     (async () => {
       const LocomotiveScroll = (await import('locomotive-scroll')).default;
-      scrollRef.current = new LocomotiveScroll({
+      const scroll = new LocomotiveScroll({
         // @ts-ignore
         lenisOptions: {
           duration: 1.5,
         },
       });
+      setLocoScroll(scroll);
     })();
 
+    setIsPageLoading(false);
+    setIsPageLoading2(false);
+
+    // refresh Scrolltrigger
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 5000);
+
     return () => {
-      scrollRef.current?.destroy();
-      setActiveSection(null);
+      locoScroll?.destroy();
+      setLocoScroll(null);
     };
-  }, []);
+  }, [pathname]);
+
+  const onScroll = useDebouncedCallback(() => {
+    setIsScrolled(window.scrollY > 600);
+  }, 100);
+
+  useEffect(() => {
+    if (!isMobile) {
+      document.addEventListener('scroll', onScroll);
+    }
+
+    return () => {
+      document.removeEventListener('scroll', onScroll);
+    };
+  }, [onScroll, isMobile]);
 
   const value = useMemo(
     () => ({
@@ -103,18 +105,16 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       isScrolled,
       isPageLoading,
       isPageLoading2,
-      scrollRef,
-      activeSection,
+      locoScroll,
 
       setIsWelcome,
       setIsNavOpen,
-      setActiveSection,
       setIsNavShow,
       setIsScrolled,
       setIsPageLoading,
       setIsPageLoading2,
     }),
-    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, isPageLoading2, activeSection]
+    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, isPageLoading2, locoScroll]
   );
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;

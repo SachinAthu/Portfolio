@@ -17,6 +17,7 @@ const config: Config = {
       },
       screens: {
         '2xs': '360px',
+        xs: '412px',
         '3xl': '1920px',
         '4xl': '2560px',
         '5xl': '3840px',
@@ -49,6 +50,8 @@ const config: Config = {
       },
       boxShadow: {
         header: '0px 1px 5px 0px rgba(30, 30, 30, 0.075)',
+        section: '0px 0px 2px 0px rgba(0, 0, 0, 0.1)',
+        'd-section': '0px 0px 2px 0px rgba(255, 255, 255, 0.1)',
       },
       keyframes: {
         logo: {

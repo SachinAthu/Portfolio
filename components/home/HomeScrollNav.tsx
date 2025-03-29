@@ -6,11 +6,13 @@ import { IoArrowDown, IoArrowUp } from 'react-icons/io5';
 
 import { useMobileViewport } from '@/lib/hooks';
 import { useLayoutContext } from '@/context/LayoutContext';
+import { useHomeContext } from '@/context/HomeContext';
 import { IconButton } from '..';
 import { NAV_LINKS } from '@/lib/data';
 
 function ScrollNav() {
-  const { scrollRef, activeSection } = useLayoutContext();
+  const { locoScroll } = useLayoutContext();
+  const { activeSection } = useHomeContext();
   const scrollNav = useRef<HTMLDivElement>(null);
   const downButton = useRef<HTMLDivElement>(null);
 
@@ -66,12 +68,12 @@ function ScrollNav() {
       if (index + 1 >= NAV_LINKS.length) {
         return;
       }
-      scrollRef.current?.scrollTo(`#${NAV_LINKS[index + 1].id}`);
+      locoScroll?.scrollTo(`#${NAV_LINKS[index + 1].id}`);
     } else {
       if (index - 1 < 0) {
         return;
       }
-      scrollRef.current?.scrollTo(`#${NAV_LINKS[index - 1].id}`);
+      locoScroll?.scrollTo(`#${NAV_LINKS[index - 1].id}`);
     }
   }
 
