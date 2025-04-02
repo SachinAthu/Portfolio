@@ -1,10 +1,11 @@
 'use client';
 
-import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
+import React, { createContext, useState, useContext, useEffect, useMemo, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { ScrollTrigger } from '@/lib/gsap-config';
 
 import { useDebouncedCallback, useMobile } from '@/lib/hooks';
+import { NAV_LINKS } from '@/lib/data';
 
 export type LayoutContextType = {
   isWelcome: boolean;
@@ -36,6 +37,10 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [isPageLoading2, setIsPageLoading2] = useState(false);
+
+  const onScroll = useDebouncedCallback(() => {
+    setIsScrolled(window.scrollY > 600);
+  }, 100);
 
   useEffect(() => {
     const header = document.getElementById('app-header');
@@ -69,6 +74,53 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setLocoScroll(scroll);
     })();
 
+    const controller = new AbortController();
+
+    // network state listener
+    //
+
+    // key press listener
+    window.addEventListener(
+      'keydown',
+      (e: KeyboardEvent) => {
+        switch (e.key) {
+          case 'Escape':
+            if (pathname === '/') {
+              setIsNavOpen(false);
+            }
+            break;
+          case '1':
+          case '2':
+          case '3':
+          case '4':
+          case '5':
+          case '6':
+            if (pathname === '/') {
+              locoScroll?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
+              setIsNavOpen(false);
+            }
+            break;
+          default:
+            return;
+        }
+      },
+      { signal: controller.signal }
+    );
+
+    // browser back and forward button click listener
+    window.addEventListener(
+      'popstate',
+      () => {
+        setIsPageLoading2(true);
+      },
+      { signal: controller.signal }
+    );
+
+    if (!isMobile) {
+      document.addEventListener('scroll', onScroll, { signal: controller.signal });
+    }
+
+    // reset page loading state
     setIsPageLoading(false);
     setIsPageLoading2(false);
 
@@ -80,22 +132,9 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       locoScroll?.destroy();
       setLocoScroll(null);
+      controller.abort();
     };
-  }, [pathname]);
-
-  const onScroll = useDebouncedCallback(() => {
-    setIsScrolled(window.scrollY > 600);
-  }, 100);
-
-  useEffect(() => {
-    if (!isMobile) {
-      document.addEventListener('scroll', onScroll);
-    }
-
-    return () => {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, [onScroll, isMobile]);
+  }, [pathname, isMobile]);
 
   const value = useMemo(
     () => ({

@@ -7,7 +7,6 @@ import Script from 'next/script';
 import '@/styles/main.scss';
 import { Footer, PageLoader, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
-import { EventsProvider } from '@/context/EventsContext';
 import { ROOTURL } from '@/lib/data';
 
 const montserrat = Montserrat({
@@ -17,7 +16,10 @@ const montserrat = Montserrat({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#E91E63',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#1E1E1E' },
+    { media: '(prefers-color-scheme: dark)', color: '#008080' },
+  ],
 };
 
 const title = 'Sachin Athukorala | Full-stack Developer';
@@ -150,24 +152,22 @@ export default function RootLayout({
       <body className={`${montserrat.variable}`} suppressHydrationWarning={true}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
-            <EventsProvider>
-              <AnimGrid />
+            <AnimGrid />
 
-              <Header />
+            <Header />
 
-              <NavMenu />
+            <NavMenu />
 
-              <main>{children}</main>
+            <main>{children}</main>
 
-              <Footer />
+            <Footer />
 
-              <PageLoader />
+            <PageLoader />
 
-              {/* for development comment out */}
-              {/* <Welcome /> */}
+            {/* for development comment out */}
+            {/* <Welcome /> */}
 
-              <ToasterCom />
-            </EventsProvider>
+            <ToasterCom />
           </LayoutProvider>
         </ThemeProvider>
 

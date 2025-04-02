@@ -37,14 +37,16 @@ const config: Config = {
         primary: '#E91E63',
         accent: '#008080',
         text: '#212121',
-        subtext: '#757575',
+        // subtext: '#757575',
+        subtext: '#525252',
         nav: '#494949',
         skeleton: 'hsl(220, 13%, 91%)',
 
         d: {
           background: '#1E1E1E',
           text: '#F5F5F5',
-          subtext: '#9E9E9E',
+          // subtext: '#9E9E9E',
+          subtext: '#E6E6E6',
           skeleton: 'hsla(220, 7%, 17%, 78%)',
         },
       },

@@ -1,5 +1,16 @@
 import { ImageViewer } from '@/components';
-import IMG_SAMPLE_SYSTEM_DIAGRAM from '@/public/static/works/sample_system_diagram.png';
+import SAMPLE_IMAGE_1 from '@/public/static/sample_640.jpg';
+import SAMPLE_IMAGE_2 from '@/public/static/sample_1920.jpg';
+import SAMPLE_IMAGE_3 from '@/public/static/sample_5333.jpg';
+
+low resolotion
+<ImageViewer src={SAMPLE_IMAGE_1} srcPath='/static/sample_640.jpg' alt='sample low image' dialogId='sampleImage1' dialogAriaLabel='View sample image 1' caption='sample low image' />
+
+full hd
+<ImageViewer src={SAMPLE_IMAGE_2} srcPath='/static/sample_1920.jpg' alt='sample full hd image' dialogId='sampleImage2' dialogAriaLabel='View sample image 1' caption='sample full hd image' />
+
+4k
+<ImageViewer src={SAMPLE_IMAGE_3} srcPath='/static/sample_5333.jpg' alt='sample high image' dialogId='sampleImage3' dialogAriaLabel='View sample image 1' caption='sample high image' />
 
 # **Project Title:** Development of an E-Commerce Platform for [Client's Name]
 
@@ -29,6 +40,10 @@ The primary business challenges included:
 
 During the project, several technical and operational challenges were encountered:
 
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+
 - **Integration with Existing Systems** – Ensuring seamless integration with the client's existing inventory management and point-of-sale (POS) systems.
 - **User Experience (UX) Design** – Creating an intuitive and engaging user interface to replicate the in-store shopping experience online.
 - **Scalability** – Developing a platform capable of handling increased traffic during peak seasons without performance degradation.
@@ -53,8 +68,6 @@ During the project, several technical and operational challenges were encountere
 ### **System Diagram**
 
 _Diagram illustrating the interaction between the front-end, back-end, database, and third-party services._
-
-<ImageViewer src={IMG_SAMPLE_SYSTEM_DIAGRAM} srcPath='/static/works/sample_system_diagram.png' alt='sample system diagram' dialogId='sampleSystemDiagramDialog' dialogAriaLabel='View sample system diagram' />
 
 ### **Designs**
 

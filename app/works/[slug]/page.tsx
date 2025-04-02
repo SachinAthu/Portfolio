@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
@@ -176,7 +176,7 @@ export default async function SingleWorkPage(props: SingleWorkPageProps) {
       </div>
 
       {/* body */}
-      <div className="container shadow-section dark:shadow-d-section relative z-[10] mt-32 min-h-screen bg-background pb-40 pt-32 dark:bg-d-background">
+      <div className="container relative z-[10] mt-32 min-h-screen bg-background pb-40 pt-32 shadow-section dark:bg-d-background dark:shadow-d-section">
         <div className="container-text">{work.content}</div>
       </div>
 
