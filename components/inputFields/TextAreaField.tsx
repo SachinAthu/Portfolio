@@ -64,29 +64,29 @@ const TextAreaField = React.forwardRef<{ clearField: () => void }, TextAreaProps
     useEffect(() => {
       if (!textareaRef.current) return;
 
-      const tRef = textareaRef.current;
+      const taRef = textareaRef.current;
       let resizeObserver: ResizeObserver,
         mutationObserver: MutationObserver,
-        height = tRef.offsetHeight;
+        height = taRef.offsetHeight;
 
       // listen on textarea height changes and refresh ScrollTrigger
       if ('ResizeObserver' in window) {
         // Use ResizeObserver
         resizeObserver = new ResizeObserver(() => {
-          if (tRef.offsetHeight !== height) {
+          if (taRef.offsetHeight !== height) {
             ScrollTrigger.refresh();
           }
-          height = tRef.offsetHeight;
+          height = taRef.offsetHeight;
         });
-        resizeObserver.observe(tRef);
+        resizeObserver.observe(taRef);
       } else {
         // Fallback to MutationObserver
         mutationObserver = new MutationObserver((mutationList: MutationRecord[]) => {
           mutationList.forEach(() => {
-            if (tRef.offsetHeight !== height) {
+            if (taRef.offsetHeight !== height) {
               ScrollTrigger.refresh();
             }
-            height = tRef.offsetHeight;
+            height = taRef.offsetHeight;
           });
         });
         mutationObserver.observe(textareaRef.current, {
@@ -101,12 +101,12 @@ const TextAreaField = React.forwardRef<{ clearField: () => void }, TextAreaProps
         e.stopPropagation();
       }
 
-      tRef.addEventListener('keydown', onKeyDown);
+      taRef.addEventListener('keydown', onKeyDown);
 
       return () => {
         resizeObserver?.disconnect();
         mutationObserver?.disconnect();
-        tRef.removeEventListener('keydown', onKeyDown);
+        taRef.removeEventListener('keydown', onKeyDown);
       };
     }, []);
 

@@ -7,7 +7,7 @@ export { default as Welcome } from './Welcome';
 export { default as Footer } from './Footer';
 export { default as Section } from './Section';
 export { default as Dialog } from './Dialog';
-export { default as ImageViewer } from './ImageViewer';
+export { default as ImageViewer } from './ImageViewer/ImageViewer';
 
 export { default as CustomLink } from './links/CustomLink';
 export { default as PageLink } from './links/PageLink';
