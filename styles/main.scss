@@ -103,6 +103,14 @@
     border: 0;
   }
 
+  .hidden-input {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+  }
+
   // honey pot field
   .honey-pot {
     opacity: 0;

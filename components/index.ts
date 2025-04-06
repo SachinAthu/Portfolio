@@ -18,6 +18,7 @@ export { default as UnderlineButton } from './buttons/UnderlineButton';
 
 export { default as TextField } from './inputFields/TextField';
 export { default as TextAreaField } from './inputFields/TextAreaField';
+export { default as Toggle } from './inputFields/Toggle';
 
 export { default as RevealText } from './RevealText';
 export { default as FadeIn } from './FadeIn';

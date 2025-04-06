@@ -31,9 +31,10 @@ export default function Viewer({ src }: { src: string }) {
   const animationRef = useRef<number | null>(null); // zoom animation state
 
   const [isControlls, setIsControlls] = useState(false);
+  const [isHighRes, setIsHighRes] = useState(false);
 
   const maxScale = 3,
-    maxDPR = 2, // cap to 2x max
+    maxDPR = 1, // cap to 2x max
     scaleFactor = 0.1,
     easingFactor = 0.25,
     dragThreshold = isMobile ? 200 : 400,
@@ -54,45 +55,53 @@ export default function Viewer({ src }: { src: string }) {
     );
   }, []);
 
-  const initCanvas = useDebouncedCallback((canvas: HTMLCanvasElement) => {
+  const initCanvas = useDebouncedCallback((highRes: boolean = false, toggle = false) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, maxDPR);
-    // const dpr = 1;
+    setIsControlls(false);
+    imageRef.current = new Image(); // reset image object
+
+    let dpr = window.devicePixelRatio || 1;
+    dpr = highRes ? dpr : Math.min(dpr, maxDPR);
 
     // Set proper canvas size
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
     canvas.style.width = `${window.innerWidth}px`;
     canvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
     ctx.scale(dpr, dpr);
 
     imageRef.current.src = src;
     imageRef.current.onload = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      let scale = scaleRef.current,
-        imgW = imageRef.current.width,
-        imgH = imageRef.current.height;
+      if (!toggle) {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        let scale = scaleRef.current,
+          imgW = imageRef.current.width,
+          imgH = imageRef.current.height;
 
-      if (imgW > width || imgH > height) {
-        // image bigger
-        scale = Math.min(width / imgW, height / imgH);
-        imgW *= scale;
-        imgH *= scale;
+        if (imgW > width || imgH > height) {
+          // image bigger
+          scale = Math.min(width / imgW, height / imgH);
+          imgW *= scale;
+          imgH *= scale;
+        }
+
+        positionRef.current = {
+          x: (width - imgW) / 2,
+          y: (height - imgH) / 2,
+        };
+        scaleRef.current = scale;
+        minScale.current = scale;
+        scaleTargetRef.current = scale;
       }
 
-      positionRef.current = {
-        x: (width - imgW) / 2,
-        y: (height - imgH) / 2,
-      };
-      scaleRef.current = scale;
-      minScale.current = scale;
-      scaleTargetRef.current = scale;
-
       draw(ctx);
-
       setIsControlls(true);
     };
   }, 100);
@@ -246,10 +255,12 @@ export default function Viewer({ src }: { src: string }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    let dpr = window.devicePixelRatio || 1;
+    setIsHighRes(dpr > maxDPR);
+
     // listen on canvas size changes and re-initialize canvas
     const resizeObserver = new ResizeObserver(() => {
-      console.log('canvas resized');
-      initCanvas(canvas);
+      initCanvas();
     });
     if (canvasWrapperRef.current) {
       resizeObserver.observe(canvasWrapperRef.current);
@@ -483,10 +494,16 @@ export default function Viewer({ src }: { src: string }) {
       <canvas
         ref={canvasRef}
         className="cursor-grab touch-none" // Prevents unwanted scrolling
-      />
+      ></canvas>
 
       {/* controlls */}
-      <Controlls isShow={isControlls} zoom={zoom} reset={reset} />
+      <Controlls
+        isShow={isControlls}
+        isHighRes={isHighRes}
+        zoom={zoom}
+        reset={reset}
+        toggleHighRes={(highRes: boolean) => initCanvas(highRes, true)}
+      />
     </div>
   );
 }
