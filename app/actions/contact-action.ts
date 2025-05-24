@@ -3,13 +3,9 @@
 import { returnValidationErrors } from 'next-safe-action';
 
 import { actionClient } from '@/lib/safe-action';
-import { contactSchema } from '@/lib/schemas/zod-schemas';
+import { contactSchema } from '@/lib/zod-schemas';
 import { BotError } from '@/lib/types';
 import { isSanitized } from '@/lib/common';
-import { db } from '@/lib/db';
-import { contactsDBSchema } from '@/lib/schemas/drizzle-schemas';
-import { knockClient } from '@/lib/knock';
-import { KNOCK_CONFIG } from '@/lib/data';
 
 export const contactAction = actionClient.schema(contactSchema).action(async ({ parsedInput }) => {
   const { nameVerify, name, email, message } = parsedInput;
@@ -38,23 +34,56 @@ export const contactAction = actionClient.schema(contactSchema).action(async ({ 
     });
   }
 
-  // save record
-  try {
-    await db.insert(contactsDBSchema).values({ name, email, message });
-  } catch (err) {
-    console.error(err);
-  }
-
-  // trigger knock workflow - discord notification
-  // await initKnock();
-  await knockClient.workflows.trigger(KNOCK_CONFIG.WORKFLOW_KEY, {
-    recipients: [
-      {
-        collection: KNOCK_CONFIG.COLLECTION,
-        id: KNOCK_CONFIG.OBJECT,
+  // send email to sachin2262716@gmail.com
+  await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'api-key': process.env.BREVO_API_KEY || '',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: [
+        {
+          email: 'sachin2262716@gmail.com',
+          name: 'Sachin Athukorala',
+        },
+      ],
+      templateId: 5,
+      params: {
+        name,
+        email,
+        message,
       },
-    ],
-    data: { visitor_name: name, visitor_email: email, visitor_message: message },
+      headers: {
+        charset: 'iso-8859-1',
+      },
+    }),
+  });
+
+  // send reply email
+  await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'api-key': process.env.BREVO_API_KEY || '',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: [
+        {
+          email,
+          name,
+        },
+      ],
+      templateId: 6,
+      params: {
+        name,
+      },
+      headers: {
+        charset: 'iso-8859-1',
+      },
+    }),
   });
 
   return { status: 'success' };

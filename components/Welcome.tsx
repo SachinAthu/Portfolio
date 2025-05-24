@@ -20,9 +20,9 @@ function Welcome() {
 
         // set initial music begin
         if (sound && !isMobile) {
-          sessionStorage.setItem('is-initial-music', 'true');
+          sessionStorage.setItem('is-music', 'true');
         } else {
-          sessionStorage.setItem('is-initial-music', 'false');
+          sessionStorage.setItem('is-music', 'false');
         }
 
         // load music

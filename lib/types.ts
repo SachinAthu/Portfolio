@@ -35,7 +35,8 @@ export type WorkType = {
   screenshots: StaticImageData[];
 };
 
-export type MusicTrack = {
+export type MusicTrackType = {
+  key: string;
   name: string;
   path: string;
 };

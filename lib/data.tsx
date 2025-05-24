@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { IoMdContacts, IoMdHome, IoMdPerson, IoMdApps, IoIosApps, IoIosPaperPlane } from 'react-icons/io';
 import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
 
-import { MusicTrack, NavLinkType, TechStackType, WorkType } from './types';
+import { MusicTrackType, NavLinkType, TechStackType, WorkType } from './types';
 import IMG_WORK_PORTFOLIO from '../public/static/works/portfolio/portfolio.png';
 
 export const ROOTURL = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://sachinathu.dev';
@@ -136,13 +136,14 @@ export const TECH_STACK: TechStackType[] = [
   { title: 'Tailwind', categories: ['frontend'] },
   { title: 'Webflow', categories: ['frontend'] },
   { title: 'GSAP', categories: ['frontend'] },
+  { title: 'TanStack', categories: ['frontend'] },
 
   { title: 'Python', categories: ['backend'] },
   { title: 'Node.js', categories: ['backend'] },
   { title: 'Django REST Framework', categories: ['backend'] },
   { title: 'MongoDB', categories: ['backend'] },
   { title: 'MySQL', categories: ['backend'] },
-  { title: 'Firebase', categories: ['backend'] },
+  { title: 'Firebase', categories: ['backend', 'other'] },
   { title: 'Express.js', categories: ['backend'] },
   { title: 'GraphQL', categories: ['backend'] },
 
@@ -172,11 +173,11 @@ const SampleWork1MDX = dynamic(() => import('@/components/mdx/works/SampleWork1.
 
 export const WORKS: WorkType[] = [
   {
-    key: 'work1',
-    title: 'Sample Work 1',
+    key: 'work_voxitec',
+    title: 'Voxitec',
     description:
-      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
-    slug: 'sample-work-1',
+      'Discover how I developed a complete business website for Voxitec (a tech startup) for a showcase their worth and carry their image to the world. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
+    slug: 'voxitec',
     titleImage: {
       url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
       image: IMG_WORK_PORTFOLIO,
@@ -186,64 +187,77 @@ export const WORKS: WorkType[] = [
     content: <SampleWork1MDX />,
     author: ['Sachin Athukorala'],
     date: {
-      dateCreated: '2025-03-15',
-      datePublished: '2025-03-15',
-      dateModified: '2025-03-15',
+      dateCreated: '2025-01-10',
+      datePublished: '2025-01-22',
+      dateModified: '2025-01-22',
     },
-    previewLink: 'https://portfolio-sachinathu.vercel.app/',
-    demoLink: 'https://portfolio-sachinathu.vercel.app/',
+    previewLink: 'https://voxitec.com/',
     screenshots: [],
   },
-  {
-    key: 'work2',
-    title: 'Sample Work 2',
-    description:
-      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
-    slug: 'sample-work-2',
-    titleImage: {
-      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
-      image: IMG_WORK_PORTFOLIO,
-    },
-    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
-    content: <SampleWork1MDX />,
-    author: ['Sachin Athukorala'],
-    date: {
-      dateCreated: '2025-03-15',
-      datePublished: '2025-03-15',
-      dateModified: '2025-03-15',
-    },
-    previewLink: 'https://portfolio-sachinathu.vercel.app/',
-    screenshots: [],
-  },
-  {
-    key: 'work3',
-    title: 'Sample Work 3',
-    description:
-      'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
-    slug: 'sample-work-3',
-    titleImage: {
-      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
-      image: IMG_WORK_PORTFOLIO,
-    },
-    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
-    content: <SampleWork1MDX />,
-    author: ['Sachin Athukorala'],
-    date: {
-      dateCreated: '2025-03-15',
-      datePublished: '2025-03-15',
-      dateModified: '2025-03-15',
-    },
-    previewLink: 'https://portfolio-sachinathu.vercel.app/',
-    screenshots: [],
-  },
+  // {
+  //   key: 'work2',
+  //   title: 'Sample Work 2',
+  //   description:
+  //     'Discover how I developed a scalable e-commerce platform for a specialty foods retailer, increasing sales by 30% in the first quarter. Learn about the business challenges, technical solutions, and key results in this in-depth case study.',
+  //   slug: 'sample-work-2',
+  //   titleImage: {
+  //     url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
+  //     image: IMG_WORK_PORTFOLIO,
+  //   },
+  //   ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
+  //   content: <SampleWork1MDX />,
+  //   author: ['Sachin Athukorala'],
+  //   date: {
+  //     dateCreated: '2025-03-15',
+  //     datePublished: '2025-03-15',
+  //     dateModified: '2025-03-15',
+  //   },
+  //   previewLink: 'https://portfolio-sachinathu.vercel.app/',
+  //   screenshots: [],
+  // },
 ];
 /**/
 
-export const MUSIC_PLAYLIST: MusicTrack[] = [
+export const MUSIC_PLAYLIST: MusicTrackType[] = [
   {
+    key: 'track_output',
     name: 'Witcher 3 Kaer Morhen',
-    path: '/static/music/kaer_morhen.mp3',
+    path: '/static/music/output.mp3',
   },
+  {
+    key: 'track_aurum_spacesounds',
+    name: 'Aurum - Spacesounds',
+    path: '/static/music/aurum_spacesounds1.mp3',
+  },
+  {
+    key: 'track_a_cabin_by_the_lake',
+    name: 'Lazarus Moment - In A Cabin By The Lake',
+    path: '/static/music/a_cabin_by_the_lake.mp3',
+  },
+  {
+    key: 'track_unforgiven',
+    name: 'Lazarus Moment - Unforgiven',
+    path: '/static/music/unforgiven.mp3',
+  },
+  {
+    key: 'track_falling_apart',
+    name: 'Etsu - Falling Apart',
+    path: '/static/music/falling_apart.mp3',
+  },
+  {
+    key: 'track_music_is_dead',
+    name: 'Blackbird - Music is Dead',
+    path: '/static/music/music_is_dead.mp3',
+  },
+  {
+    key: 'track_hypernova',
+    name: 'Arnyd - Hypernova',
+    path: '/static/music/hypernova.mp3',
+  },
+  // {
+  //   name: 'Witcher 3 Kaer Morhen',
+  //   path: '/static/music/kaer_morhen.mp3',
+  // },
 ];
 
 export const SOCIAL_LINKS = [

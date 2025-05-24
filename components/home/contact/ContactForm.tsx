@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-import { contactSchema } from '@/lib/schemas/zod-schemas';
+import { contactSchema } from '@/lib/zod-schemas';
 import { Button, Dialog, TextAreaField, TextField } from '@/components';
 import { ContactFormValues, DialogRefProps } from '@/lib/types';
 import { contactAction } from '@/app/actions/contact-action';

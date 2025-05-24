@@ -8,6 +8,7 @@ import { useLayoutContext } from '@/context/LayoutContext';
 import { useMobileViewport, usePageVisible } from '@/lib/hooks';
 import { cn } from '@/lib/common';
 import { MUSIC_PLAYLIST } from '@/lib/data';
+import { MusicTrackType } from '@/lib/types';
 
 /* music context */
 export type MusicContextType = {
@@ -230,8 +231,11 @@ const MusicControlMultiple = () => {
   const workerRef = useRef<Worker | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
   const audioGain = useRef<GainNode | null>(null);
-  const audioBuffer = useRef<AudioBuffer | null>(null);
+  const audioBuffer = useRef<AudioBuffer | null | undefined>(null);
   const source = useRef<AudioBufferSourceNode | null>(null);
+  const currentTrackIndex = useRef(0);
+  const audioBufferCache = useRef<Map<string, AudioBuffer>>(new Map());
+  const retriedTracks = useRef<Set<string>>(new Set());
 
   const resumeMusic = useCallback(() => {
     // console.log('resume');
@@ -239,6 +243,7 @@ const MusicControlMultiple = () => {
     audioContext.current?.resume();
     setIsPlay(true);
     canPageVisibleStop.current = true;
+    sessionStorage.setItem('is-music', 'true');
   }, [setIsPlay]);
 
   const pauseMusic = useCallback(() => {
@@ -246,10 +251,19 @@ const MusicControlMultiple = () => {
 
     audioContext.current?.suspend();
     setIsPlay(false);
+    sessionStorage.setItem('is-music', 'false');
   }, [setIsPlay]);
+
+  const nextTrack = useCallback(() => {
+    const nextIndex = (currentTrackIndex.current + 1) % MUSIC_PLAYLIST.length;
+    currentTrackIndex.current = nextIndex;
+    loadTrack(MUSIC_PLAYLIST[nextIndex]);
+  }, []);
 
   const playMusic = useCallback(() => {
     if (!audioContext.current || !audioGain.current || !audioBuffer.current) return;
+
+    sessionStorage.setItem('is-music', 'true');
 
     if (source.current) {
       resumeMusic();
@@ -267,45 +281,54 @@ const MusicControlMultiple = () => {
         // console.log('ended', audioContext.current?.state);
         source.current?.stop();
         source.current = null;
-        playMusic();
+
+        nextTrack();
       };
 
       canPageVisibleStop.current = true;
       setIsPlay(true);
     }
-  }, [setIsPlay, resumeMusic]);
+  }, [setIsPlay, resumeMusic, nextTrack]);
 
   const onMessage = useCallback(
-    (event: MessageEvent<any>) => {
-      const { action, buffer, error } = event.data;
+    async (event: MessageEvent<any>) => {
+      const { action, buffer, track, error } = event.data;
 
       if (action === 'loaded') {
-        audioContext.current = new AudioContext();
-        audioContext.current.decodeAudioData(buffer, (decodedBuffer) => {
-          audioBuffer.current = decodedBuffer;
-          // console.log('Track loaded and decoded');
-          setIsDisable(false);
+        try {
+          const decodedBuffer = await audioContext.current?.decodeAudioData(buffer);
+          if (decodedBuffer) {
+            // console.log('Track loaded and decoded');
 
-          // set the volume
-          if (audioContext.current) {
-            audioGain.current = audioContext.current.createGain();
-            audioGain.current.gain.value = 0.2;
-          }
+            audioBuffer.current = decodedBuffer;
+            audioBufferCache.current.set(track.key, decodedBuffer);
+            setIsDisable(false);
 
-          const isInitialMusic = sessionStorage.getItem('is-initial-music') === 'true';
-          if (isInitialMusic) {
-            playMusic();
+            const isMusic = sessionStorage.getItem('is-music') === 'true';
+            if (isMusic) {
+              playMusic();
+            }
           }
-        });
+        } catch (err) {
+          console.error(`Error decoding music track: ${track.name}`, error);
+          if (retriedTracks.current.size + 1 < MUSIC_PLAYLIST.length) {
+            retriedTracks.current.add(track.path);
+            nextTrack();
+          }
+        }
       } else if (action === 'loadError') {
-        console.error('Error loading music track', error);
-        setIsDisable(true);
+        console.error(`Error loading music track: ${track.name}`, error);
+        if (retriedTracks.current.size + 1 < MUSIC_PLAYLIST.length) {
+          retriedTracks.current.add(track.path);
+          nextTrack();
+        }
       } else {
         console.error(action, error);
         setIsDisable(true);
+        setIsPlay(false);
       }
     },
-    [setIsDisable, playMusic]
+    [setIsDisable, setIsPlay, playMusic, nextTrack]
   );
 
   const handleClick = () => {
@@ -317,12 +340,30 @@ const MusicControlMultiple = () => {
     }
   };
 
-  const loadTrack = useCallback((track: string) => {
-    // workerRef.current.postMessage({ data: { track: MUSIC_PLAYLIST[0].path } });
-    workerRef.current?.postMessage(track);
-  }, []);
+  const loadTrack = useCallback(
+    (track: MusicTrackType) => {
+      setIsDisable(true);
+
+      if (audioBufferCache.current.has(track.key)) {
+        audioBuffer.current = audioBufferCache.current.get(track.key);
+        setIsDisable(false);
+        playMusic();
+      } else {
+        workerRef.current?.postMessage(track);
+      }
+    },
+    [playMusic, setIsDisable]
+  );
 
   useEffect(() => {
+    // Initialize AudioContext and GainNode once
+    if (!audioContext.current) {
+      audioContext.current = new AudioContext();
+      audioGain.current = audioContext.current.createGain();
+      audioGain.current.gain.value = 0.2;
+      audioGain.current.connect(audioContext.current.destination);
+    }
+
     // Initialize the Web Worker
     workerRef.current = new Worker(new URL('@/lib/workers/audioWorker.ts', import.meta.url));
 
@@ -330,11 +371,17 @@ const MusicControlMultiple = () => {
     workerRef.current.addEventListener('message', onMessage);
 
     // only for development, because welcome screen disabled
-    loadTrack('/static/music/output.mp3');
+    loadTrack(MUSIC_PLAYLIST[0]);
 
     return () => {
+      workerRef.current?.removeEventListener('message', onMessage);
       workerRef.current?.terminate();
       audioContext.current?.close();
+
+      workerRef.current = null;
+      audioContext.current = null;
+
+      sessionStorage.setItem('is-music', 'false');
     };
   }, [loadTrack]);
 
@@ -355,7 +402,7 @@ const MusicControlMultiple = () => {
         id="loadMusicBtn"
         tabIndex={-1}
         className="invisible"
-        onClick={() => loadTrack('/static/music/output.mp3')}></button>
+        onClick={() => loadTrack(MUSIC_PLAYLIST[0])}></button>
 
       <TogglePlayBtn onClick={handleClick} />
     </>
