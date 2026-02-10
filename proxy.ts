@@ -5,7 +5,7 @@ import { setCookie } from 'cookies-next';
 import { COOKIE_KEYS } from './lib/data';
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { device } = userAgent(request);
 
   const isMobile = device.type === 'mobile' || device.type === 'tablet';
