@@ -1,7 +1,7 @@
 @use './mixings' as mix;
 
 :root {
-  --clr-text: theme('colors.text');
+  --clr-text: #212121;
 
   --header-height: 100px;
   --header-content-height: calc(var(--header-height) * 0.75);
@@ -22,17 +22,17 @@
 
   --hero-height: calc(105vh - var(--header-height));
 
-  --toaster-bg: theme('colors.background');
-  --toaster-color: theme('colors.text');
-  --toaster-border: 1px solid theme('colors.gray.300');
+  --toaster-bg: #F5F5F5;
+  --toaster-color: #212121;
+  --toaster-border: 1px solid #D1D5DB;
 }
 
 :root.dark {
-  --clr-text: theme('colors.d.text');
+  --clr-text: #F5F5F5;
 
-  --toaster-bg: theme('colors.neutral.800');
-  --toaster-color: theme('colors.d.text');
-  --toaster-border: 1px solid theme('colors.gray.600');
+  --toaster-bg: #1f2937;
+  --toaster-color: #F5F5F5;
+  --toaster-border: 1px solid #4B5563;
 }
 
 @include mix.min-width(sm) {

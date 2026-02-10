@@ -1,5 +1,4 @@
 import createMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -45,10 +44,12 @@ const nextConfig = {
 };
 
 const withMDX = createMDX({
-  // Optional: Add remark and rehype plugins here
-  // Add markdown plugins here, as desired
+  // Use serializable plugin identifiers (string + options) so Next's
+  // configuration can be serialized for the loader in Next 16+.
   options: {
-    remarkPlugins: [remarkGfm],
+    // Specify remark plugins as [moduleName, options] tuples (plain values)
+    // The loader will require the module by name at runtime.
+    remarkPlugins: [['remark-gfm', {}]],
   },
 });
 

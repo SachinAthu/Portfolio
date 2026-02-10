@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
   corePlugins: {
@@ -13,7 +13,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-montserrat)', ...fontFamily.sans],
+        body: ['var(--font-montserrat)', ...(defaultTheme.fontFamily?.sans ?? [])],
       },
       screens: {
         '2xs': '360px',

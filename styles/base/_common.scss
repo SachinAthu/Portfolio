@@ -35,20 +35,20 @@ label {
 
 ::-moz-selection {
   color: white;
-  background: theme('colors.primary');
+  background: #E91E63;
 }
 
 ::selection {
   color: white;
-  background: theme('colors.primary');
+  background: #E91E63;
 }
 
 :focus-visible {
-  outline: 1px solid theme('colors.primary');
+  outline: 1px solid #E91E63;
   outline-offset: 1px;
 
   @include mix.min-width(sm) {
-    outline: 2px solid theme('colors.primary');
+    outline: 2px solid #E91E63;
     outline-offset: 2px;
   }
 }

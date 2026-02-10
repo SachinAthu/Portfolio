@@ -88,12 +88,12 @@
 //     background-color: transparent;
 
 //     &:before {
-//       background-color: theme('colors.d.text');
+//       background-color: theme('color.d.text');
 //       transform: rotateZ(45deg) translate(4px, -4px);
 //     }
 
 //     &:after {
-//       background-color: theme('colors.d.text');
+//       background-color: theme('color.d.text');
 //       transform: rotateZ(-45deg) translate(4px, 4px);
 //     }
 //   }
@@ -102,12 +102,12 @@
 //     background-color: transparent;
 
 //     &:before {
-//       background-color: theme('colors.d.text');
+//       background-color: theme('color.d.text');
 //       transform: rotateZ(-45deg) translate(-4px, -4px);
 //     }
 
 //     &:after {
-//       background-color: theme('colors.d.text');
+//       background-color: theme('color.d.text');
 //       transform: rotateZ(45deg) translate(-4px, 4px);
 //     }
 //   }
