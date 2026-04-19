@@ -1,118 +1,3 @@
-@use '../base/mixings' as mix;
-
-/* menu button */
-
-// @mixin icon($height, $width) {
-//   transition:
-//     background-color 0.5s,
-//     transform 0.5s;
-//   position: absolute;
-//   height: $height;
-//   width: $width;
-//   top: calc(50% - $height / 2);
-//   background-color: currentColor;
-// }
-
-// @mixin icon-before($height, $width, $top) {
-//   transition:
-//     background-color 0.5s,
-//     transform 0.5s;
-//   position: absolute;
-//   width: $width;
-//   height: $height;
-//   background-color: currentColor;
-//   content: '';
-//   top: $top;
-//   left: 0;
-// }
-
-// @mixin icon-after($height, $width, $top) {
-//   transition:
-//     background-color 0.5s,
-//     transform 0.5s;
-//   position: absolute;
-//   width: $width;
-//   height: $height;
-//   background-color: currentColor;
-//   content: '';
-//   top: $top;
-//   left: 0;
-// }
-
-// .menu-btn {
-//   --width: 34px;
-//   --height: 26px;
-//   --part-width: calc(var(--width) / 2);
-//   --part-height: 4px;
-//   --part-top: calc(var(--height) / 2 - var(--part-height) / 2);
-//   --border-radius: 9999px;
-
-//   width: var(--width);
-//   height: var(--height);
-
-//   .icon-left {
-//     @include icon(var(--part-height), var(--part-width));
-//     left: 0px;
-//     transition: background-color 0.5s;
-
-//     &:before {
-//       @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
-//       transform-origin: left;
-//     }
-
-//     &:after {
-//       @include icon-after(var(--part-height), var(--part-width), var(--part-top));
-//       transform-origin: left;
-//     }
-//   }
-
-//   .icon-right {
-//     @include icon(var(--part-height), var(--part-width));
-//     left: calc(var(--width) / 2);
-//     transition: background-color 0.5s;
-
-//     &:before {
-//       @include icon-before(var(--part-height), var(--part-width), calc(-1 * var(--part-top)));
-//       transform-origin: right;
-//     }
-
-//     &:after {
-//       @include icon-after(var(--part-height), var(--part-width), var(--part-top));
-//       transform-origin: right;
-//     }
-//   }
-// }
-
-// .menu-btn.open {
-//   .icon-left {
-//     background-color: transparent;
-
-//     &:before {
-//       background-color: theme('color.d.text');
-//       transform: rotateZ(45deg) translate(4px, -4px);
-//     }
-
-//     &:after {
-//       background-color: theme('color.d.text');
-//       transform: rotateZ(-45deg) translate(4px, 4px);
-//     }
-//   }
-
-//   .icon-right {
-//     background-color: transparent;
-
-//     &:before {
-//       background-color: theme('color.d.text');
-//       transform: rotateZ(-45deg) translate(-4px, -4px);
-//     }
-
-//     &:after {
-//       background-color: theme('color.d.text');
-//       transform: rotateZ(45deg) translate(-4px, 4px);
-//     }
-//   }
-// }
-
 .menu-btn {
   .bar {
     width: 100%;
@@ -408,7 +293,7 @@
 }
 /**/
 
-// footer - scroll to top button
+/* footer - scroll to top button */
 .scroll-top-button {
   .scroll-top-button-1 {
     position: absolute;
@@ -454,7 +339,7 @@
     left: 0;
     height: 2px;
     width: 100%;
-    @apply border-b-2 border-dashed border-text dark:border-d-text;
+    @apply border-text dark:border-d-text border-b-2 border-dashed;
   }
 
   &::after {
@@ -467,7 +352,7 @@
     width: 98%;
     transform: scaleX(0);
     transition: transform 0.5s ease;
-    @apply border-b-2 border-solid border-text dark:border-d-text;
+    @apply border-text dark:border-d-text border-b-2 border-solid;
   }
 
   &:hover::after {

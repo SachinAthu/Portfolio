@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 
-import '@/styles/main.scss';
+import '@/styles/main.css';
 import { Footer, PageLoader, Welcome } from '@/components';
 import { LayoutProvider } from '@/context/LayoutContext';
 import { ROOTURL } from '@/lib/data';
@@ -105,41 +105,40 @@ export const metadata: Metadata = {
 
 const Header = dynamic(() => import('@/components/header/Header'), {
   loading: () => (
-    <div className="fixed left-0 right-0 top-0 z-50 flex h-[var(--header-height)] w-full items-center">
-      <div className="container-wide hidden h-[var(--header-content-height)] w-full items-center justify-between rounded-full px-[2%] sm:flex sm:rounded-none sm:px-[3%] 2xl:px-0">
+    <div className="fixed top-0 right-0 left-0 z-50 flex h-(--header-height) w-full items-center">
+      <div className="container-wide hidden h-(--header-content-height) w-full items-center justify-between rounded-full px-[2%] sm:flex sm:rounded-none sm:px-[3%] 2xl:px-0">
         <div className="flex h-full items-center justify-center rounded-full px-8 backdrop-blur-lg">
-          <div className="skeleton h-7 w-[9.125rem]"></div>
+          <div className="skeleton h-7 w-36.5"></div>
         </div>
 
         <div className="flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
-          <div className="skeleton hidden h-9 w-[7.375rem] md:block"></div>
-          <div className="skeleton h-9 w-[4.5rem]"></div>
-          <div className="skeleton h-9 w-[2.125rem] 2xl:hidden"></div>
+          <div className="skeleton hidden h-9 w-29.5 md:block"></div>
+          <div className="skeleton h-9 w-18"></div>
+          <div className="skeleton h-9 w-8.5 2xl:hidden"></div>
         </div>
       </div>
 
-      <div className="h-[var(--header-content-height)] w-full sm:hidden">
+      <div className="h-(--header-content-height) w-full sm:hidden">
         <div className="container h-full">
           <div className="flex h-full items-center justify-between rounded-full px-[2%] backdrop-blur-lg">
             <div className="flex h-full items-center justify-center rounded-full px-4">
-              <div className="skeleton h-7 w-[5.8125rem]"></div>
+              <div className="skeleton h-7 w-23.25"></div>
             </div>
 
             <div className="header-inner-2 | flex h-full items-center gap-4 rounded-full px-4 backdrop-blur-lg">
-              <div className="skeleton h-9 w-[4.5rem]"></div>
-              <div className="skeleton h-9 w-[2.125rem]"></div>
+              <div className="skeleton h-9 w-18"></div>
+              <div className="skeleton h-9 w-8.5"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
   ),
-  ssr: false,
 });
 
-const NavMenu = dynamic(() => import('@/components/NavMenu'), { ssr: false });
-const ToasterCom = dynamic(() => import('@/components/ToasterCom'), { ssr: false });
-const AnimGrid = dynamic(() => import('@/components/AnimGrid'), { ssr: false });
+const NavMenu = dynamic(() => import('@/components/NavMenu'));
+const ToasterCom = dynamic(() => import('@/components/ToasterCom'));
+const AnimGrid = dynamic(() => import('@/components/AnimGrid'));
 
 export default function RootLayout({
   children,

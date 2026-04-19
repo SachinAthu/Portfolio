@@ -4,6 +4,9 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   // Configure `pageExtensions` to include MDX files
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  images: {
+    qualities: [75, 90, 100],
+  },
 
   async headers() {
     if (process.env.NODE_ENV === 'production') {

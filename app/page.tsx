@@ -6,9 +6,9 @@ import { About, Contact, Experience, Hero, TechStack } from '@/components';
 import { ROOTURL } from '@/lib/data';
 import { HomeProvider } from '@/context/HomeContext';
 
-const HomeScrollNav = dynamic(() => import('@/components/home/HomeScrollNav'), { ssr: false });
-const HomeSideNav = dynamic(() => import('@/components/home/HomeSideNav'), { ssr: false });
-const Works = dynamic(() => import('@/components/home/Works'), { ssr: false });
+const HomeScrollNav = dynamic(() => import('@/components/home/HomeScrollNav'));
+const HomeSideNav = dynamic(() => import('@/components/home/HomeSideNav'));
+const Works = dynamic(() => import('@/components/home/Works'));
 
 const jsonld = {
   '@context': 'https://schema.org',

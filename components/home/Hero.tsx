@@ -1,6 +1,7 @@
-import { CustomLink, Section } from '..';
+import { CustomLink, Section } from "..";
 
-import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode, SiLinkedin } from 'react-icons/si';
+import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode } from "react-icons/si";
+import { IoLogoLinkedin } from "react-icons/io";
 
 export default function Hero() {
   return (
@@ -16,7 +17,9 @@ export default function Hero() {
         className="flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 will-change-transform sm:flex-col sm:px-[calc(3%+2rem)] 2xl:px-8">
         <div className="flex flex-col items-end">
           <div className="mb-8 sm:mb-12">
-            <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">Full-stack Developer;</p>
+            <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">
+              Full-stack Developer;
+            </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-3">
@@ -36,7 +39,7 @@ export default function Hero() {
               className="p-3"
               icon
               aria-label="LinkedIn account">
-              <SiLinkedin />
+              <IoLogoLinkedin />
             </CustomLink>
             <CustomLink
               id="heroSocialCodepenLink"

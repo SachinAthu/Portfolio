@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { RevealText, Section } from '../..';
 import ContactForm from './ContactForm';
 
-const ContactSocials = dynamic(() => import('./contactSocials/ContactSocials'), { ssr: false });
+const ContactSocials = dynamic(() => import('./contactSocials/ContactSocials'));
 
 export default function Contact() {
   return (
