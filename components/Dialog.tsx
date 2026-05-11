@@ -1,10 +1,17 @@
-'use client';
+"use client";
 
-import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
-import { useMobile } from '@/lib/hooks';
-import { DialogRefProps } from '@/lib/types';
-import { cn } from '@/lib/common';
+import { useMobile } from "@/lib/hooks";
+import { DialogRefProps } from "@/lib/types";
+import { cn } from "@/lib/common";
 
 function DialogCloseBtn({ onClose }: { onClose: () => void }) {
   return (
@@ -31,52 +38,55 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
 
     const resetBodyStyles = useCallback((unmount?: boolean) => {
       if (unmount) {
-        const dialogsCount = document.querySelectorAll('dialog[open]').length;
+        const dialogsCount = document.querySelectorAll("dialog[open]").length;
         if (dialogsCount > 0) return;
       }
 
-      const scrollY = parseInt(document.body.style.top || '0') * -1;
+      const scrollY = parseInt(document.body.style.top || "0") * -1;
 
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.paddingRight = '';
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.paddingRight = "";
 
       if (!unmount) window.scrollTo(0, scrollY);
     }, []);
 
     const handleOpen = useCallback(() => {
-      const scrollBarWidth = isMobile ? 0 : window.innerWidth - document.documentElement.clientWidth || 15;
+      const scrollBarWidth = isMobile
+        ? 0
+        : window.innerWidth - document.documentElement.clientWidth || 15;
       const scrollY = window.scrollY;
 
-      document.body.style.position = 'fixed';
+      document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
+      document.body.style.left = "0";
+      document.body.style.right = "0";
       document.body.style.paddingRight = `${scrollBarWidth}px`;
 
       dialogElRef.current?.showModal();
       setIsMount(true);
       requestAnimationFrame(() => {
-        dialogElRef.current?.classList.add('show');
+        dialogElRef.current?.classList.add("show");
       });
 
-      const firstFocusableElement = dialogElRef.current?.querySelector<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
+      const firstFocusableElement =
+        dialogElRef.current?.querySelector<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
       firstFocusableElement?.focus();
     }, [isMobile]);
 
     const handleClose = useCallback(() => {
       if (!dialogElRef.current) return;
 
-      dialogElRef.current.classList.remove('show');
-      dialogElRef.current.classList.add('hide');
+      dialogElRef.current.classList.remove("show");
+      dialogElRef.current.classList.add("hide");
       setTimeout(() => {
         dialogElRef.current?.close();
         setIsMount(false);
-        dialogElRef.current?.classList.remove('hide');
+        dialogElRef.current?.classList.remove("hide");
         resetBodyStyles();
       }, 300);
     }, [resetBodyStyles]);
@@ -101,7 +111,7 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
       if (dialogElRef.current) {
         if (!imageView) {
           dialogElRef.current.addEventListener(
-            'click',
+            "click",
             (e: MouseEvent) => {
               const dialogRef = dialogElRef.current;
               if (dialogRef && e.target === dialogRef) {
@@ -113,11 +123,11 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
         }
 
         dialogElRef.current.addEventListener(
-          'keydown',
+          "keydown",
           (e: KeyboardEvent) => {
             e.stopPropagation();
 
-            if (e.key === 'Escape') {
+            if (e.key === "Escape") {
               e.preventDefault();
               handleClose();
             }
@@ -137,19 +147,28 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
         id={id}
         ref={dialogElRef}
         className={cn(
-          'relative overflow-hidden bg-background dark:bg-d-background',
-          imageView ? 'image-view-dialog h-[100svh] w-screen' : 'modal-dialog rounded-lg px-4 py-3 sm:px-5 sm:py-4'
+          "relative overflow-hidden bg-background dark:bg-d-background",
+          imageView
+            ? "image-view-dialog h-svh w-screen"
+            : "modal-dialog rounded-lg px-4 py-3 sm:px-5 sm:py-4"
         )}
         aria-label={ariaLabel}
         data-lenis-prevent>
-        <div className={imageView ? 'absolute right-3 top-3' : 'mb-6 flex h-10 items-center justify-end sm:mb-8'}>
+        <div
+          className={
+            imageView
+              ? "absolute right-3 top-3"
+              : "mb-6 flex h-10 items-center justify-end sm:mb-8"
+          }>
           <DialogCloseBtn onClose={handleClose} />
         </div>
 
         <div
           className={cn(
-            'overflow-auto',
-            imageView ? 'max-w-screen max-h-[100svh]' : 'max-h-[85svh] max-w-[90vw] sm:max-h-[85vh]'
+            "overflow-auto",
+            imageView
+              ? "max-w-screen max-h-svh"
+              : "max-h-[85svh] max-w-[90vw] sm:max-h-[85vh]"
           )}>
           {isMount && children}
         </div>
@@ -157,6 +176,6 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
     );
   }
 );
-Dialog.displayName = 'Dialog';
+Dialog.displayName = "Dialog";
 
 export default memo(Dialog);

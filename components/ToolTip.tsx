@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
+import { JSX, useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
 
-import { cn } from '@/lib/common';
-import { useMobileViewport, useDebouncedCallback } from '@/lib/hooks';
+import { cn } from "@/lib/common";
+import { useMobileViewport, useDebouncedCallback } from "@/lib/hooks";
 
 type ToolTipProps = {
   children: React.ReactNode;
@@ -29,8 +29,14 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
 
   useGSAP(
     () => {
-      xTo.current = gsap.quickTo(ttip.current, 'x', { duration: 0.8, ease: 'power2.out' });
-      yTo.current = gsap.quickTo(ttip.current, 'y', { duration: 0.8, ease: 'power2.out' });
+      xTo.current = gsap.quickTo(ttip.current, "x", {
+        duration: 0.8,
+        ease: "power2.out",
+      });
+      yTo.current = gsap.quickTo(ttip.current, "y", {
+        duration: 0.8,
+        ease: "power2.out",
+      });
 
       const enterAnim = gsap.to(ttip.current, {
         opacity: 1,
@@ -38,7 +44,7 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         delay: 0.5,
         paused: true,
         onStart: () => {
-          gsap.set(ttip.current, { display: 'block' });
+          gsap.set(ttip.current, { display: "block" });
         },
       });
 
@@ -47,14 +53,14 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         duration: 0.1,
         paused: true,
         onComplete: () => {
-          gsap.set(ttip.current, { display: 'none', x: 0, y: 0 });
+          gsap.set(ttip.current, { display: "none", x: 0, y: 0 });
         },
       });
 
       const controller = new AbortController();
 
       container.current?.addEventListener(
-        'mouseenter',
+        "mouseenter",
         (e: MouseEvent) => {
           mouseMove(e);
           enterAnim.invalidate().restart(true);
@@ -63,7 +69,7 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
       );
 
       container.current?.addEventListener(
-        'mouseleave',
+        "mouseleave",
         () => {
           enterAnim.pause().invalidate();
           leaveAnim.invalidate().restart();
@@ -71,7 +77,9 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         { signal: controller.signal }
       );
 
-      container.current?.addEventListener('mousemove', mouseMove, { signal: controller.signal });
+      container.current?.addEventListener("mousemove", mouseMove, {
+        signal: controller.signal,
+      });
 
       return () => {
         controller.abort();
@@ -88,11 +96,13 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         <div
           ref={ttip}
           className={cn(
-            'absolute left-0 top-0 hidden rounded-full border border-subtext bg-[rgba(245,245,245,0.9)] p-2 text-base opacity-0 dark:border-d-subtext dark:bg-[rgba(30,30,30,0.9)]',
-            className || ''
+            "absolute left-0 top-0 hidden rounded-full border border-subtext bg-[rgba(245,245,245,0.9)] p-2 text-base opacity-0 dark:border-d-subtext dark:bg-[rgba(30,30,30,0.9)]",
+            className || ""
           )}>
           <div className="flex items-center justify-center">
-            <span className="whitespace-nowrap font-medium text-subtext dark:text-d-subtext">{toolTip}</span>
+            <span className="whitespace-nowrap font-medium text-subtext dark:text-d-subtext">
+              {toolTip}
+            </span>
           </div>
         </div>
       </div>

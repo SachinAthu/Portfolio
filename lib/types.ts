@@ -1,4 +1,5 @@
-import { StaticImageData } from 'next/image';
+import { StaticImageData } from "next/image";
+import { JSX } from "react";
 
 export type NavLinkType = {
   title: string;
@@ -10,7 +11,7 @@ export type NavLinkType = {
 
 export type TechStackType = {
   title: string;
-  categories: ('all' | 'frontend' | 'backend' | 'mobile' | 'other')[];
+  categories: ("all" | "frontend" | "backend" | "mobile" | "other")[];
 };
 
 export type WorkType = {
@@ -18,10 +19,11 @@ export type WorkType = {
   title: string;
   description: string;
   slug: string;
-  titleImage: {
-    url: string;
-    image: StaticImageData;
+  video: {
+    urls: { src: string; type: string }[];
+    poster: string;
   };
+  image: string;
   ogImage: string;
   content: JSX.Element;
   author: string[];

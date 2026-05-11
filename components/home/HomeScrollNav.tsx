@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
-import { IoArrowDown, IoArrowUp } from 'react-icons/io5';
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
+import { IoArrowDown, IoArrowUp } from "react-icons/io5";
 
-import { useMobileViewport } from '@/lib/hooks';
-import { useLayoutContext } from '@/context/LayoutContext';
-import { useHomeContext } from '@/context/HomeContext';
-import { IconButton } from '..';
-import { NAV_LINKS } from '@/lib/data';
+import { useMobileViewport } from "@/lib/hooks";
+import { useLayoutContext } from "@/context/LayoutContext";
+import { useHomeContext } from "@/context/HomeContext";
+import { IconButton } from "..";
+import { NAV_LINKS } from "@/lib/data";
 
 function ScrollNav() {
   const { locoScroll } = useLayoutContext();
@@ -19,12 +19,12 @@ function ScrollNav() {
   useGSAP(
     () => {
       // hide side menu in hero section
-      if (activeSection && activeSection.id === 'hero') {
+      if (activeSection && activeSection.id === "hero") {
         gsap.to(scrollNav.current, {
           x: 100,
           opacity: 0,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: "power2.out",
           delay: 0.75,
         });
       } else {
@@ -32,15 +32,15 @@ function ScrollNav() {
           x: 0,
           opacity: 1,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: "power2.out",
           delay: 0.75,
           onComplete: () => {
-            if (activeSection && activeSection.id === 'contact') {
+            if (activeSection && activeSection.id === "contact") {
               gsap.to(downButton.current, {
                 x: 100,
                 opacity: 0,
                 duration: 0.5,
-                ease: 'power2.out',
+                ease: "power2.out",
                 delay: 0.75,
               });
             } else {
@@ -48,7 +48,7 @@ function ScrollNav() {
                 x: 0,
                 opacity: 1,
                 duration: 0.5,
-                ease: 'power2.out',
+                ease: "power2.out",
                 delay: 0.75,
               });
             }
@@ -59,12 +59,12 @@ function ScrollNav() {
     { dependencies: [activeSection] }
   );
 
-  function scroll(direction: 'up' | 'down') {
+  function scroll(direction: "up" | "down") {
     if (!activeSection) return;
 
     const index = parseInt(activeSection.key) - 1;
 
-    if (direction === 'down') {
+    if (direction === "down") {
       if (index + 1 >= NAV_LINKS.length) {
         return;
       }
@@ -80,10 +80,12 @@ function ScrollNav() {
   return (
     <div
       ref={scrollNav}
-      className="fixed right-6 top-[var(--scroll-nav-top)] z-20 hidden h-[var(--scroll-nav-height)] translate-x-[100px] opacity-0 2xl:block">
+      className="fixed right-6 top-(--scroll-nav-top) z-20 hidden h-(--scroll-nav-height) translate-x-[100px] opacity-0 2xl:block">
       <div className="grid h-full grid-cols-1 grid-rows-[1fr_1.5fr_1fr] gap-1">
         <div className="flex items-center justify-center">
-          <IconButton onClick={() => scroll('up')} aria-label="Scroll section up">
+          <IconButton
+            onClick={() => scroll("up")}
+            aria-label="Scroll section up">
             <IoArrowUp />
           </IconButton>
         </div>
@@ -93,7 +95,10 @@ function ScrollNav() {
         </div>
 
         <div className="flex items-center justify-center" ref={downButton}>
-          <IconButton onClick={() => scroll('down')} direction="down" aria-label="Scroll section down">
+          <IconButton
+            onClick={() => scroll("down")}
+            direction="down"
+            aria-label="Scroll section down">
             <IoArrowDown />
           </IconButton>
         </div>

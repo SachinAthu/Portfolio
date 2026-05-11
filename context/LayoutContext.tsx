@@ -1,11 +1,18 @@
-'use client';
+"use client";
 
-import React, { createContext, useState, useContext, useEffect, useMemo, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
-import { ScrollTrigger } from '@/lib/gsap-config';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
+import { usePathname } from "next/navigation";
+import { ScrollTrigger } from "@/lib/gsap-config";
+import LocomotiveScroll from "locomotive-scroll";
 
-import { useDebouncedCallback, useMobile } from '@/lib/hooks';
-import { NAV_LINKS } from '@/lib/data';
+import { useDebouncedCallback, useMobile } from "@/lib/hooks";
+import { NAV_LINKS } from "@/lib/data";
 
 export type LayoutContextType = {
   isWelcome: boolean;
@@ -43,28 +50,30 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   }, 100);
 
   useEffect(() => {
-    const header = document.getElementById('app-header');
-    const navMenu = document.getElementById('app-nav-menu');
+    const header = document.getElementById("app-header");
+    const navMenu = document.getElementById("app-nav-menu");
 
     if (!header || !navMenu) return;
 
     // disable body scrolling when nav menu open
     if (isNavOpen) {
-      document.body.classList.add('overflow-hidden');
-      const scrollBarWidth = isMobile ? 0 : window.innerWidth - document.documentElement.clientWidth || 12;
+      document.body.classList.add("overflow-hidden");
+      const scrollBarWidth = isMobile
+        ? 0
+        : window.innerWidth - document.documentElement.clientWidth || 12;
       header.style.paddingRight = `${scrollBarWidth}px`;
       navMenu.style.paddingRight = `${scrollBarWidth}px`;
     } else {
-      document.body.classList.remove('overflow-hidden');
-      header.style.paddingRight = '';
-      navMenu.style.paddingRight = '';
+      document.body.classList.remove("overflow-hidden");
+      header.style.paddingRight = "";
+      navMenu.style.paddingRight = "";
     }
   }, [isNavOpen]);
 
   useEffect(() => {
     // setup locomotive scroll
     (async () => {
-      const LocomotiveScroll = (await import('locomotive-scroll')).default;
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
       const scroll = new LocomotiveScroll({
         // @ts-ignore
         lenisOptions: {
@@ -81,21 +90,21 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
     // key press listener
     window.addEventListener(
-      'keydown',
+      "keydown",
       (e: KeyboardEvent) => {
         switch (e.key) {
-          case 'Escape':
-            if (pathname === '/') {
+          case "Escape":
+            if (pathname === "/") {
               setIsNavOpen(false);
             }
             break;
-          case '1':
-          case '2':
-          case '3':
-          case '4':
-          case '5':
-          case '6':
-            if (pathname === '/') {
+          case "1":
+          case "2":
+          case "3":
+          case "4":
+          case "5":
+          case "6":
+            if (pathname === "/") {
               locoScroll?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
               setIsNavOpen(false);
             }
@@ -109,7 +118,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
     // browser back and forward button click listener
     window.addEventListener(
-      'popstate',
+      "popstate",
       () => {
         setIsPageLoading2(true);
       },
@@ -117,7 +126,9 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
     if (!isMobile) {
-      document.addEventListener('scroll', onScroll, { signal: controller.signal });
+      document.addEventListener("scroll", onScroll, {
+        signal: controller.signal,
+      });
     }
 
     // reset page loading state
@@ -153,21 +164,31 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setIsPageLoading,
       setIsPageLoading2,
     }),
-    [isWelcome, isNavOpen, isNavShow, isScrolled, isPageLoading, isPageLoading2, locoScroll]
+    [
+      isWelcome,
+      isNavOpen,
+      isNavShow,
+      isScrolled,
+      isPageLoading,
+      isPageLoading2,
+      locoScroll,
+    ]
   );
 
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
+  return (
+    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  );
 };
 
 const useLayoutContext = () => {
   const context = useContext(LayoutContext);
   if (!context) {
-    throw new Error('useLayoutContext must be used within an LayoutProvider');
+    throw new Error("useLayoutContext must be used within an LayoutProvider");
   }
   return context;
 };
 
-LayoutContext.displayName = 'LayoutContext';
-LayoutProvider.displayName = 'LayoutProvider';
+LayoutContext.displayName = "LayoutContext";
+LayoutProvider.displayName = "LayoutProvider";
 
 export { LayoutProvider, useLayoutContext };

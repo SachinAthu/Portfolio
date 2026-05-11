@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { gsap } from '@/lib/gsap-config';
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap-config";
 
-import { usePageVisible, useWindowResize } from '@/lib/hooks';
-import { getAnimGridSize } from '@/lib/common';
-import { useLayoutContext } from '@/context/LayoutContext';
+import { usePageVisible, useWindowResize } from "@/lib/hooks";
+import { getAnimGridSize } from "@/lib/common";
+import { useLayoutContext } from "@/context/LayoutContext";
 
 export default function AnimGrid() {
   const animgrid = useRef<HTMLDivElement>(null);
@@ -18,12 +18,12 @@ export default function AnimGrid() {
   const decreseOpa = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
-    increseOpa.current = gsap.to('.animgrid-inner', {
+    increseOpa.current = gsap.to(".animgrid-inner", {
       opacity: 1,
       duration: 0.3,
       paused: true,
     });
-    decreseOpa.current = gsap.to('.animgrid-inner', {
+    decreseOpa.current = gsap.to(".animgrid-inner", {
       opacity: 0.5,
       duration: 0.3,
       paused: true,
@@ -45,8 +45,8 @@ export default function AnimGrid() {
       animgrid.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
 
       for (let i = 0; i < grid.cols * grid.rows; i++) {
-        const d = document.createElement('div');
-        d.className = 'box';
+        const d = document.createElement("div");
+        d.className = "box";
         animgrid.current?.appendChild(d);
       }
     }
@@ -84,7 +84,7 @@ export default function AnimGrid() {
 
     return () => {
       if (animGridRef?.innerHTML) {
-        animGridRef.innerHTML = '';
+        animGridRef.innerHTML = "";
       }
       gridAnim.current?.kill();
       gridAnim.current = null;
@@ -109,7 +109,7 @@ export default function AnimGrid() {
   }, [isScrolled]);
 
   return (
-    <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full">
+    <div className="animgrid | pointer-events-none fixed left-0 top-0 -z-10 h-lvh w-full">
       <div
         className="animgrid-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:border-text [&>div]:bg-transparent [&>div]:opacity-10 dark:[&>div]:border-d-text"
         ref={animgrid}></div>

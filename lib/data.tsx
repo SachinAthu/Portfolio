@@ -196,16 +196,25 @@ const SampleWork1MDX = dynamic(
 export const WORKS: WorkType[] = [
   {
     key: "work_voxitec",
-    title: "Voxitec",
+    title: "Voxitec website",
     description:
       "Discover how I developed a complete business website for Voxitec (a tech startup) for a showcase their worth and carry their image to the world. Learn about the business challenges, technical solutions, and key results in this in-depth case study.",
     slug: "voxitec",
-    titleImage: {
-      url: `${ROOTURL}/static/works/portfolio/portfolio.png`,
-      image: IMG_WORK_PORTFOLIO,
+    video: {
+      urls: [
+        {
+          src: `${ROOTURL}/static/works/voxitec/voxitec.webm`,
+          type: "video/webm",
+        },
+        {
+          src: `${ROOTURL}/static/works/voxitec/voxitec.mp4`,
+          type: "video/mp4",
+        },
+      ],
+      poster: `${ROOTURL}/static/works/voxitec/voxitec_poster.webp`,
     },
-
-    ogImage: `${ROOTURL}/static/works/portfolio/og_image.jpg`,
+    image: `${ROOTURL}/static/works/voxitec/voxitec.png`,
+    ogImage: `${ROOTURL}/static/works/voxitec/voxitec_og.png`,
     content: <SampleWork1MDX />,
     author: ["Sachin Athukorala"],
     date: {
@@ -214,6 +223,68 @@ export const WORKS: WorkType[] = [
       dateModified: "2025-01-22",
     },
     previewLink: "https://voxitec.com/",
+    screenshots: [],
+  },
+  {
+    key: "work_wheelstock",
+    title: "Wheelstock",
+    description:
+      "Discover how I developed a complete inventory management system called Wheelstock for a vehicle battery shop retailer. Learn about the business challenges, technical solutions, and key results in this in-depth case study.",
+    slug: "wheelstock",
+    video: {
+      urls: [
+        {
+          src: `${ROOTURL}/static/works/wheelstock/wheelstock.webm`,
+          type: "video/webm",
+        },
+        {
+          src: `${ROOTURL}/static/works/wheelstock/wheelstock.mp4`,
+          type: "video/mp4",
+        },
+      ],
+      poster: `${ROOTURL}/static/works/wheelstock/wheelstock_poster.webp`,
+    },
+    image: `${ROOTURL}/static/works/wheelstock/wheelstock.png`,
+    ogImage: `${ROOTURL}/static/works/wheelstock/wheelstock_og.png`,
+    content: <SampleWork1MDX />,
+    author: ["Sachin Athukorala"],
+    date: {
+      dateCreated: "2025-01-10",
+      datePublished: "2025-01-22",
+      dateModified: "2025-01-22",
+    },
+    demoLink: "https://dev-wheelstock.netlify.app/",
+    screenshots: [],
+  },
+  {
+    key: "work_tealeaf",
+    title: "Tealeaf consulting",
+    description:
+      "Discover how I developed a complete business website for Tealeaf consulting, a consulting company based in Canada.",
+    slug: "tealeaf",
+    video: {
+      urls: [
+        {
+          src: `${ROOTURL}/static/works/tealeaf/tealeaf.webm`,
+          type: "video/webm",
+        },
+        {
+          src: `${ROOTURL}/static/works/tealeaf/tealeaf.mp4`,
+          type: "video/mp4",
+        },
+      ],
+      poster: `${ROOTURL}/static/works/tealeaf/tealeaf_poster.webp`,
+    },
+    image: `${ROOTURL}/static/works/tealeaf/tealeaf.png`,
+    ogImage: `${ROOTURL}/static/works/tealeaf/tealeaf_og.png`,
+    content: <SampleWork1MDX />,
+    author: ["Sachin Athukorala"],
+    date: {
+      dateCreated: "2025-01-10",
+      datePublished: "2025-01-22",
+      dateModified: "2025-01-22",
+    },
+    previewLink: "https://www.tealeafconsult.com/",
     screenshots: [],
   },
   // {

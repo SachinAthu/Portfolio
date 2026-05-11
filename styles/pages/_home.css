@@ -1,7 +1,7 @@
 .home-page {
   .techstack {
     .filters {
-      label:has(input[type='radio']:checked) {
+      label:has(input[type="radio"]:checked) {
         color: white;
       }
     }
@@ -10,12 +10,6 @@
   .my-works {
     .work {
       transform-style: preserve-3d;
-    }
-
-    .work-title {
-      .char {
-        opacity: 0.5;
-      }
     }
   }
 }

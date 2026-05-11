@@ -1,12 +1,15 @@
-import { Section, RevealText, FadeIn, CustomLink } from '..';
+import { Section, RevealText, FadeIn, CustomLink } from "..";
 
 export default function About() {
   return (
-    <Section id="about" className="about z-[10]" transparent={false}>
+    <Section id="about" className="about z-10" transparent={false}>
       <div className="container">
         <RevealText id="aboutHeading">
           <h2 className="heading-1">
-            About Me<span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">.</span>
+            About Me
+            <span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">
+              .
+            </span>
           </h2>
         </RevealText>
 
@@ -14,17 +17,22 @@ export default function About() {
           <div className="">
             <FadeIn id="aboutDescription1">
               <p className="paragraph-1 [&>span]:text-primary">
-                I’m a <span>Full-stack Developer</span> from Sri Lanka, currently freelancing since April 2023,
-                primarily focused on <span>Web Development</span>, creating beautiful and efficient web applications.
-                I’m also interested in developing <span>mobile and desktop applications</span>. I enjoy my time learning
-                new things, developing some cool stuff, and messing around with my computer.
+                I’m a <span>Full-stack Developer</span> from Sri Lanka,
+                currently freelancing since April 2023, primarily focused on{" "}
+                <span>Web Development</span>, creating beautiful and efficient
+                web applications. I’m also interested in developing{" "}
+                <span>mobile and desktop applications</span>. I enjoy my time
+                learning new things, developing some cool stuff, and messing
+                around with my computer.
               </p>
             </FadeIn>
 
             <FadeIn id="aboutDescription2">
               <p className="paragraph-1 [&>span]:text-primary">
-                I'm <span>open to work</span> where I can contribute, and improve my skills while providing my best
-                effort. If you have a suitable opportunity that matches my skills, feel free to <span>contact me</span>.
+                I'm <span>open to work</span> where I can contribute, and
+                improve my skills while providing my best effort. If you have a
+                suitable opportunity that matches my skills, feel free to{" "}
+                <span>contact me</span>.
               </p>
             </FadeIn>
           </div>

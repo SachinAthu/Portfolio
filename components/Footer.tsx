@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
-import { RiArrowUpWideFill } from 'react-icons/ri';
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
+import { RiArrowUpWideFill } from "react-icons/ri";
 
-import { useLayoutContext } from '@/context/LayoutContext';
+import { useLayoutContext } from "@/context/LayoutContext";
 
 export default function Footer() {
   const container = useRef<HTMLDivElement>(null);
@@ -15,15 +15,15 @@ export default function Footer() {
   const { contextSafe } = useGSAP({ scope: container });
 
   const scrollToTop = contextSafe(() => {
-    scrollBtn.current?.classList.add('scrolling');
+    scrollBtn.current?.classList.add("scrolling");
     gsap.to(circle.current, {
       strokeDashoffset: 2 * 3.14 * 100 * 1,
-      ease: 'power2.out',
+      ease: "power2.out",
       duration: 2,
       onComplete: () => {
         locoScroll?.scrollTo(0);
         gsap.set(circle.current, { strokeDashoffset: 0 });
-        scrollBtn.current?.classList.remove('scrolling');
+        scrollBtn.current?.classList.remove("scrolling");
       },
     });
   });
@@ -71,8 +71,10 @@ export default function Footer() {
       </div>
 
       <div className="container">
-        <div className="grid h-[var(--footer-height)] place-items-center">
-          <p className="text-center text-base">© {new Date().getFullYear()} Sachin Athukorala. All rights reserved.</p>
+        <div className="grid h-(--footer-height) place-items-center">
+          <p className="text-center text-base">
+            © {new Date().getFullYear()} Sachin Athukorala. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

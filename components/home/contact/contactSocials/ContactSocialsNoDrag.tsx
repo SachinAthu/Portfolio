@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useRef } from "react";
+import Link from "next/link";
 
-import { gsap } from '@/lib/gsap-config';
-import { SOCIAL_LINKS } from '@/lib/data';
+import { gsap } from "@/lib/gsap-config";
+import { SOCIAL_LINKS } from "@/lib/data";
 
 type SocialLinkProps = {
   index: number;
@@ -18,7 +18,7 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
   const socialLinkEl = useRef<HTMLAnchorElement | null>(null);
   const socialLinkWrapperEl = useRef<HTMLDivElement | null>(null);
   const flairEl = useRef<HTMLDivElement | null>(null);
-  const flairTween = useRef<gsap.core.Tween>();
+  const flairTween = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     if (!socialLinkEl.current || !flairEl.current) return;
@@ -26,11 +26,11 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
     flairTween.current = gsap.to(flairEl.current, {
       scaleX: 1,
       duration: 1,
-      ease: 'power2.out',
+      ease: "power2.out",
       paused: true,
       onComplete: () => {
         setTimeout(() => {
-          window.open(link, '_blank', 'noopener noreferrer');
+          window.open(link, "_blank", "noopener noreferrer");
           if (flairTween.current) {
             gsap.set(flairEl.current, { scaleX: 0 });
           }
@@ -42,8 +42,8 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
 
     mm.add(
       {
-        isDesktop: '(min-width: 1024px)',
-        isMobile: '(max-width: 1023px)',
+        isDesktop: "(min-width: 1024px)",
+        isMobile: "(max-width: 1023px)",
       },
       (context) => {
         let { isMobile } = context.conditions!;
@@ -53,11 +53,11 @@ function SocialLink({ index, id, title, link, icon }: SocialLinkProps) {
         gsap.to(socialLinkEl.current, {
           scale: 1,
           duration: 1,
-          ease: 'none',
+          ease: "none",
           scrollTrigger: {
             trigger: socialLinkWrapperEl.current,
             start: `top ${120 - n * 15}%`,
-            end: 'top 30%',
+            end: "top 30%",
             scrub: true,
           },
         });
@@ -106,13 +106,27 @@ export default function ContactSocialsNoDrag() {
       <div className="">
         <div className="links-1 grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:grid-cols-[1.5fr_1fr]">
           {SOCIAL_LINKS.slice(0, 2).map((sl, i) => (
-            <SocialLink index={i} key={sl.id} id={sl.id} title={sl.title} link={sl.link} icon={sl.icon} />
+            <SocialLink
+              index={i}
+              key={sl.id}
+              id={sl.id}
+              title={sl.title}
+              link={sl.link}
+              icon={sl.icon}
+            />
           ))}
         </div>
 
         <div className="links-2 mt-2 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-4 md:mt-6 md:gap-6 lg:grid-cols-3">
           {SOCIAL_LINKS.slice(2).map((sl, i) => (
-            <SocialLink index={i} key={sl.id} id={sl.id} title={sl.title} link={sl.link} icon={sl.icon} />
+            <SocialLink
+              index={i}
+              key={sl.id}
+              id={sl.id}
+              title={sl.title}
+              link={sl.link}
+              icon={sl.icon}
+            />
           ))}
         </div>
       </div>

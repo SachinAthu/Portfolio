@@ -17,7 +17,7 @@ export default function Hero() {
         className="flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 will-change-transform sm:flex-col sm:px-[calc(3%+2rem)] 2xl:px-8">
         <div className="flex flex-col items-end">
           <div className="mb-8 sm:mb-12">
-            <p className="max-w-[30rem] text-right text-5xl font-medium sm:text-7xl">
+            <p className="max-w-120 text-right text-5xl font-medium sm:text-7xl">
               Full-stack Developer;
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function Hero() {
               aria-label="LinkedIn account">
               <IoLogoLinkedin />
             </CustomLink>
-            <CustomLink
+            {/* <CustomLink
               id="heroSocialCodepenLink"
               href="https://codepen.io/sachinathu"
               target="_blank"
@@ -67,7 +67,7 @@ export default function Hero() {
               icon
               aria-label="Leetcode account">
               <SiLeetcode />
-            </CustomLink>
+            </CustomLink> */}
             {/* <CustomLink
               id="heroSocialCodeSBLink"
               href="https://codesandbox.io/u/sachinAthu"

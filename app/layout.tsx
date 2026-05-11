@@ -1,29 +1,29 @@
-import type { Metadata, Viewport } from 'next';
-import { Montserrat } from 'next/font/google';
-import { ThemeProvider } from 'next-themes';
-import dynamic from 'next/dynamic';
-import Script from 'next/script';
+import type { Metadata, Viewport } from "next";
+import { Montserrat } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import dynamic from "next/dynamic";
+import Script from "next/script";
 
-import '@/styles/main.css';
-import { Footer, PageLoader, Welcome } from '@/components';
-import { LayoutProvider } from '@/context/LayoutContext';
-import { ROOTURL } from '@/lib/data';
+import "@/styles/main.css";
+import { Footer, PageLoader, Welcome } from "@/components";
+import { LayoutProvider } from "@/context/LayoutContext";
+import { ROOTURL } from "@/lib/data";
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-montserrat',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
 });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#1E1E1E' },
-    { media: '(prefers-color-scheme: dark)', color: '#008080' },
+    { media: "(prefers-color-scheme: light)", color: "#1E1E1E" },
+    { media: "(prefers-color-scheme: dark)", color: "#008080" },
   ],
 };
 
-const title = 'Sachin Athukorala | Full-stack Developer';
-const description = 'The portfolio of Sachin Athukorala, Full-stack Developer.';
+const title = "Sachin Athukorala | Full-stack Developer";
+const description = "The portfolio of Sachin Athukorala, Full-stack Developer.";
 export const metadata: Metadata = {
   metadataBase: new URL(ROOTURL),
   title,
@@ -31,41 +31,41 @@ export const metadata: Metadata = {
   icons: {
     shortcut: [
       {
-        rel: 'shortcut icon',
-        url: '/favicon.ico',
-        type: 'image/x-icon',
+        rel: "shortcut icon",
+        url: "/favicon.ico",
+        type: "image/x-icon",
       },
     ],
     apple: [
       {
-        rel: 'apple-touch-icon',
-        url: '/apple-icon-180x180.png',
-        sizes: '180x180',
-        type: 'image/png',
+        rel: "apple-touch-icon",
+        url: "/apple-icon-180x180.png",
+        sizes: "180x180",
+        type: "image/png",
       },
     ],
     other: [
       {
-        url: '/favicon-16x16.png',
-        sizes: '16x16',
-        type: 'image/png',
+        url: "/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
       },
       {
-        url: '/favicon-32x32.png',
-        sizes: '32x32',
-        type: 'image/png',
+        url: "/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
       },
       {
-        url: '/favicon-96x96.png',
-        sizes: '96x96',
-        type: 'image/png',
+        url: "/favicon-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
       },
       {
-        rel: 'mask-icon',
-        url: '/safari-pinned-tab.svg',
-        sizes: '625x625',
-        type: 'image/png',
-        color: '#1e1e1e',
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        sizes: "625x625",
+        type: "image/png",
+        color: "#1e1e1e",
       },
     ],
   },
@@ -78,20 +78,20 @@ export const metadata: Metadata = {
       {
         url: `${ROOTURL}/static/og_image.jpg`,
         secureUrl: `${ROOTURL}/static/og_image.jpg`,
-        alt: 'Sachin Athukorala',
+        alt: "Sachin Athukorala",
         width: 1200,
         height: 630,
-        type: 'image/jpg',
+        type: "image/jpg",
       },
     ],
-    locale: 'en_US',
+    locale: "en_US",
     siteName: "Sachin's Portfolio",
-    type: 'website',
+    type: "website",
   },
-  generator: 'Next.js',
-  applicationName: 'SachinAthu',
-  robots: 'max-image-preview:standard',
-  manifest: '/manifest.json',
+  generator: "Next.js",
+  applicationName: "SachinAthu",
+  robots: "max-image-preview:standard",
+  manifest: "/manifest.json",
   formatDetection: {
     telephone: false,
     date: false,
@@ -99,11 +99,11 @@ export const metadata: Metadata = {
     address: false,
   },
   other: {
-    'msapplication-TileColor': '#00aba9',
+    "msapplication-TileColor": "#00aba9",
   },
 };
 
-const Header = dynamic(() => import('@/components/header/Header'), {
+const Header = dynamic(() => import("@/components/header/Header"), {
   loading: () => (
     <div className="fixed top-0 right-0 left-0 z-50 flex h-(--header-height) w-full items-center">
       <div className="container-wide hidden h-(--header-content-height) w-full items-center justify-between rounded-full px-[2%] sm:flex sm:rounded-none sm:px-[3%] 2xl:px-0">
@@ -136,9 +136,9 @@ const Header = dynamic(() => import('@/components/header/Header'), {
   ),
 });
 
-const NavMenu = dynamic(() => import('@/components/NavMenu'));
-const ToasterCom = dynamic(() => import('@/components/ToasterCom'));
-const AnimGrid = dynamic(() => import('@/components/AnimGrid'));
+const NavMenu = dynamic(() => import("@/components/NavMenu"));
+const ToasterCom = dynamic(() => import("@/components/ToasterCom"));
+const AnimGrid = dynamic(() => import("@/components/AnimGrid"));
 
 export default function RootLayout({
   children,
@@ -148,7 +148,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       {/* for development remove overflow-hidden */}
-      <body className={`${montserrat.variable}`} suppressHydrationWarning={true}>
+      <body
+        className={`${montserrat.variable}`}
+        suppressHydrationWarning={true}>
         <ThemeProvider attribute="class">
           <LayoutProvider>
             <AnimGrid />
@@ -164,7 +166,7 @@ export default function RootLayout({
             <PageLoader />
 
             {/* for development comment out */}
-            {/* <Welcome /> */}
+            <Welcome />
 
             <ToasterCom />
           </LayoutProvider>

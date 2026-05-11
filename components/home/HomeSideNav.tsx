@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
 
-import { useLayoutContext } from '@/context/LayoutContext';
-import { useHomeContext } from '@/context/HomeContext';
-import { NAV_LINKS } from '@/lib/data';
-import { useMobileViewport } from '@/lib/hooks';
-import { cn } from '@/lib/common';
-import { ToolTip } from '..';
+import { useLayoutContext } from "@/context/LayoutContext";
+import { useHomeContext } from "@/context/HomeContext";
+import { NAV_LINKS } from "@/lib/data";
+import { useMobileViewport } from "@/lib/hooks";
+import { cn } from "@/lib/common";
+import { ToolTip } from "..";
 
 function SideNav() {
   const { locoScroll } = useLayoutContext();
@@ -23,12 +23,12 @@ function SideNav() {
       // hide side menu in hero section
       if (!activeSection) return;
 
-      if (activeSection.id === 'hero') {
+      if (activeSection.id === "hero") {
         gsap.to(sideNav.current, {
           x: -100,
           opacity: 0,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: "power2.out",
           delay: 0.75,
         });
       } else {
@@ -36,7 +36,7 @@ function SideNav() {
           x: 0,
           opacity: 1,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: "power2.out",
           delay: 0.75,
         });
       }
@@ -45,7 +45,7 @@ function SideNav() {
       gsap.to(btnIndicater.current, {
         y: (parseInt(activeSection.key) - 1) * (btnHeight + btnGap),
         duration: 0.5,
-        ease: 'power2.out',
+        ease: "power2.out",
       });
     },
     { dependencies: [activeSection] }
@@ -54,22 +54,24 @@ function SideNav() {
   return (
     <div
       ref={sideNav}
-      className="fixed left-6 top-[var(--side-nav-top)] z-20 hidden h-[var(--side-nav-height)] -translate-x-[100px] rounded-3xl border border-text bg-background opacity-0 dark:border-d-text dark:bg-d-background 2xl:block">
-      <div className="absolute inset-0 grid h-full w-full grid-cols-1 gap-[var(--side-nav-gap)] overflow-hidden rounded-3xl">
+      className="fixed left-6 top-(--side-nav-top) z-20 hidden h-(--side-nav-height) -translate-x-[100px] rounded-3xl border border-text bg-background opacity-0 dark:border-d-text dark:bg-d-background 2xl:block">
+      <div className="absolute inset-0 grid h-full w-full grid-cols-1 gap-(--side-nav-gap) overflow-hidden rounded-3xl">
         <div
           ref={btnIndicater}
-          className="absolute left-0 top-0 z-[-1] h-[var(--side-nav-btn-height)] w-full bg-primary"></div>
+          className="absolute left-0 top-0 z-[-1] h-(--side-nav-btn-height) w-full bg-primary"></div>
       </div>
 
-      <div className="relative grid h-full grid-cols-1 gap-[var(--side-nav-gap)]">
+      <div className="relative grid h-full grid-cols-1 gap-(--side-nav-gap)">
         {NAV_LINKS.map((l, i) => (
           <ToolTip key={l.key} toolTip={`${i + 1}. ${l.title}`}>
             <button
               type="button"
               onClick={() => locoScroll?.scrollTo(`#${l.id}`)}
               className={cn(
-                'flex h-[var(--side-nav-btn-height)] w-[54px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7',
-                activeSection && activeSection.id === l.id ? 'text-white' : 'text-current'
+                "flex h-(--side-nav-btn-height) w-[54px] items-center justify-center rounded-3xl transition-colors duration-200 [&>svg]:h-7 [&>svg]:w-7",
+                activeSection && activeSection.id === l.id
+                  ? "text-white"
+                  : "text-current"
               )}
               aria-label={`Scroll to section ${l.title}`}>
               {l.icon}
