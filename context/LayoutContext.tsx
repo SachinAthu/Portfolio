@@ -75,7 +75,6 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
       const scroll = new LocomotiveScroll({
-        // @ts-ignore
         lenisOptions: {
           duration: 1.5,
         },

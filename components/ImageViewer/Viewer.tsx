@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDebouncedCallback, useMobile } from '@/lib/hooks';
-import Controlls from './Controlls';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useDebouncedCallback, useMobile } from "@/lib/hooks";
+import Controlls from "./Controlls";
 
 type Position = {
   x: number;
@@ -42,75 +42,81 @@ export default function Viewer({ src }: { src: string }) {
     animateScaleThreshold = 0.001,
     animatePositionThreshold = 0.1;
 
-  const draw = useCallback((ctx: CanvasRenderingContext2D | null | undefined) => {
-    if (!canvasRef.current || !ctx) return;
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D | null | undefined) => {
+      if (!canvasRef.current || !ctx) return;
 
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    ctx.drawImage(
-      imageRef.current,
-      positionRef.current.x,
-      positionRef.current.y,
-      imageRef.current.width * scaleRef.current,
-      imageRef.current.height * scaleRef.current
-    );
-  }, []);
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      ctx.drawImage(
+        imageRef.current,
+        positionRef.current.x,
+        positionRef.current.y,
+        imageRef.current.width * scaleRef.current,
+        imageRef.current.height * scaleRef.current
+      );
+    },
+    []
+  );
 
-  const initCanvas = useDebouncedCallback((highRes: boolean = false, toggle = false) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const initCanvas = useDebouncedCallback(
+    (highRes: boolean = false, toggle = false) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    setIsControlls(false);
-    imageRef.current = new Image(); // reset image object
+      setIsControlls(false);
+      imageRef.current = new Image(); // reset image object
 
-    let dpr = window.devicePixelRatio || 1;
-    dpr = highRes ? dpr : Math.min(dpr, maxDPR);
+      let dpr = window.devicePixelRatio || 1;
+      dpr = highRes ? dpr : Math.min(dpr, maxDPR);
 
-    // Set proper canvas size
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
-    ctx.scale(dpr, dpr);
+      // Set proper canvas size
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
+      ctx.scale(dpr, dpr);
 
-    imageRef.current.src = src;
-    imageRef.current.onload = () => {
-      if (!toggle) {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        let scale = scaleRef.current,
-          imgW = imageRef.current.width,
-          imgH = imageRef.current.height;
+      imageRef.current.src = src;
+      imageRef.current.onload = () => {
+        if (!toggle) {
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          let scale = scaleRef.current,
+            imgW = imageRef.current.width,
+            imgH = imageRef.current.height;
 
-        if (imgW > width || imgH > height) {
-          // image bigger
-          scale = Math.min(width / imgW, height / imgH);
-          imgW *= scale;
-          imgH *= scale;
+          if (imgW > width || imgH > height) {
+            // image bigger
+            scale = Math.min(width / imgW, height / imgH);
+            imgW *= scale;
+            imgH *= scale;
+          }
+
+          positionRef.current = {
+            x: (width - imgW) / 2,
+            y: (height - imgH) / 2,
+          };
+          scaleRef.current = scale;
+          minScale.current = scale;
+          scaleTargetRef.current = scale;
         }
 
-        positionRef.current = {
-          x: (width - imgW) / 2,
-          y: (height - imgH) / 2,
-        };
-        scaleRef.current = scale;
-        minScale.current = scale;
-        scaleTargetRef.current = scale;
-      }
-
-      draw(ctx);
-      setIsControlls(true);
-    };
-  }, 100);
+        draw(ctx);
+        setIsControlls(true);
+      };
+    },
+    100
+  );
 
   // Throttle Rendering Using requestAnimationFrame
   const requestCanvasUpdate = useCallback(() => {
     if (!requestRef.current) {
       requestRef.current = requestAnimationFrame(() => {
-        const ctx = canvasRef.current?.getContext('2d');
+        const ctx = canvasRef.current?.getContext("2d");
         draw(ctx);
         requestRef.current = null; // Reset request flag
       });
@@ -118,32 +124,36 @@ export default function Viewer({ src }: { src: string }) {
   }, [draw]);
 
   // Apply easing to zoom
-  const animateZoom = useCallback(() => {
-    const scaleDiff = scaleTargetRef.current - scaleRef.current;
-    const newScale = scaleRef.current + scaleDiff * easingFactor; // Apply easing factor
+  const animateZoom = useCallback(
+    function animateZoom() {
+      const scaleDiff = scaleTargetRef.current - scaleRef.current;
+      const newScale = scaleRef.current + scaleDiff * easingFactor; // Apply easing factor
 
-    const posDiffX = positionTargetRef.current.x - positionRef.current.x;
-    const posDiffY = positionTargetRef.current.y - positionRef.current.y;
-    const newX = positionRef.current.x + posDiffX * easingFactor; // Apply easing
-    const newY = positionRef.current.y + posDiffY * easingFactor; // Apply easing
+      const posDiffX = positionTargetRef.current.x - positionRef.current.x;
+      const posDiffY = positionTargetRef.current.y - positionRef.current.y;
+      const newX = positionRef.current.x + posDiffX * easingFactor; // Apply easing
+      const newY = positionRef.current.y + posDiffY * easingFactor; // Apply easing
 
-    if (
-      animationRef.current &&
-      Math.abs(scaleDiff) < animateScaleThreshold &&
-      Math.abs(positionTargetRef.current.x - newX) < animatePositionThreshold &&
-      Math.abs(positionTargetRef.current.y - newY) < animatePositionThreshold
-    ) {
-      cancelAnimationFrame(animationRef.current); // Stop animation when close
-      animationRef.current = null;
-      return;
-    }
+      if (
+        animationRef.current &&
+        Math.abs(scaleDiff) < animateScaleThreshold &&
+        Math.abs(positionTargetRef.current.x - newX) <
+          animatePositionThreshold &&
+        Math.abs(positionTargetRef.current.y - newY) < animatePositionThreshold
+      ) {
+        cancelAnimationFrame(animationRef.current); // Stop animation when close
+        animationRef.current = null;
+        return;
+      }
 
-    scaleRef.current = newScale;
-    positionRef.current = { x: newX, y: newY };
+      scaleRef.current = newScale;
+      positionRef.current = { x: newX, y: newY };
 
-    requestCanvasUpdate();
-    animationRef.current = requestAnimationFrame(animateZoom);
-  }, [requestCanvasUpdate]);
+      requestCanvasUpdate();
+      animationRef.current = requestAnimationFrame(animateZoom);
+    },
+    [requestCanvasUpdate]
+  );
 
   // prevent dragging image out of view
   const clampPosition = useCallback(
@@ -152,8 +162,14 @@ export default function Viewer({ src }: { src: string }) {
         imgH = imageRef.current.height * s;
 
       return {
-        x: Math.min(window.innerWidth - dragThreshold, Math.max(-imgW + dragThreshold, x)),
-        y: Math.min(window.innerHeight - dragThreshold, Math.max(-imgH + dragThreshold, y)),
+        x: Math.min(
+          window.innerWidth - dragThreshold,
+          Math.max(-imgW + dragThreshold, x)
+        ),
+        y: Math.min(
+          window.innerHeight - dragThreshold,
+          Math.max(-imgH + dragThreshold, y)
+        ),
       };
     },
     [dragThreshold]
@@ -221,9 +237,9 @@ export default function Viewer({ src }: { src: string }) {
     isDragging.current = dragging;
 
     if (dragging) {
-      canvasRef.current?.classList.add('cursor-grabbing');
+      canvasRef.current?.classList.add("cursor-grabbing");
     } else {
-      canvasRef.current?.classList.remove('cursor-grabbing');
+      canvasRef.current?.classList.remove("cursor-grabbing");
     }
   }, []);
 
@@ -237,7 +253,9 @@ export default function Viewer({ src }: { src: string }) {
     const imageY = (mouseY - positionRef.current.y) / scaleRef.current;
 
     // Calculate new scale
-    let newScale = isZoomIn ? scaleRef.current * (1 + scaleFactor) : scaleRef.current * (1 - scaleFactor);
+    let newScale = isZoomIn
+      ? scaleRef.current * (1 + scaleFactor)
+      : scaleRef.current * (1 - scaleFactor);
     newScale = clampScale(newScale);
     scaleTargetRef.current = newScale;
 
@@ -271,7 +289,7 @@ export default function Viewer({ src }: { src: string }) {
 
     /* Drag (Pan) - Mouse (Desktop) */
     canvas.addEventListener(
-      'mousedown',
+      "mousedown",
       (e: MouseEvent) => {
         e.preventDefault();
 
@@ -292,7 +310,7 @@ export default function Viewer({ src }: { src: string }) {
     );
 
     canvas.addEventListener(
-      'mousemove',
+      "mousemove",
       (e: MouseEvent) => {
         if (!isDragging.current) return;
 
@@ -310,7 +328,7 @@ export default function Viewer({ src }: { src: string }) {
     );
 
     canvas.addEventListener(
-      'mouseup',
+      "mouseup",
       () => {
         setDragging(false);
       },
@@ -318,7 +336,7 @@ export default function Viewer({ src }: { src: string }) {
     );
 
     canvas.addEventListener(
-      'mouseleave',
+      "mouseleave",
       () => {
         setDragging(false);
       },
@@ -328,7 +346,7 @@ export default function Viewer({ src }: { src: string }) {
 
     /* Wheel Zoom - mouse (Desktop) */
     canvas.addEventListener(
-      'wheel',
+      "wheel",
       (e: WheelEvent) => {
         e.preventDefault();
 
@@ -354,7 +372,10 @@ export default function Viewer({ src }: { src: string }) {
         const imageY = (mouseY - positionRef.current.y) / scaleRef.current;
 
         // Calculate new scale
-        let newScale = e.deltaY < 0 ? scaleRef.current * (1 + scaleFactor) : scaleRef.current * (1 - scaleFactor);
+        let newScale =
+          e.deltaY < 0
+            ? scaleRef.current * (1 + scaleFactor)
+            : scaleRef.current * (1 - scaleFactor);
         newScale = clampScale(newScale);
         scaleTargetRef.current = newScale;
 
@@ -373,7 +394,7 @@ export default function Viewer({ src }: { src: string }) {
 
     /* Touch Support (Drag & Pinch-to-Zoom & double tap) */
     canvas.addEventListener(
-      'touchstart',
+      "touchstart",
       (e: TouchEvent) => {
         if (e.touches.length === 1) {
           // double tap
@@ -386,7 +407,10 @@ export default function Viewer({ src }: { src: string }) {
 
           // Single-finger drag start
           setDragging(true);
-          lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+          lastMousePos.current = {
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY,
+          };
         } else if (e.touches.length == 2) {
           // Two-finger pinch-to-zoom start
           const dx = e.touches[0].clientX - e.touches[1].clientX;
@@ -398,17 +422,24 @@ export default function Viewer({ src }: { src: string }) {
     );
 
     canvas.addEventListener(
-      'touchmove',
+      "touchmove",
       (e: TouchEvent) => {
         e.preventDefault();
 
         if (e.touches.length === 1 && isDragging.current) {
           // Single-finger drag
-          let newX = positionRef.current.x + (e.touches[0].clientX - lastMousePos.current.x);
-          let newY = positionRef.current.y + (e.touches[0].clientY - lastMousePos.current.y);
+          let newX =
+            positionRef.current.x +
+            (e.touches[0].clientX - lastMousePos.current.x);
+          let newY =
+            positionRef.current.y +
+            (e.touches[0].clientY - lastMousePos.current.y);
 
           positionRef.current = clampPosition(newX, newY, scaleRef.current);
-          lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+          lastMousePos.current = {
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY,
+          };
         } else if (e.touches.length === 2 && touchDistance !== null) {
           // Pinch-to-Zoom
 
@@ -465,7 +496,7 @@ export default function Viewer({ src }: { src: string }) {
     );
 
     canvas.addEventListener(
-      'touchend',
+      "touchend",
       () => {
         setDragging(false);
         touchDistance.current = null;

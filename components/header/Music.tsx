@@ -73,7 +73,7 @@ const WaveBars = memo(function WaveBars({
     <>
       {BAR_POSITIONS.map((x, i) => (
         <rect
-          key={i}
+          key={x}
           ref={(el) => {
             if (el) rectRefs.current[i] = el;
           }}
