@@ -147,6 +147,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="SachinAthu" />
+      </head>
+
       {/* for development remove overflow-hidden */}
       <body
         className={`${montserrat.variable}`}
