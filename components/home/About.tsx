@@ -7,7 +7,7 @@ export default function About() {
         <RevealText id="aboutHeading">
           <h2 className="heading-1">
             About Me
-            <span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">
+            <span className="text-primary animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite]">
               .
             </span>
           </h2>
@@ -37,7 +37,7 @@ export default function About() {
             </FadeIn>
           </div>
 
-          <div className="lg:pl-32 lg:pt-2">
+          <div className="lg:pt-2 lg:pl-32">
             <FadeIn id="aboutResumeBtn" delay={0.5}>
               <CustomLink
                 id="resumeDownloadLink"
@@ -45,7 +45,7 @@ export default function About() {
                 href="/static/sample_resume.pdf"
                 rel="noopener noreferrer"
                 download
-                className="rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl"
+                className="after:bg-text dark:after:bg-d-text rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl"
               />
             </FadeIn>
           </div>

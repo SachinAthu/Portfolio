@@ -203,18 +203,18 @@ export const WORKS: WorkType[] = [
     video: {
       urls: [
         {
-          src: `${ROOTURL}/static/works/voxitec/voxitec.webm`,
+          src: "/static/works/voxitec/voxitec.webm",
           type: "video/webm",
         },
         {
-          src: `${ROOTURL}/static/works/voxitec/voxitec.mp4`,
+          src: "/static/works/voxitec/voxitec.mp4",
           type: "video/mp4",
         },
       ],
-      poster: `${ROOTURL}/static/works/voxitec/voxitec_poster.webp`,
+      poster: "/static/works/voxitec/voxitec_poster.webp",
     },
-    image: `${ROOTURL}/static/works/voxitec/voxitec.png`,
-    ogImage: `${ROOTURL}/static/works/voxitec/voxitec_og.png`,
+    image: "/static/works/voxitec/voxitec.png",
+    ogImage: "/static/works/voxitec/voxitec_og.png",
     content: <SampleWork1MDX />,
     author: ["Sachin Athukorala"],
     date: {
@@ -234,18 +234,18 @@ export const WORKS: WorkType[] = [
     video: {
       urls: [
         {
-          src: `${ROOTURL}/static/works/wheelstock/wheelstock.webm`,
+          src: "/static/works/wheelstock/wheelstock.webm",
           type: "video/webm",
         },
         {
-          src: `${ROOTURL}/static/works/wheelstock/wheelstock.mp4`,
+          src: "/static/works/wheelstock/wheelstock.mp4",
           type: "video/mp4",
         },
       ],
-      poster: `${ROOTURL}/static/works/wheelstock/wheelstock_poster.webp`,
+      poster: "/static/works/wheelstock/wheelstock_poster.webp",
     },
-    image: `${ROOTURL}/static/works/wheelstock/wheelstock.png`,
-    ogImage: `${ROOTURL}/static/works/wheelstock/wheelstock_og.png`,
+    image: "/static/works/wheelstock/wheelstock.png",
+    ogImage: "/static/works/wheelstock/wheelstock_og.png",
     content: <SampleWork1MDX />,
     author: ["Sachin Athukorala"],
     date: {
@@ -265,18 +265,18 @@ export const WORKS: WorkType[] = [
     video: {
       urls: [
         {
-          src: `${ROOTURL}/static/works/tealeaf/tealeaf.webm`,
+          src: "/static/works/tealeaf/tealeaf.webm",
           type: "video/webm",
         },
         {
-          src: `${ROOTURL}/static/works/tealeaf/tealeaf.mp4`,
+          src: "/static/works/tealeaf/tealeaf.mp4",
           type: "video/mp4",
         },
       ],
-      poster: `${ROOTURL}/static/works/tealeaf/tealeaf_poster.webp`,
+      poster: "/static/works/tealeaf/tealeaf_poster.webp",
     },
-    image: `${ROOTURL}/static/works/tealeaf/tealeaf.png`,
-    ogImage: `${ROOTURL}/static/works/tealeaf/tealeaf_og.png`,
+    image: "/static/works/tealeaf/tealeaf.png",
+    ogImage: "/static/works/tealeaf/tealeaf_og.png",
     content: <SampleWork1MDX />,
     author: ["Sachin Athukorala"],
     date: {

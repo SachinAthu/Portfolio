@@ -7,7 +7,7 @@
     transform-origin: center;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       width: 100%;
@@ -17,7 +17,7 @@
       transition:
         transform 0.5s,
         background-color 1.5s;
-      @apply bg-text dark:bg-d-text;
+      background-color: var(--var-color-text);
     }
   }
 
@@ -77,7 +77,7 @@
       width: 22px;
       height: 22px;
       transition: transform 0.5s;
-      @apply fill-text dark:fill-d-text;
+      fill: var(--var-color-text);
     }
   }
 
@@ -103,7 +103,7 @@
 
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     top: calc(50% - var(--after-width) / 2);
     left: var(--padding);
     width: var(--after-width);
@@ -112,18 +112,18 @@
     transition:
       left 0.5s,
       background-color 0.5s;
-    @apply bg-gray-700 dark:bg-gray-300;
+    background-color: var(--color-theme-btn-after-bg);
   }
 
-  &[data-dark='true']::after {
+  &[data-dark="true"]::after {
     left: calc(100% - (var(--after-width) + var(--padding)));
   }
 
-  &[data-dark='true'] .icon-sun svg {
+  &[data-dark="true"] .icon-sun svg {
     transform: scale(1) translateX(0px);
   }
 
-  &[data-dark='false'] .icon-moon svg {
+  &[data-dark="false"] .icon-moon svg {
     transform: scale(1) translateX(0px);
   }
 }
@@ -134,7 +134,7 @@
   transform-style: preserve-3d;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -147,7 +147,7 @@
     -webkit-clip-path: circle(0px at 0 0);
     clip-path: circle(0px at 0 0);
     transition: all 0.5s ease;
-    @apply bg-text dark:bg-d-text;
+    background-color: var(--var-color-text);
   }
 
   .inner {
@@ -162,7 +162,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      @apply text-text dark:text-d-text;
+      color: var(--var-color-text);
     }
 
     .chars {
@@ -172,7 +172,7 @@
       width: 105%;
       height: 100%;
       transform: translate(0, 120%);
-      @apply text-white dark:text-black;
+      color: var(--var-color-text);
 
       .char {
         will-change: transform;
@@ -182,8 +182,6 @@
 }
 
 .custom-button:not(:disabled):has(:not(.loading)):hover {
-  @apply text-d-text dark:text-text;
-
   &::after {
     -webkit-clip-path: circle(250% at 0 0);
     clip-path: circle(250% at 0 0);
@@ -195,6 +193,8 @@
     }
 
     .chars {
+      color: var(--color-custom-btn-hover) !important;
+
       .char {
         transform: translate(0, -120%);
         transition: transform 0.5s ease;
@@ -207,7 +207,7 @@
 /* custom icon button */
 .custom-icon-button {
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     width: 100%;
@@ -217,7 +217,7 @@
     -webkit-clip-path: circle(0px at 0 0);
     clip-path: circle(0px at 0 0);
     transition: all 0.5s ease;
-    @apply bg-text dark:bg-d-text;
+    background-color: var(--var-color-text);
   }
 
   .inner {
@@ -266,7 +266,7 @@
 }
 
 .custom-icon-button:hover {
-  @apply text-d-text dark:text-text;
+  color: var(--color-custom-btn-hover);
 
   &::after {
     -webkit-clip-path: circle(250% at 0 0);
@@ -332,18 +332,18 @@
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     bottom: -5px;
     left: 0;
     height: 2px;
     width: 100%;
-    @apply border-text dark:border-d-text border-b-2 border-dashed;
+    @apply border-b-2 border-dashed border-(--var-color-text);
   }
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     bottom: -5px;
@@ -352,7 +352,7 @@
     width: 98%;
     transform: scaleX(0);
     transition: transform 0.5s ease;
-    @apply border-text dark:border-d-text border-b-2 border-solid;
+    @apply border-b-2 border-solid border-(--var-color-text);
   }
 
   &:hover::after {

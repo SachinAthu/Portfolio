@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  /* main colors */
   --color-text: #212121;
   --color-background: #f5f5f5;
   --color-primary: #e91e63;
@@ -11,6 +12,22 @@
   --color-subtext: #525252;
   --color-nav: #494949;
   --color-skeleton: hsl(220, 13%, 91%);
+
+  /* main colors - dark */
+  --color-d-text: #f5f5f5;
+  --color-d-background: #1e1e1e;
+  --color-d-subtext: #e6e6e6;
+  --color-d-skeleton: hsla(220, 7%, 17%, 78%);
+
+  /* colors - for css variables */
+  --var-color-text: #212121;
+  --var-color-background: #f5f5f5;
+
+  /* custom button */
+  --color-custom-btn-hover: #f5f5f5;
+
+  /* theme button */
+  --color-theme-btn-after-bg: var(--color-gray-700);
 
   --shadow-header: 0px 1px 5px 0px rgba(30, 30, 30, 0.075);
   --shadow-section: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
@@ -50,6 +67,12 @@
 
 :root.dark {
   /* --color-subtext: #9E9E9E; */
+  --var-color-text: #f5f5f5;
+  --var-color-background: #1e1e1e;
+
+  --color-custom-btn-hover: #212121;
+
+  --color-theme-btn-after-bg: var(--color-gray-300);
 
   --shadow-section: 0px 0px 2px 0px rgba(255, 255, 255, 0.1);
 
@@ -86,10 +109,10 @@
   --color-nav: var(--color-nav);
   --color-skeleton: var(--color-skeleton);
 
-  --color-d-text: #f5f5f5;
-  --color-d-background: #1e1e1e;
-  --color-d-subtext: #e6e6e6;
-  --color-d-skeleton: hsla(220, 7%, 17%, 78%);
+  --color-d-text: var(--color-d-text);
+  --color-d-background: var(--color-d-background);
+  --color-d-subtext: var(--color-d-subtext);
+  --color-d-skeleton: var(--color-d-skeleton);
 
   /* =========================
      SHADOWS
@@ -202,7 +225,7 @@
 
 @layer base {
   body {
-    @apply bg-background font-(family-name:--font-montserrat) text-text transition-colors duration-200 dark:bg-d-background dark:text-d-text;
+    @apply bg-background text-text dark:bg-d-background dark:text-d-text font-(family-name:--font-montserrat) transition-colors duration-200;
     font-stretch: normal;
 
     /* scrollbar */
@@ -344,7 +367,7 @@
   }
 
   .skeleton {
-    @apply animate-pulse rounded-full bg-skeleton dark:bg-d-skeleton;
+    @apply bg-skeleton dark:bg-d-skeleton animate-pulse rounded-full;
   }
 
   .hidden-input {
@@ -367,19 +390,19 @@
 
   .container-text {
     h1 {
-      @apply pb-2 text-[2rem] font-medium sm:pb-4 sm:text-[2.5rem] not-first:pt-14 sm:not-first:pt-16;
+      @apply pb-2 text-[2rem] font-medium not-first:pt-14 sm:pb-4 sm:text-[2.5rem] sm:not-first:pt-16;
     }
 
     h2 {
-      @apply pb-1 text-[1.625rem] font-medium sm:pb-3 sm:text-[2rem] not-first:pt-12 sm:not-first:pt-14;
+      @apply pb-1 text-[1.625rem] font-medium not-first:pt-12 sm:pb-3 sm:text-[2rem] sm:not-first:pt-14;
     }
 
     h3 {
-      @apply pb-0 text-[1.3125rem] font-medium sm:pb-2 sm:text-2xl not-first:pt-10 sm:not-first:pt-12;
+      @apply pb-0 text-[1.3125rem] font-medium not-first:pt-10 sm:pb-2 sm:text-2xl sm:not-first:pt-12;
     }
 
     h4 {
-      @apply pb-0 text-lg font-medium sm:pb-1 sm:text-xl not-first:pt-8 sm:not-first:pt-10;
+      @apply pb-0 text-lg font-medium not-first:pt-8 sm:pb-1 sm:text-xl sm:not-first:pt-10;
     }
 
     h1,
@@ -393,7 +416,7 @@
 
     p,
     blockquote {
-      @apply wrap-break-word text-lg not-first:pt-5;
+      @apply text-lg wrap-break-word not-first:pt-5;
       line-height: 1.6;
     }
 
@@ -406,7 +429,7 @@
       @apply ml-6 list-disc pt-8 sm:ml-8;
 
       li {
-        @apply wrap-break-word text-lg not-first:pt-3;
+        @apply text-lg wrap-break-word not-first:pt-3;
         line-height: 1.6;
       }
     }
@@ -416,11 +439,11 @@
     }
 
     hr {
-      @apply mb-16 mt-40;
+      @apply mt-40 mb-16;
     }
 
     pre {
-      @apply mb-10 mt-20 overflow-auto rounded-sm px-7 pb-7 pt-10 text-sm sm:mb-12 sm:mt-24 sm:text-base;
+      @apply mt-20 mb-10 overflow-auto rounded-sm px-7 pt-10 pb-7 text-sm sm:mt-24 sm:mb-12 sm:text-base;
       line-height: 1.6;
       outline: 1px solid var(--color-text);
       outline-offset: 0.313rem; /* 5px */
@@ -428,7 +451,7 @@
     }
 
     iframe {
-      @apply mb-6 mt-20 max-w-full rounded-sm border-none sm:mb-8 sm:mt-24;
+      @apply mt-20 mb-6 max-w-full rounded-sm border-none sm:mt-24 sm:mb-8;
     }
 
     a {
@@ -447,7 +470,7 @@
 
     figure,
     img {
-      @apply mb-8 mt-20 sm:mb-12 sm:mt-24;
+      @apply mt-20 mb-8 sm:mt-24 sm:mb-12;
     }
 
     figure figcaption,
@@ -456,7 +479,7 @@
     }
 
     table {
-      @apply min-w-103 max-w-full font-normal;
+      @apply max-w-full min-w-103 font-normal;
 
       th {
         @apply border border-gray-300 px-4 py-2 font-semibold opacity-90 dark:border-gray-600;
@@ -566,7 +589,7 @@
   animation: bblFadInOut 2s infinite ease-in-out;
 }
 .loader {
-  @apply text-[5px] text-text dark:text-d-text lg:text-[7px];
+  @apply text-text dark:text-d-text text-[5px] lg:text-[7px];
   position: relative;
   text-indent: -9999em;
   transform: translateY(-100%) translateZ(0);
