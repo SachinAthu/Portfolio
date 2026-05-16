@@ -170,7 +170,7 @@ export default function RootLayout({
             <PageLoader />
 
             {/* for development comment out */}
-            <Welcome />
+            {/* <Welcome /> */}
 
             <ToasterCom />
           </LayoutProvider>

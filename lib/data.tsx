@@ -11,7 +11,6 @@ import {
 import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode } from "react-icons/si";
 
 import { MusicTrackType, NavLinkType, TechStackType, WorkType } from "./types";
-import IMG_WORK_PORTFOLIO from "../public/static/works/portfolio/portfolio.png";
 
 export const ROOTURL =
   process.env.NEXT_PUBLIC_WEBSITE_URL || "https://sachinathu.dev";
@@ -186,12 +185,30 @@ export const TECH_STACK: TechStackType[] = [
 ];
 
 /* works */
-const SampleWork1MDX = dynamic(
-  () => import("@/components/mdx/works/SampleWork1.mdx"),
-  {
-    loading: () => <div>Loading article...</div>,
-  }
+const ArticleLoading = () => (
+  <div className="flex items-center justify-center text-2xl text-gray-500 dark:text-gray-400">
+    Loading article...
+  </div>
 );
+
+// const SampleWork1MDX = dynamic(
+//   () => import("@/components/mdx/SampleWork1.mdx"),
+//   {
+//     loading: ArticleLoading,
+//   }
+// );
+
+const VoxitecMDX = dynamic(() => import("@/components/mdx/Voxitec.mdx"), {
+  loading: ArticleLoading,
+});
+
+const TealeafMDX = dynamic(() => import("@/components/mdx/Tealeaf.mdx"), {
+  loading: ArticleLoading,
+});
+
+const WheelstockMDX = dynamic(() => import("@/components/mdx/Wheelstock.mdx"), {
+  loading: ArticleLoading,
+});
 
 export const WORKS: WorkType[] = [
   {
@@ -215,7 +232,7 @@ export const WORKS: WorkType[] = [
     },
     image: "/static/works/voxitec/voxitec.png",
     ogImage: "/static/works/voxitec/voxitec_og.png",
-    content: <SampleWork1MDX />,
+    content: <VoxitecMDX />,
     author: ["Sachin Athukorala"],
     date: {
       dateCreated: "2025-01-10",
@@ -246,7 +263,7 @@ export const WORKS: WorkType[] = [
     },
     image: "/static/works/wheelstock/wheelstock.png",
     ogImage: "/static/works/wheelstock/wheelstock_og.png",
-    content: <SampleWork1MDX />,
+    content: <WheelstockMDX />,
     author: ["Sachin Athukorala"],
     date: {
       dateCreated: "2025-01-10",
@@ -277,7 +294,7 @@ export const WORKS: WorkType[] = [
     },
     image: "/static/works/tealeaf/tealeaf.png",
     ogImage: "/static/works/tealeaf/tealeaf_og.png",
-    content: <SampleWork1MDX />,
+    content: <TealeafMDX />,
     author: ["Sachin Athukorala"],
     date: {
       dateCreated: "2025-01-10",

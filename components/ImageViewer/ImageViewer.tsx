@@ -54,9 +54,10 @@ export default function ImageViewer({
               src={src}
               alt={alt}
               style={{ width: "100%", height: "auto" }}
+              placeholder="blur"
             />
 
-            <figcaption className="mt-4 text-center text-sm text-subtext dark:text-d-subtext">
+            <figcaption className="text-subtext dark:text-d-subtext mt-4 text-center text-sm">
               {caption}
             </figcaption>
           </figure>
@@ -66,6 +67,7 @@ export default function ImageViewer({
             src={src}
             alt={alt}
             style={{ width: "100%", height: "auto" }}
+            placeholder="blur"
           />
         )}
       </div>
