@@ -36,7 +36,7 @@ export default function NotFoundCom() {
         id="notFoundHomeLink"
         content="Return Home"
         href="/"
-        className="p-6 text-2xl font-medium"
+        className="rounded-full p-6 text-2xl font-medium"
       />
     </div>
   );

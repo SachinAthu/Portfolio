@@ -41,7 +41,7 @@ export default function ErrorCom({ reset }: { reset: () => void }) {
       <Button
         id="errorComTryBtn"
         onClick={reset}
-        className="p-6 text-2xl font-medium">
+        className="rounded-full p-6 text-2xl font-medium">
         Try Again
       </Button>
     </div>
