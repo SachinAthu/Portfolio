@@ -43,7 +43,7 @@ Husky runs `lint-staged`, which runs `eslint --fix` then `prettier --write` on s
 - **Contact flow**: Honeypot bot detection (`nameVerify` field) → DOMPurify sanitization → Brevo (Sendinblue) transactional email API.
 - **Notifications**: Knock (Knock.js) for Discord webhook on contact form submissions.
 - **Theme**: `next-themes` with class-based dark mode.
-- **Music player**: Howler.js + Web Worker (`lib/workers/audioWorker.ts`).
+- **Music player**: Howler.js.
 - **Styling utils**: `clsx` + `tailwind-merge` (via `cn()` helper in `lib/common.ts`).
 
 ## Environment Variables
@@ -52,6 +52,22 @@ Required at runtime (no `.env.example`):
 
 - `NEXT_PUBLIC_WEBSITE_URL` — site URL (defaults to `https://sachinathu.dev`)
 - `BREVO_API_KEY` — Brevo (Sendinblue) API key for contact form email
+
+## Design Aesthetics
+
+- **Minimalist & Modern**: Clean layouts with ample whitespace, high-contrast typography, and a "less is more" philosophy.
+- **Color Palette**:
+  - **Light Mode**: Background `#f5f5f5`, Text `#212121`, Primary `#e91e63` (Pink), Accent `#008080` (Teal).
+  - **Dark Mode**: Background `#1e1e1e`, Text `#f5f5f5`.
+- **Typography**: Uses `Montserrat` font. Headings are bold/medium (`font-medium`) and oversized (e.g., `heading-1` is `text-6xl` to `text-9xl`).
+- **Visual Elements**:
+  - **Grid Background**: A light, subtle grid pattern is used across the background.
+  - **Border Radius**: Large, pill-shaped buttons (`rounded-full`) and slightly rounded cards/images (`rounded-sm`).
+  - **Animations**: Subtle, smooth transitions and reveals. Headings often have a "dot" (`.heading-dot`) with a pulsing animation.
+- **UI Components**:
+  - Pill-shaped buttons with clear hover states.
+  - Sidebar navigation with consistent iconography.
+  - High-quality, balanced spacing using Tailwind's standard scales.
 
 ## Dev Notes
 
