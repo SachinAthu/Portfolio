@@ -7,7 +7,6 @@ import { Dialog } from "@/components";
 import { DialogRefProps, WorkType } from "@/lib/types";
 import Viewer from "@/components/ImageViewer/Viewer";
 import { cn } from "@/lib/common";
-import { useMobileViewport } from "@/lib/hooks";
 
 function getSizes(colSpan: 1 | 2 | 3 | 4): string {
   if (colSpan === 4) return "100vw";
@@ -16,13 +15,6 @@ function getSizes(colSpan: 1 | 2 | 3 | 4): string {
   return "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw";
 }
 
-function GalleryCarousel({ images }: { images: WorkType["screenshots"] }) {
-  return <div>carousel</div>;
-}
-
-/* ─────────────────────────────────────────────
-   Individual bento cell
-   ───────────────────────────────────────────── */
 type BentoCellProps = {
   index: number;
   image: WorkType["screenshots"][number];
@@ -43,29 +35,31 @@ function BentoCell({ index, image, onClick }: BentoCellProps) {
         }
       }}
       className={cn(
-        "group relative overflow-hidden rounded-sm border border-gray-200 dark:border-gray-800",
+        "group relative overflow-hidden rounded-2xl border-2 border-gray-200 dark:border-gray-600",
         "bg-skeleton dark:bg-d-skeleton",
         "cursor-zoom-in",
         image.cols === 2 && "col-span-2",
         image.cols === 3 && "col-span-3",
-        image.rows === 2 && "row-span-2"
+        image.cols === 4 && "col-span-4",
+        image.rows === 2 && "lg:row-span-2"
       )}>
       <Image
         src={image.img}
         alt={image.title}
         fill
         sizes={getSizes(image.cols)}
-        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        className="object-cover grayscale-25 transition-all duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0"
         placeholder="blur"
       />
     </div>
   );
 }
 
-/* ─────────────────────────────────────────────
-   Gallery
-   ───────────────────────────────────────────── */
-function GalleryGrid({ images }: { images: WorkType["screenshots"] }) {
+export default function Gallery({
+  images,
+}: {
+  images: WorkType["screenshots"];
+}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const dialogRef = useRef<DialogRefProps>(null);
 
@@ -75,11 +69,18 @@ function GalleryGrid({ images }: { images: WorkType["screenshots"] }) {
   };
 
   return (
-    <>
+    <div className="gallery | bg-background/30 dark:bg-d-background/30 container mt-12 pt-24 pb-32 sm:mt-24 sm:pt-32 sm:pb-40">
+      <h2 className="heading-2 mb-16 sm:mb-32">
+        Gallery
+        <span className="text-primary animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+          .
+        </span>
+      </h2>
+
       <div
-        className="grid grid-cols-3 gap-3 lg:gap-4"
+        className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8"
         style={{
-          gridAutoRows: "clamp(220px, 30vw, 400px)",
+          gridAutoRows: "clamp(220px, 20vw, 300px)",
           gridAutoFlow: "dense",
         }}>
         {images.map((image, index) => (
@@ -99,31 +100,6 @@ function GalleryGrid({ images }: { images: WorkType["screenshots"] }) {
         imageView>
         <Viewer src={images[selectedIndex].img.src} />
       </Dialog>
-    </>
-  );
-}
-
-export default function Gallery({
-  images,
-}: {
-  images: WorkType["screenshots"];
-}) {
-  const isMobile = useMobileViewport();
-
-  return (
-    <div className="gallery | container mt-12 pt-24 pb-32 sm:mt-24 sm:pt-32 sm:pb-40">
-      <h2 className="heading-2 mb-32">
-        Gallery
-        <span className="text-primary animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite]">
-          .
-        </span>
-      </h2>
-
-      {isMobile ? (
-        <GalleryCarousel images={images} />
-      ) : (
-        <GalleryGrid images={images} />
-      )}
     </div>
   );
 }

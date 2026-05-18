@@ -219,10 +219,12 @@ import voxitec_ss_5 from "@/public/static/works/voxitec/screenshots/ss_5.png";
 import voxitec_ss_6 from "@/public/static/works/voxitec/screenshots/ss_6.png";
 import voxitec_ss_7 from "@/public/static/works/voxitec/screenshots/ss_7.png";
 import voxitec_ss_8 from "@/public/static/works/voxitec/screenshots/ss_8.png";
-import voxitec_ss_9 from "@/public/static/works/voxitec/screenshots/ss_9.png";
-import voxitec_ss_10 from "@/public/static/works/voxitec/screenshots/ss_10.png";
-import voxitec_ss_11 from "@/public/static/works/voxitec/screenshots/ss_11.png";
-import voxitec_ss_12 from "@/public/static/works/voxitec/screenshots/ss_12.png";
+import voxitec_ss_9 from "@/public/static/works/voxitec/screenshots/ss_9.jpeg";
+import voxitec_ss_10 from "@/public/static/works/voxitec/screenshots/ss_10.jpeg";
+import voxitec_ss_11 from "@/public/static/works/voxitec/screenshots/ss_11.jpeg";
+import voxitec_ss_12 from "@/public/static/works/voxitec/screenshots/ss_12.jpeg";
+import voxitec_ss_13 from "@/public/static/works/voxitec/screenshots/ss_13.jpeg";
+import voxitec_ss_14 from "@/public/static/works/voxitec/screenshots/ss_14.jpeg";
 
 // tealeaf screenshots
 import tealeaf_ss_1 from "@/public/static/works/tealeaf/screenshots/ss_1.png";
@@ -280,21 +282,35 @@ export const WORKS: WorkType[] = [
         key: "work_voxitec_ss_1",
         img: voxitec_ss_1,
         title: "Home page hero section - dark mode",
-        cols: 3,
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_9",
+        img: voxitec_ss_9,
+        title: "Mission page",
+        cols: 1,
+        rows: 2,
+      },
+      {
+        key: "work_voxitec_ss_12",
+        img: voxitec_ss_12,
+        title: "Home page (Mobile)",
+        cols: 1,
         rows: 2,
       },
       {
         key: "work_voxitec_ss_2",
         img: voxitec_ss_2,
         title: "Home page hero section - light mode",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
       {
         key: "work_voxitec_ss_3",
         img: voxitec_ss_3,
         title: "Home page - what we offer section",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
       {
@@ -305,58 +321,58 @@ export const WORKS: WorkType[] = [
         rows: 1,
       },
       {
+        key: "work_voxitec_ss_13",
+        img: voxitec_ss_13,
+        title: "Blog page - articles",
+        cols: 1,
+        rows: 2,
+      },
+      {
+        key: "work_voxitec_ss_14",
+        img: voxitec_ss_14,
+        title: "Single blog page - hero section",
+        cols: 1,
+        rows: 2,
+      },
+      {
         key: "work_voxitec_ss_5",
         img: voxitec_ss_5,
-        title: "Blog page - hero section",
+        title: "Services page",
         cols: 2,
         rows: 1,
       },
       {
         key: "work_voxitec_ss_6",
         img: voxitec_ss_6,
-        title: "Blog page - articles",
-        cols: 1,
+        title: "Careers page",
+        cols: 2,
         rows: 1,
       },
       {
         key: "work_voxitec_ss_7",
         img: voxitec_ss_7,
-        title: "Single blog page - hero section",
-        cols: 1,
-        rows: 1,
-      },
-      {
-        key: "work_voxitec_ss_8",
-        img: voxitec_ss_8,
-        title: "Services page",
-        cols: 2,
-        rows: 1,
-      },
-      {
-        key: "work_voxitec_ss_9",
-        img: voxitec_ss_9,
-        title: "Careers page",
+        title: "Contact us page",
         cols: 2,
         rows: 1,
       },
       {
         key: "work_voxitec_ss_10",
         img: voxitec_ss_10,
-        title: "Mission page",
+        title: "Home page - Hero section (Mobile)",
         cols: 1,
-        rows: 1,
+        rows: 2,
       },
       {
         key: "work_voxitec_ss_11",
         img: voxitec_ss_11,
-        title: "Contact page",
+        title: "Mission page",
         cols: 1,
-        rows: 1,
+        rows: 2,
       },
       {
-        key: "work_voxitec_ss_12",
-        img: voxitec_ss_12,
-        title: "Footer section",
+        key: "work_voxitec_ss_8",
+        img: voxitec_ss_8,
+        title: "Footer",
         cols: 2,
         rows: 1,
       },

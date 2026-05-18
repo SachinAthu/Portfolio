@@ -38,7 +38,7 @@ export type WorkType = {
     key: string;
     img: StaticImageData;
     title: string;
-    cols: 1 | 2 | 3;
+    cols: 1 | 2 | 3 | 4;
     rows: 1 | 2;
   }[];
 };
