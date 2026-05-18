@@ -1,7 +1,7 @@
 import { ImageViewer } from "@/components";
 import SYSTEM_DIAGRAM from "@/public/static/works/wheelstock/wheelstock_system_diagram.png";
 
-# 1. About the Client
+## 1. About the Client
 
 - **Developed For:** Global Wheels International (Pvt) Ltd (Client)
 - **Developed By:** Voxitec (Software Development Startup)
@@ -16,7 +16,7 @@ This project was developed for a client, on behalf of **Voxitec** (a remote-firs
 
 ---
 
-# 2. Business Challenge
+## 2. Business Challenge
 
 1. **Fragmented Operations** - Inventory tracking, sales recording, and financial data were spread across manual ledgers and disjointed spreadsheets, making it difficult to get a unified view of the business.
 2. **No Real-Time Stock Visibility** - Staff across multiple stores could not see current stock levels in real time, leading to overselling, stockouts, and delayed customer fulfilment.
@@ -26,7 +26,7 @@ This project was developed for a client, on behalf of **Voxitec** (a remote-firs
 
 ---
 
-# 3. Challenges Faced
+## 3. Challenges Faced
 
 - **Multi-Store Data Architecture** - Designing a Firestore data model that could efficiently track per-store stock levels, transfers between stores, and rep assignments while maintaining consistent inventory counts across the entire system.
 - **Transactional Integrity Without a Relational Database** - Business-critical operations (sales, stock adjustments, transfers) needed atomic multi-document writes. This was solved by routing all critical writes through Firebase Cloud Functions using Firestore transactions, preventing race conditions and partial updates.
@@ -37,34 +37,34 @@ This project was developed for a client, on behalf of **Voxitec** (a remote-firs
 
 ---
 
-# 4. Personas
+## 4. Personas
 
-## Primary User - Store Staff / Cashier
+### Primary User - Store Staff / Cashier
 
 - Processes retail shop sales and handles customer walk-ins
 - Records new and used item sales, accepts cash/cheque payments
 - Needs fast, intuitive point-of-sale workflows and instant stock verification
 - Accesses the system via desktop browser at the store counter
 
-## Primary User - Sales Representative (Rep)
+### Primary User - Sales Representative (Rep)
 
 - External field agent selling to dealers
 - Receives stock issued from stores, sells to dealers, returns unsold stock
 - Needs mobile-friendly access to view assigned stock and record sales
 
-## Secondary User - Store Manager
+### Secondary User - Store Manager
 
 - Oversees stock levels, initiates transfers between stores, and manages purchase orders
 - Reviews stock adjustment requests and investigates discrepancies
 - Generates sales and inventory reports for their store
 
-## Secondary User - Admin / Operations Manager
+### Secondary User - Admin / Operations Manager
 
 - Manages users, roles, and system-wide settings (brands, categories, companies)
 - Reviews system-wide reports, stock snapshots, and notification alerts
 - Handles customer/dealer complaints and returned cheques
 
-## Tertiary User - Super Admin
+### Tertiary User - Super Admin
 
 - Full system access including user management for all admins
 - Responsible for system configuration and troubleshooting
@@ -72,9 +72,9 @@ This project was developed for a client, on behalf of **Voxitec** (a remote-firs
 
 ---
 
-# 5. System Overview
+## 5. System Overview
 
-## 5.1 System Diagram
+### 5.1 System Diagram
 
 <ImageViewer
   src={SYSTEM_DIAGRAM}
@@ -95,7 +95,7 @@ A three-tier architecture:
 
 Data flows: Client React Query hooks read from Firestore directly for dynamic data. For writes that affect inventory or financial records, the client invokes a callable Cloud Function, which validates input via Zod, executes a multi-document Firestore transaction, and returns the result.
 
-## 5.2 Designs
+### 5.2 Designs
 
 The UI follows a dashboard layout with a collapsible sidebar navigation, a top header bar with user/profile controls, and a main content area. Design priorities included:
 
@@ -106,7 +106,7 @@ The UI follows a dashboard layout with a collapsible sidebar navigation, a top h
 
 Responsive design considerations include mobile detection middleware and drawer components for smaller screens.
 
-## 5.3 Technologies Used
+### 5.3 Technologies Used
 
 | Component             | Technology                                       |
 | --------------------- | ------------------------------------------------ |
@@ -126,7 +126,7 @@ Responsive design considerations include mobile detection middleware and drawer 
 | Icons                 | lucide-react                                     |
 | UI Utilities          | class-variance-authority, clsx, tailwind-merge   |
 
-## 5.4 Features
+### 5.4 Features
 
 - **Multi-Store Inventory Management** - Track stock levels (units and loose quantities) across multiple physical store locations with per-store views and system-wide aggregate views
 - **New & Used Item Catalog** - Separate catalogs for new and used/imported items with brand, category, pricing, warranty, and selling-type (unit or loose) classification
@@ -149,7 +149,7 @@ Responsive design considerations include mobile detection middleware and drawer 
 
 ---
 
-# 6. Results and Benefits
+## 6. Results and Benefits
 
 - **Operational Efficiency** - Automated stock tracking eliminated manual ledger updates, reducing daily inventory reconciliation time for store managers.
 - **Real-Time Visibility** - Stock levels across all stores and with field reps became visible instantly, reducing overselling incidents and enabling informed transfer decisions.
@@ -162,7 +162,7 @@ _[Quantitative metrics such as percentage improvements in processing time, sales
 
 ---
 
-# 7. Lessons Learned
+## 7. Lessons Learned
 
 - **Cloud Functions as a Transactional Guarantee Layer** - Routing all financially and inventory-sensitive writes through callable Cloud Functions with Firestore transactions was critical for data integrity. This pattern, while adding some latency versus direct client writes, prevented partial failures and race conditions that would have been difficult to debug.
 - **Counter Document Pattern for Sequential IDs** - Using Firestore transaction-based counters for auto-incrementing reference numbers was a robust approach, but counter contention at very high write volumes should be monitored.
@@ -172,7 +172,7 @@ _[Quantitative metrics such as percentage improvements in processing time, sales
 
 ---
 
-# 8. Project Goals
+## 8. Project Goals
 
 - Replace manual spreadsheets and paper-based stock tracking with a centralized digital system
 - Enable real-time inventory visibility across all stores and sales representatives
@@ -182,13 +182,13 @@ _[Quantitative metrics such as percentage improvements in processing time, sales
 
 ---
 
-# 9. Development Process
+## 9. Development Process
 
 The project was executed in collaboration with **Voxitec's** development and design team, following an agile-inspired iterative approach. Core inventory features were prioritized first to replace the most painful manual processes, followed by sales workflows, then reporting and admin features. Regular feedback cycles between the Voxitec team and the end client ensured the system matched real-world operational workflows.
 
 ---
 
-# 10. Performance Optimizations
+## 10. Performance Optimizations
 
 - Firestore composite indexes optimized for the most common query patterns across entities
 - React Query caching with appropriate stale times to minimize Firestore reads
@@ -198,7 +198,7 @@ The project was executed in collaboration with **Voxitec's** development and des
 
 ---
 
-# 11. Security Measures
+## 11. Security Measures
 
 - **Authentication** - Firebase Auth with email/password, session cookies (HTTP-only, secure, SameSite=Strict) for server-side auth
 - **Role-Based Access** - Custom claims (`super_admin`, `admin`, `staff`) enforced at UI, server action, Cloud Function, and Firestore security rule levels
@@ -208,7 +208,7 @@ The project was executed in collaboration with **Voxitec's** development and des
 
 ---
 
-# 12. Future Improvements
+## 12. Future Improvements
 
 - **Mobile application** - Native or PWA for field sales representatives to record sales and check stock on the go
 - **Barcode/QR scanning** - Streamline item lookup and stocktaking at store level

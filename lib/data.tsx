@@ -210,6 +210,41 @@ const WheelstockMDX = dynamic(() => import("@/components/mdx/Wheelstock.mdx"), {
   loading: ArticleLoading,
 });
 
+// voxitec screenshots
+import voxitec_ss_1 from "@/public/static/works/voxitec/screenshots/ss_1.png";
+import voxitec_ss_2 from "@/public/static/works/voxitec/screenshots/ss_2.png";
+import voxitec_ss_3 from "@/public/static/works/voxitec/screenshots/ss_3.png";
+import voxitec_ss_4 from "@/public/static/works/voxitec/screenshots/ss_4.png";
+import voxitec_ss_5 from "@/public/static/works/voxitec/screenshots/ss_5.png";
+import voxitec_ss_6 from "@/public/static/works/voxitec/screenshots/ss_6.png";
+import voxitec_ss_7 from "@/public/static/works/voxitec/screenshots/ss_7.png";
+import voxitec_ss_8 from "@/public/static/works/voxitec/screenshots/ss_8.png";
+import voxitec_ss_9 from "@/public/static/works/voxitec/screenshots/ss_9.png";
+import voxitec_ss_10 from "@/public/static/works/voxitec/screenshots/ss_10.png";
+import voxitec_ss_11 from "@/public/static/works/voxitec/screenshots/ss_11.png";
+import voxitec_ss_12 from "@/public/static/works/voxitec/screenshots/ss_12.png";
+
+// tealeaf screenshots
+import tealeaf_ss_1 from "@/public/static/works/tealeaf/screenshots/ss_1.png";
+import tealeaf_ss_2 from "@/public/static/works/tealeaf/screenshots/ss_2.png";
+import tealeaf_ss_3 from "@/public/static/works/tealeaf/screenshots/ss_3.png";
+import tealeaf_ss_4 from "@/public/static/works/tealeaf/screenshots/ss_4.png";
+import tealeaf_ss_5 from "@/public/static/works/tealeaf/screenshots/ss_5.png";
+import tealeaf_ss_6 from "@/public/static/works/tealeaf/screenshots/ss_6.png";
+import tealeaf_ss_7 from "@/public/static/works/tealeaf/screenshots/ss_7.png";
+
+// wheelstock screenshots
+import wheelstock_ss_1 from "@/public/static/works/wheelstock/screenshots/ss_1.png";
+import wheelstock_ss_2 from "@/public/static/works/wheelstock/screenshots/ss_2.png";
+import wheelstock_ss_3 from "@/public/static/works/wheelstock/screenshots/ss_3.png";
+import wheelstock_ss_4 from "@/public/static/works/wheelstock/screenshots/ss_4.png";
+import wheelstock_ss_5 from "@/public/static/works/wheelstock/screenshots/ss_5.png";
+import wheelstock_ss_6 from "@/public/static/works/wheelstock/screenshots/ss_6.png";
+import wheelstock_ss_7 from "@/public/static/works/wheelstock/screenshots/ss_7.png";
+import wheelstock_ss_8 from "@/public/static/works/wheelstock/screenshots/ss_8.png";
+import wheelstock_ss_9 from "@/public/static/works/wheelstock/screenshots/ss_9.png";
+import wheelstock_ss_10 from "@/public/static/works/wheelstock/screenshots/ss_10.png";
+
 export const WORKS: WorkType[] = [
   {
     key: "work_voxitec",
@@ -240,7 +275,92 @@ export const WORKS: WorkType[] = [
       dateModified: "2025-01-22",
     },
     previewLink: "https://voxitec.com/",
-    screenshots: [],
+    screenshots: [
+      {
+        key: "work_voxitec_ss_1",
+        img: voxitec_ss_1,
+        title: "Home page hero section - dark mode",
+        cols: 3,
+        rows: 2,
+      },
+      {
+        key: "work_voxitec_ss_2",
+        img: voxitec_ss_2,
+        title: "Home page hero section - light mode",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_3",
+        img: voxitec_ss_3,
+        title: "Home page - what we offer section",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_4",
+        img: voxitec_ss_4,
+        title: "Navigation menu",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_5",
+        img: voxitec_ss_5,
+        title: "Blog page - hero section",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_6",
+        img: voxitec_ss_6,
+        title: "Blog page - articles",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_7",
+        img: voxitec_ss_7,
+        title: "Single blog page - hero section",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_8",
+        img: voxitec_ss_8,
+        title: "Services page",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_9",
+        img: voxitec_ss_9,
+        title: "Careers page",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_10",
+        img: voxitec_ss_10,
+        title: "Mission page",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_11",
+        img: voxitec_ss_11,
+        title: "Contact page",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_voxitec_ss_12",
+        img: voxitec_ss_12,
+        title: "Footer section",
+        cols: 2,
+        rows: 1,
+      },
+    ],
   },
   {
     key: "work_wheelstock",
@@ -271,7 +391,78 @@ export const WORKS: WorkType[] = [
       dateModified: "2025-01-22",
     },
     demoLink: "https://dev-wheelstock.netlify.app/",
-    screenshots: [],
+    screenshots: [
+      {
+        key: "work_wheelstock_ss_1",
+        img: wheelstock_ss_1,
+        title: "Login page",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_2",
+        img: wheelstock_ss_2,
+        title: "Dashboard - light mode",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_3",
+        img: wheelstock_ss_3,
+        title: "Dashboard - dark mode",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_4",
+        img: wheelstock_ss_4,
+        title: "Sales",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_5",
+        img: wheelstock_ss_5,
+        title: "Stocks",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_6",
+        img: wheelstock_ss_6,
+        title: "Stock snapshots",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_7",
+        img: wheelstock_ss_7,
+        title: "Reports",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_8",
+        img: wheelstock_ss_8,
+        title: "Generate reports",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_9",
+        img: wheelstock_ss_9,
+        title: "Notifications",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_10",
+        img: wheelstock_ss_10,
+        title: "Settings",
+        cols: 1,
+        rows: 1,
+      },
+    ],
   },
   {
     key: "work_tealeaf",
@@ -302,7 +493,57 @@ export const WORKS: WorkType[] = [
       dateModified: "2025-01-22",
     },
     previewLink: "https://www.tealeafconsult.com/",
-    screenshots: [],
+    screenshots: [
+      {
+        key: "work_tealeaf_ss_1",
+        img: tealeaf_ss_1,
+        title: "Splash screen",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_2",
+        img: tealeaf_ss_2,
+        title: "Home page - hero section",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_3",
+        img: tealeaf_ss_3,
+        title: "Home page",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_4",
+        img: tealeaf_ss_4,
+        title: "Home page - services section",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_5",
+        img: tealeaf_ss_5,
+        title: "Home page - about us section",
+        cols: 2,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_6",
+        img: tealeaf_ss_6,
+        title: "Home page - testimonials section",
+        cols: 1,
+        rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_7",
+        img: tealeaf_ss_7,
+        title: "Home page - testimonials expanded",
+        cols: 1,
+        rows: 1,
+      },
+    ],
   },
   // {
   //   key: 'work2',

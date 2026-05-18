@@ -5,8 +5,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import { ROOTURL, WORKS } from "@/lib/data";
 import { WorkType } from "@/lib/types";
-import { CustomLink, PageLink, SSCarousel } from "@/components";
-import { truncateText } from "@/lib/common";
+import { CustomLink, PageLink, Gallery } from "@/components";
+import { cn, truncateText } from "@/lib/common";
 
 type SingleWorkPageProps = {
   params: Promise<{
@@ -183,18 +183,16 @@ export default async function SingleWorkPage(props: SingleWorkPageProps) {
               )}
             </div>
           )}
-
-          {/* ss carousal */}
-          {work.screenshots.length > 0 && (
-            <SSCarousel images={work.screenshots} />
-          )}
         </div>
       </div>
 
       {/* body */}
-      <div className="container relative z-10 mt-32 min-h-screen bg-background pb-40 pt-32 shadow-section dark:bg-d-background dark:shadow-d-section">
+      <div className="bg-background shadow-section dark:bg-d-background dark:shadow-d-section relative z-10 container mt-32 min-h-screen pt-32 pb-40">
         <div className="container-text">{work.content}</div>
       </div>
+
+      {/* ss carousal */}
+      {work.screenshots.length > 0 && <Gallery images={work.screenshots} />}
 
       {/* footer */}
       <div className="mt-20 pb-72 sm:mt-36">
@@ -219,7 +217,10 @@ export default async function SingleWorkPage(props: SingleWorkPageProps) {
             {index < WORKS.length - 1 && (
               <PageLink
                 href={`/works/${WORKS[index + 1].slug}`}
-                className="underline-button next-button | flex w-fit flex-col sm:items-end"
+                className={cn(
+                  "underline-button next-button | flex w-fit flex-col sm:items-end",
+                  index === 0 && "ml-auto"
+                )}
                 short>
                 <div className="flex items-center gap-1 text-lg [&_svg]:opacity-90 [&_svg]:transition-transform [&_svg]:duration-300">
                   Next <FaArrowRight />

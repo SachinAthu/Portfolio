@@ -1,7 +1,7 @@
 import { ImageViewer } from "@/components";
 import SYSTEM_DIAGRAM from "@/public/static/works/tealeaf/tealeaf_system_diagram.png";
 
-# 1. About the Client
+## 1. About the Client
 
 - **Client:** Tealeaf Consulting
 - **Industry:** Financial Advisory / Consulting
@@ -15,7 +15,7 @@ Tealeaf Consulting provides fractional CFO, financial controller, and bookkeepin
 
 ---
 
-# 2. Business Challenge
+## 2. Business Challenge
 
 Tealeaf Consulting's existing online presence did not reflect the caliber of its strategic advisory services. The challenges were:
 
@@ -29,7 +29,7 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 3. Challenges Faced
+## 3. Challenges Faced
 
 - **Animation-Heavy Performance** - The design called for rich GSAP animations (ScrollSmoother, ScrollTrigger pinning, SVG morphing, parallax) across a single-page layout. Balancing cinematic motion with smooth 60fps performance (especially on the MorphSVG blob background) required aggressive GPU acceleration and careful optimization.
 
@@ -45,22 +45,22 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 4. Personas
+## 4. Personas
 
-## Primary User - Startup Founder (CEO)
+### Primary User - Startup Founder (CEO)
 
 - **Description:** Founder or co-founder of a venture-backed startup, typically series Seed to Series B. Time-poor, decision-fatigued, evaluating multiple vendor partners.
 - **Goals:** Find a trusted financial advisor who understands startup dynamics. Quickly assess credibility. Book a discovery call with minimal friction.
 - **Pain Points:** Frustrated with generic accounting firms that don't understand venture-backed growth. Needs strategic insight, not just bookkeeping.
 - **System Usage Behavior:** Scans the hero section, scrolls through pain points to validate relevance, reads founder credentials, then books a call. Spends under 90 seconds deciding whether to engage.
 
-## Secondary User - Operations/Finance Lead
+### Secondary User - Operations/Finance Lead
 
 - **Description:** Head of Finance, COO, or fractional CFO evaluating Tealeaf as a complement to their own team.
 - **Goals:** Understand the specific service tiers (Foundation, Growth, Strategic). Evaluate technical competence in financial operations.
 - **System Interactions:** Dives deep into the three service pillars, reviews the stats counters, may return multiple times before initiating contact.
 
-## Tertiary User - Investor / Board Member
+### Tertiary User - Investor / Board Member
 
 - **Description:** Angel investor or board member who recommends Tealeaf to portfolio companies.
 - **Goals:** Quickly validate Tealeaf as a credible recommendation. Access contact information and share the site with founders.
@@ -68,9 +68,9 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 5. System Overview
+## 5. System Overview
 
-## 5.1 System Diagram
+### 5.1 System Diagram
 
 <ImageViewer
   src={SYSTEM_DIAGRAM}
@@ -83,7 +83,7 @@ The firm needed a digital presence that would command the attention of busy foun
 
 _System diagram showing a single-page Next.js application served via Vercel's edge network. The frontend renders static content with client-side GSAP animations. No backend API or database exists. External integrations include Calendly (booking), mailto (email), and LinkedIn. SEO metadata and JSON-LD structured data are prerendered at build time. The architecture is: Browser ← Vercel CDN ← Next.js Static Export ← Build-time compiled React components with embedded data (testimonials, service content)._
 
-## 5.2 Designs
+### 5.2 Designs
 
 A premium, conversion-focused design was created with a sophisticated navy-and-orange color palette. The visual hierarchy guides visitors from emotional resonance (pain points) through credibility (stats, testimonials) to action (CTA). Key design decisions:
 
@@ -93,7 +93,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 - **Animated storytelling** - Morphing SVG backgrounds, scroll-driven reveals, and a grayscale-to-color founder photo transform passive browsing into an engaging narrative experience.
 - **Conversion-centric CTAs** - Strategically placed "Book a discovery call" buttons with the brand-accent orange draw attention at decision moments throughout the scroll journey.
 
-## 5.3 Technologies Used
+### 5.3 Technologies Used
 
 | Component       | Technology                                                |
 | --------------- | --------------------------------------------------------- |
@@ -108,7 +108,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 | Class Utilities | tailwind-merge                                            |
 | Linting         | ESLint 9, Prettier, Husky                                 |
 
-## 5.4 Features
+### 5.4 Features
 
 - **Cinematic Splash Screen** - Full-screen logo reveal animation on initial visit sets a premium tone before transitioning into the main page.
 - **Scroll-Driven Narrative** - GSAP ScrollSmoother provides buttery smooth scrolling while ScrollTrigger orchestrates section reveals, text animations, and the service card stacking effect based on scroll position.
@@ -120,7 +120,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 6. Results and Benefits
+## 6. Results and Benefits
 
 - **Modern Brand Positioning** - The site now reflects the premium, strategic nature of Tealeaf's services, differentiating it from generic accounting firms.
 - **Improved Engagement** - Smooth scroll animations and narrative pacing keep visitors engaged longer, increasing the likelihood of conversion.
@@ -131,7 +131,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 7. Lessons Learned
+## 7. Lessons Learned
 
 - **Performance budgeting for animation** - GSAP animations must be carefully performance-budgeted. The MorphSVG blob required desktop-only rendering to maintain 60fps on mid-tier devices. Future projects should establish mobile performance budgets earlier.
 - **ScrollSmoother + App Router** - Integrating a custom scroll engine with Next.js App Router requires explicit handling for hash navigation and route changes. A ScrollTrigger refresh strategy on route change is essential.
@@ -141,7 +141,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 8. Project Goals
+## 8. Project Goals
 
 1. **Establish premium brand positioning** that differentiates Tealeaf from generic financial advisory firms.
 2. **Communicate the "scale with intention" philosophy** through visual storytelling rather than text-heavy explanations.
@@ -149,7 +149,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 4. **Build immediate credibility** through prominent display of founder credentials, stats, and testimonials.
 5. **Deliver a cinematic browsing experience** that reflects the strategic sophistication of the services offered.
 
-# 9. Performance Optimizations
+## 9. Performance Optimizations
 
 - **GPU acceleration** - `force3D: true`, `translate3d(0,0,0)`, `will-change: transform` applied to all animated elements
 - **Conditional rendering** - Heavy background components (MorphSVG blob, parallax shapes) are desktop-only, reducing mobile memory pressure
@@ -158,7 +158,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 - **Debounced refresh** - `debouncedScrollTriggerRefresh` prevents layout thrashing during resize events
 - **SmoothSmoother touch handling** - `smoothTouch: 0` disables smooth scrolling on touch devices where it causes friction
 
-# 10. Future Improvements
+## 10. Future Improvements
 
 - **Blog/Resources section** - Add a content hub for financial strategy articles to improve SEO and nurture leads
 - **Case study page** - Detailed client success stories with measurable outcomes (fundraising totals, operational savings)

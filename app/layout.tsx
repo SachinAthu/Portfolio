@@ -103,38 +103,7 @@ export const metadata: Metadata = {
   },
 };
 
-const Header = dynamic(() => import("@/components/header/Header"), {
-  loading: () => (
-    <div className="fixed top-0 right-0 left-0 z-50 flex h-(--header-height) w-full items-center">
-      <div className="container-wide hidden h-(--header-content-height) w-full items-center justify-between rounded-full px-[2%] sm:flex sm:rounded-none sm:px-[3%] 2xl:px-0">
-        <div className="flex h-full items-center justify-center rounded-full px-8 backdrop-blur-lg">
-          <div className="skeleton h-7 w-36.5"></div>
-        </div>
-
-        <div className="flex h-full items-center gap-4 rounded-full px-8 backdrop-blur-lg">
-          <div className="skeleton hidden h-9 w-29.5 md:block"></div>
-          <div className="skeleton h-9 w-18"></div>
-          <div className="skeleton h-9 w-8.5 2xl:hidden"></div>
-        </div>
-      </div>
-
-      <div className="h-(--header-content-height) w-full sm:hidden">
-        <div className="container h-full">
-          <div className="flex h-full items-center justify-between rounded-full px-[2%] backdrop-blur-lg">
-            <div className="flex h-full items-center justify-center rounded-full px-4">
-              <div className="skeleton h-7 w-23.25"></div>
-            </div>
-
-            <div className="header-inner-2 | flex h-full items-center gap-4 rounded-full px-4 backdrop-blur-lg">
-              <div className="skeleton h-9 w-18"></div>
-              <div className="skeleton h-9 w-8.5"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-});
+const Header = dynamic(() => import("@/components/header/Header"));
 
 const NavMenu = dynamic(() => import("@/components/NavMenu"));
 const ToasterCom = dynamic(() => import("@/components/ToasterCom"));

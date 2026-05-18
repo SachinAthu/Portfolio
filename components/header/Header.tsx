@@ -6,15 +6,21 @@ import { gsap, useGSAP } from "@/lib/gsap-config";
 import { Flip } from "gsap/Flip";
 
 import MenuBtn from "./MenuBtn";
-import Music from "./Music";
-import ThemeBtn from "./ThemeBtn";
 import Logo from "./Logo";
 import { useLayoutContext } from "@/context/LayoutContext";
 import { cn } from "@/lib/common";
 import { useMobileViewport } from "@/lib/hooks";
 
-const MusicWrapper = dynamic(() => import("./Music"), {
+const Music = dynamic(() => import("./Music"), {
   ssr: false,
+  loading: () => (
+    <div className="skeleton hidden h-9 w-32 rounded-full md:block" />
+  ),
+});
+
+const ThemeBtn = dynamic(() => import("./ThemeBtn"), {
+  ssr: false,
+  loading: () => <div className="skeleton h-9 w-18 rounded-full" />,
 });
 
 function HeaderMobile() {
@@ -27,8 +33,6 @@ function HeaderMobile() {
           </div>
 
           <div className="flex h-full items-center gap-4 rounded-full px-4">
-            <MusicWrapper />
-
             <ThemeBtn />
 
             <MenuBtn />
@@ -91,7 +95,7 @@ export default function HeaderWraper() {
   return (
     <header
       id="app-header"
-      className="header | fixed left-0 right-0 top-0 z-50 flex h-(--header-height) w-full items-center">
+      className="header | fixed top-0 right-0 left-0 z-50 flex h-(--header-height) w-full items-center">
       {isMobile ? <HeaderMobile /> : <HeaderDesktop />}
     </header>
   );

@@ -148,13 +148,16 @@ export const useObserver = (selector: string, rootMargin?: string, defaultVal: b
 };
 
 export const useDebouncedCallback = (callback: (...args: any[]) => void, delay: number) => {
+  const callbackRef = useRef(callback);
+  callbackRef.current = callback;
+
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   return useCallback(
     (...args: any[]) => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => callback(...args), delay);
+      timeoutRef.current = setTimeout(() => callbackRef.current(...args), delay);
     },
-    [callback, delay]
+    [delay]
   );
 };

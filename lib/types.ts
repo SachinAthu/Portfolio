@@ -34,7 +34,13 @@ export type WorkType = {
   };
   previewLink?: string;
   demoLink?: string;
-  screenshots: StaticImageData[];
+  screenshots: {
+    key: string;
+    img: StaticImageData;
+    title: string;
+    cols: 1 | 2 | 3;
+    rows: 1 | 2;
+  }[];
 };
 
 export type MusicTrackType = {

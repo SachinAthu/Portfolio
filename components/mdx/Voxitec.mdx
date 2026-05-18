@@ -1,7 +1,7 @@
 import { ImageViewer } from "@/components";
 import SYSTEM_DIAGRAM from "@/public/static/works/voxitec/voxitec_system_diagram.png";
 
-# 1. About the Client
+## 1. About the Client
 
 - **Company:** Voxitec
 - **Industry:** Software Development / IT Services
@@ -15,7 +15,7 @@ Voxitec is a remote-first software development startup that builds custom digita
 
 ---
 
-# 2. Business Challenge
+## 2. Business Challenge
 
 1. **No Centralized Digital Presence** - As a young startup, Voxitec lacked a professional website to establish credibility and showcase their work to potential clients.
 
@@ -29,7 +29,7 @@ Voxitec is a remote-first software development startup that builds custom digita
 
 ---
 
-# 3. Challenges Faced
+## 3. Challenges Faced
 
 - **Animation Performance at Scale** - Heavy GSAP animations (typewriter effects, magnetic hover, scroll-triggered reveals, custom cursor sprite animations) required careful optimization to maintain 60fps across devices. Dynamic imports and `force3D` GPU acceleration were used to mitigate jank.
 
@@ -47,23 +47,23 @@ Voxitec is a remote-first software development startup that builds custom digita
 
 ---
 
-# 4. Personas
+## 4. Personas
 
-## Primary User - Potential Client
+### Primary User - Potential Client
 
 - Decision-makers (founders, CTOs, product managers) evaluating Voxitec for their software development needs
 - Goals: Assess technical capability, review past work, understand services, and initiate contact
 - Pain points: Need quick access to portfolio, clear service descriptions, and trust signals (testimonials, case studies)
 - System usage: Visits services page, browses portfolio/blog, reads testimonials, submits contact form
 
-## Primary User - Job Seeker
+### Primary User - Job Seeker
 
 - Developers, designers, and interns looking for career opportunities at a growing tech startup
 - Goals: Find open positions, understand company culture, submit applications with CV
 - Pain points: Wants transparency on job requirements, company values, and team composition
 - System usage: Browses careers page, reads team testimonials, applies with CV upload
 
-## Secondary User - Internal Admin (Voxitec Team)
+### Secondary User - Internal Admin (Voxitec Team)
 
 - Company founders and project manager managing site content via Strapi CMS
 - Responsibilities: Publish blog posts, manage job listings, respond to contact inquiries
@@ -71,9 +71,9 @@ Voxitec is a remote-first software development startup that builds custom digita
 
 ---
 
-# 5. System Overview
+## 5. System Overview
 
-## 5.1 System Diagram
+### 5.1 System Diagram
 
 <ImageViewer
   src={SYSTEM_DIAGRAM}
@@ -92,16 +92,16 @@ Voxitec is a remote-first software development startup that builds custom digita
 - **External Services:** Cloudinary (image CDN), Google Tag Manager
 - **Domain:** voxitec.com (production), Vercel deployment
 
-## 5.2 Designs
+### 5.2 Designs
 
-A dark-first UI design system was created with a cyan/blue accent palette (`#00c2ff` primary). The design emphasizes motion and interactivity — every element from navigation links to buttons has animated hover states (flip, fill, magnetic effects). The layout uses a custom `Biotif` typeface across weights 400/500/600. Wireframes and responsive mockups were created in Figma, covering 10+ page types (Home, Services, Blog, Careers, Contact, FAQ, Portfolio, Mission, Legal). The design prioritizes:
+A dark-first UI design system was created with a cyan/blue accent palette (`#00c2ff` primary). The design emphasizes motion and interactivity — every element from navigation links to buttons has animated hover states (flip, fill, magnetic effects). The layout uses a custom `Biotif` typeface across weights 400/500/600. Wireframes and responsive mockups were created in Figma, covering 10+ page types (Home, Services, Blog, Careers, Contact, FAQ, Case Studies, Mission, Privacy Policy, Terms of Service). The design prioritizes:
 
-- **Dark-first** - defaults to dark mode with light mode toggle
+- **Dark-mode** - toggle between dark mode and light mode
 - **Motion-driven** - GSAP animations throughout (text reveals, scroll-triggered transitions, custom cursor)
 - **Content hierarchy** - clear sectioning with labels, dividers, and consistent spacing
-- **Mobile-first responsive** - custom Tailwind breakpoints from `2xs` to `5xl`
+- **Mobile responsive** - custom Tailwind breakpoints from `2xs` to `5xl`
 
-## 5.3 Technologies Used
+### 5.3 Technologies Used
 
 | Component       | Technology                                                       |
 | --------------- | ---------------------------------------------------------------- |
@@ -124,7 +124,7 @@ A dark-first UI design system was created with a cyan/blue accent palette (`#00c
 | Package Manager | pnpm                                                             |
 | Linting         | ESLint 9 (flat config), Prettier, Husky, lint-staged             |
 
-## 5.4 Features
+### 5.4 Features
 
 - **Animated Home Page** - GSAP-driven typewriter hero, scroll-triggered reveals, video background, client testimonial carousel, and animated service/industry cards
 - **Services Showcase** - 5 core service areas (Web, UI/UX, Mobile, AI/ML, DevOps) displayed with technology logos and interactive card layouts
@@ -140,7 +140,7 @@ A dark-first UI design system was created with a cyan/blue accent palette (`#00c
 
 ---
 
-# 6. Results and Benefits
+## 6. Results and Benefits
 
 - **Single Source of Truth** - All dynamic content (blog, jobs, contact submissions, announcements) centralized in Strapi, replacing scattered email and social media management.
 - **Automated Lead Pipeline** - Contact form submissions now trigger structured notifications to the team and personalized auto-replies to prospects via Brevo API.
@@ -152,7 +152,7 @@ A dark-first UI design system was created with a cyan/blue accent palette (`#00c
 
 ---
 
-# 7. Lessons Learned
+## 7. Lessons Learned
 
 - **Animation Libraries Add Complexity** - GSAP + Lenis integration required a dedicated `ScrollProvider` context. For future projects, evaluating Framer Motion or native CSS animations for simpler sites could reduce maintenance overhead.
 - **Strapi Query Syntax Is Opaque** - Strapi's REST API population and filtering syntax is powerful but poorly documented. Building a robust `lib/api.ts` abstraction layer early in the project saved significant debugging time.
@@ -163,7 +163,7 @@ A dark-first UI design system was created with a cyan/blue accent palette (`#00c
 
 ---
 
-# 8. Project Goals
+## 8. Project Goals
 
 | Goal                                                              | Status   |
 | ----------------------------------------------------------------- | -------- |
@@ -177,7 +177,7 @@ A dark-first UI design system was created with a cyan/blue accent palette (`#00c
 
 ---
 
-# 9. Development Process
+## 9. Development Process
 
 The project followed an agile-inspired workflow using:
 
@@ -189,7 +189,7 @@ The project followed an agile-inspired workflow using:
 
 ---
 
-# 10. Performance Optimizations
+## 10. Performance Optimizations
 
 - **Dynamic Imports** - Heavy layout components (Footer, MouseFollow, AcceptCookies, Toaster) loaded lazily via `next/dynamic` to reduce initial bundle size
 - **GPU Acceleration** - GSAP animations use `force3D: true` for hardware-accelerated transforms
@@ -200,7 +200,7 @@ The project followed an agile-inspired workflow using:
 
 ---
 
-# 11. Security Measures
+## 11. Security Measures
 
 - **Bot Protection** - Honeypot fields (`nameVerify`, `fnameVerify`, `emailVerify`) on all forms trap automated submissions without CAPTCHA friction
 - **XSS Sanitization** - All user-submitted text sanitized through isomorphic-dompurify before storage or email transmission
@@ -211,7 +211,7 @@ The project followed an agile-inspired workflow using:
 
 ---
 
-# 12. Future Improvements
+## 12. Future Improvements
 
 - **Automated Testing** - Implement unit tests (Vitest/Jest), integration tests, and E2E tests (Playwright) — currently the test suite is a placeholder
 - **CI/CD Pipeline** - Add GitHub Actions for automated linting, type-checking, testing, and deployment verification

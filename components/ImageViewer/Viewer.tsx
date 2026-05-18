@@ -276,13 +276,12 @@ export default function Viewer({ src }: { src: string }) {
     let dpr = window.devicePixelRatio || 1;
     setIsHighRes(dpr > maxDPR);
 
-    // listen on canvas size changes and re-initialize canvas
-    const resizeObserver = new ResizeObserver(() => {
-      initCanvas();
-    });
-    if (canvasWrapperRef.current) {
-      resizeObserver.observe(canvasWrapperRef.current);
-    }
+    // initial canvas setup
+    initCanvas();
+
+    // re-initialize on window resize
+    const onResize = () => initCanvas();
+    window.addEventListener("resize", onResize);
 
     /*** events listeners ***/
     const controller = new AbortController();
@@ -506,7 +505,7 @@ export default function Viewer({ src }: { src: string }) {
     /* End Touch (Drag & Pinch-to-Zoom) */
 
     return () => {
-      resizeObserver.disconnect();
+      window.removeEventListener("resize", onResize);
       controller.abort();
     };
   }, [

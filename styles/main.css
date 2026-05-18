@@ -262,6 +262,12 @@
     cursor: pointer;
   }
 
+  h1,
+  h2,
+  h3 {
+    will-change: transform;
+  }
+
   ::-moz-selection {
     color: white;
     background: var(--color-primary);

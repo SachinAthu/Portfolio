@@ -34,4 +34,4 @@ export { default as Contact } from "./home/contact/Contact";
 export { default as Experience } from "./home/Experience";
 
 // single work page
-export { default as SSCarousel } from "./singleWork/SSCarousel";
+export { default as Gallery } from "./singleWork/Gallery";
