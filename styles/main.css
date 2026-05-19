@@ -618,6 +618,11 @@
 
 /* modal dialog */
 .modal-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  width: fit-content;
   opacity: 0;
   transform: translateY(30px);
   transition:

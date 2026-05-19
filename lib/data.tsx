@@ -176,6 +176,10 @@ export const TECH_STACK: TechStackType[] = [
   { title: "Docker", categories: ["other"] },
   { title: "Git", categories: ["other"] },
   { title: "VS Code", categories: ["other"] },
+  { title: "Antigravity", categories: ["other"] },
+  { title: "OpenCode", categories: ["other"] },
+  { title: "OpenRouter", categories: ["other"] },
+  { title: "Open WebUI", categories: ["other"] },
   { title: "Postman", categories: ["other"] },
   { title: "ClickUp", categories: ["other"] },
   { title: "Digital Ocean", categories: ["other"] },
@@ -233,11 +237,10 @@ import tealeaf_ss_3 from "@/public/static/works/tealeaf/screenshots/ss_3.png";
 import tealeaf_ss_4 from "@/public/static/works/tealeaf/screenshots/ss_4.png";
 import tealeaf_ss_5 from "@/public/static/works/tealeaf/screenshots/ss_5.png";
 import tealeaf_ss_6 from "@/public/static/works/tealeaf/screenshots/ss_6.png";
-import tealeaf_ss_7 from "@/public/static/works/tealeaf/screenshots/ss_7.png";
+import tealeaf_ss_9 from "@/public/static/works/tealeaf/screenshots/ss_9.jpeg";
+import tealeaf_ss_10 from "@/public/static/works/tealeaf/screenshots/ss_10.jpeg";
 
 // wheelstock screenshots
-import wheelstock_ss_1 from "@/public/static/works/wheelstock/screenshots/ss_1.png";
-import wheelstock_ss_2 from "@/public/static/works/wheelstock/screenshots/ss_2.png";
 import wheelstock_ss_3 from "@/public/static/works/wheelstock/screenshots/ss_3.png";
 import wheelstock_ss_4 from "@/public/static/works/wheelstock/screenshots/ss_4.png";
 import wheelstock_ss_5 from "@/public/static/works/wheelstock/screenshots/ss_5.png";
@@ -246,6 +249,8 @@ import wheelstock_ss_7 from "@/public/static/works/wheelstock/screenshots/ss_7.p
 import wheelstock_ss_8 from "@/public/static/works/wheelstock/screenshots/ss_8.png";
 import wheelstock_ss_9 from "@/public/static/works/wheelstock/screenshots/ss_9.png";
 import wheelstock_ss_10 from "@/public/static/works/wheelstock/screenshots/ss_10.png";
+import wheelstock_ss_11 from "@/public/static/works/wheelstock/screenshots/ss_11.jpeg";
+import wheelstock_ss_12 from "@/public/static/works/wheelstock/screenshots/ss_12.jpeg";
 
 export const WORKS: WorkType[] = [
   {
@@ -409,24 +414,10 @@ export const WORKS: WorkType[] = [
     demoLink: "https://dev-wheelstock.netlify.app/",
     screenshots: [
       {
-        key: "work_wheelstock_ss_1",
-        img: wheelstock_ss_1,
-        title: "Login page",
-        cols: 2,
-        rows: 1,
-      },
-      {
-        key: "work_wheelstock_ss_2",
-        img: wheelstock_ss_2,
-        title: "Dashboard - light mode",
-        cols: 1,
-        rows: 1,
-      },
-      {
         key: "work_wheelstock_ss_3",
         img: wheelstock_ss_3,
         title: "Dashboard - dark mode",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
       {
@@ -447,14 +438,28 @@ export const WORKS: WorkType[] = [
         key: "work_wheelstock_ss_6",
         img: wheelstock_ss_6,
         title: "Stock snapshots",
-        cols: 1,
+        cols: 2,
         rows: 1,
+      },
+      {
+        key: "work_wheelstock_ss_11",
+        img: wheelstock_ss_11,
+        title: "Stock adjustments (mobile)",
+        cols: 1,
+        rows: 2,
+      },
+      {
+        key: "work_wheelstock_ss_12",
+        img: wheelstock_ss_12,
+        title: "Login page - dark mode (mobile)",
+        cols: 1,
+        rows: 2,
       },
       {
         key: "work_wheelstock_ss_7",
         img: wheelstock_ss_7,
         title: "Reports",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
       {
@@ -475,7 +480,7 @@ export const WORKS: WorkType[] = [
         key: "work_wheelstock_ss_10",
         img: wheelstock_ss_10,
         title: "Settings",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
     ],
@@ -521,14 +526,28 @@ export const WORKS: WorkType[] = [
         key: "work_tealeaf_ss_2",
         img: tealeaf_ss_2,
         title: "Home page - hero section",
-        cols: 1,
+        cols: 2,
         rows: 1,
+      },
+      {
+        key: "work_tealeaf_ss_10",
+        img: tealeaf_ss_10,
+        title: "Home page - hero section (mobile)",
+        cols: 1,
+        rows: 2,
+      },
+      {
+        key: "work_tealeaf_ss_9",
+        img: tealeaf_ss_9,
+        title: "Mobile navigation menu",
+        cols: 1,
+        rows: 2,
       },
       {
         key: "work_tealeaf_ss_3",
         img: tealeaf_ss_3,
         title: "Home page",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
       {
@@ -549,14 +568,7 @@ export const WORKS: WorkType[] = [
         key: "work_tealeaf_ss_6",
         img: tealeaf_ss_6,
         title: "Home page - testimonials section",
-        cols: 1,
-        rows: 1,
-      },
-      {
-        key: "work_tealeaf_ss_7",
-        img: tealeaf_ss_7,
-        title: "Home page - testimonials expanded",
-        cols: 1,
+        cols: 2,
         rows: 1,
       },
     ],

@@ -8,7 +8,7 @@ import { BotError } from "@/lib/types";
 import { isSanitized } from "@/lib/common";
 
 export const contactAction = actionClient
-  .schema(contactSchema)
+  .inputSchema(contactSchema)
   .action(async ({ parsedInput }) => {
     const { nameVerify, name, email, message } = parsedInput;
     // console.log(name, email, message);
