@@ -31,11 +31,11 @@ export default function Footer() {
   return (
     <footer
       ref={container}
-      className="relative border-t border-t-text bg-background pb-4 pt-16 dark:border-t-d-text dark:bg-d-background sm:pb-0 sm:pt-20">
-      <div className="absolute left-1/2 top-0 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-sm dark:bg-d-background sm:h-32 sm:w-32">
+      className="border-t-text bg-background dark:border-t-d-text dark:bg-d-background relative border-t pt-16 pb-4 sm:pt-20 sm:pb-0">
+      <div className="bg-background dark:bg-d-background absolute top-0 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-sm sm:h-32 sm:w-32">
         <div className="pointer-events-none absolute h-28 w-28 sm:h-32 sm:w-32">
           <svg
-            className="absolute left-1/2 top-1/2 h-[122%] w-[122%] -translate-x-1/2 -translate-y-1/2 -rotate-90"
+            className="absolute top-1/2 left-1/2 h-[122%] w-[122%] -translate-x-1/2 -translate-y-1/2 -rotate-90"
             fill="none"
             viewBox="0 0 250 250"
             xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@ export default function Footer() {
               cx="50%"
               strokeDasharray={2 * 3.14 * 100}
               strokeDashoffset={0}
-              className="stroke-text stroke-[3px] dark:stroke-d-text"
+              className="stroke-text dark:stroke-d-text stroke-[3px]"
             />
           </svg>
         </div>

@@ -73,7 +73,7 @@ export default function NavMenu() {
     <nav
       id="app-nav-menu"
       className={
-        "nav-menu | fixed left-0 right-0 top-(--header-height) z-50 hidden h-(--nav-menu-height)"
+        "nav-menu | fixed top-(--header-height) right-0 left-0 z-50 hidden h-(--nav-menu-height)"
       }
       data-lenis-prevent>
       <ul className="nav-menu-links hide-scrollbar | h-full overflow-y-auto pt-20 lg:pt-28">
@@ -92,11 +92,11 @@ export default function NavMenu() {
                     type="button"
                     className="flex items-start gap-4 py-3 font-semibold"
                     onClick={() => navigate(l.id)}>
-                    <span className="text-5xl text-d-text sm:text-7xl md:text-8xl">
+                    <span className="text-d-text text-5xl sm:text-7xl md:text-8xl">
                       {l.title}
                     </span>
 
-                    <span className="hidden font-normal text-d-subtext sm:inline">
+                    <span className="text-d-subtext hidden font-normal sm:inline">
                       <span className="text-2xl">[ </span>
                       <span className="text-base">{l.tooltip}</span>
                       <span className="text-2xl"> ]</span>

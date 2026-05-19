@@ -1,14 +1,16 @@
 # 1. About the Client
 
 - **Client:** Tealeaf Consulting
+- **Company:** EN2H (Software Startup)
+- **Role:** Part-time Developer
 - **Industry:** Financial Advisory / Consulting
 - **Company Size:** Boutique firm (founded by Angela Sweeney)
 - **Location:** Remote / North America
 - **Business Type:** Strategic financial advisory for venture-backed startup founders
-- **Project Duration:** ~2 weeks
+- **Project Duration:** ~8 weeks
 - **Target Market:** Founders and decision-makers at venture-backed startups in SaaS, biotech, fintech, and emerging technologies
 
-Tealeaf Consulting provides fractional CFO, financial controller, and bookkeeping services to startups looking to scale with intention. The founder brings 20+ years of experience, having helped scale 14+ startups and facilitated 16+ M&A transactions.
+This project was developed for Tealeaf Consulting on behalf of **EN2H** (a software startup), where I worked as a part-time developer. Tealeaf Consulting provides fractional CFO, financial controller, and bookkeeping services to startups looking to scale with intention. The founder brings 20+ years of experience, having helped scale 14+ startups and facilitated 16+ M&A transactions.
 
 ---
 
@@ -26,7 +28,18 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 3. Challenges Faced
+# 3. Development Process
+
+The project followed an agile methodology tailored for a high-fidelity marketing site:
+
+- **Phase 1: Discovery & Wireframing** - Defining the narrative arc and user journey. Establishing the core "conversion funnel" for discovery calls.
+- **Phase 2: Visual System** - Creating a component library focused on high-performance animation constraints, specifically targeting GSAP usage.
+- **Phase 3: Development & Iteration** - Integrating GSAP ScrollSmoother and migrating from Vite to Next.js while maintaining strict performance budgets.
+- **Phase 4: QA & Optimization** - Cross-device testing for touch/scroll behavior, video loading optimizations, and final SEO/metadata implementation.
+
+---
+
+# 4. Challenges Faced
 
 - **Animation-Heavy Performance** - The design called for rich GSAP animations (ScrollSmoother, ScrollTrigger pinning, SVG morphing, parallax) across a single-page layout. Balancing cinematic motion with smooth 60fps performance (especially on the MorphSVG blob background) required aggressive GPU acceleration and careful optimization.
 
@@ -42,7 +55,7 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 4. Personas
+# 5. Personas
 
 ## Primary User - Startup Founder (CEO)
 
@@ -65,13 +78,13 @@ The firm needed a digital presence that would command the attention of busy foun
 
 ---
 
-# 5. System Overview
+# 6. System Overview
 
-## 5.1 System Diagram
+## 6.1 System Diagram
 
 _System diagram showing a single-page Next.js application served via Vercel's edge network. The frontend renders static content with client-side GSAP animations. No backend API or database exists. External integrations include Calendly (booking), mailto (email), and LinkedIn. SEO metadata and JSON-LD structured data are prerendered at build time. The architecture is: Browser ← Vercel CDN ← Next.js Static Export ← Build-time compiled React components with embedded data (testimonials, service content)._
 
-## 5.2 Designs
+## 6.2 Designs
 
 A premium, conversion-focused design was created with a sophisticated navy-and-orange color palette. The visual hierarchy guides visitors from emotional resonance (pain points) through credibility (stats, testimonials) to action (CTA). Key design decisions:
 
@@ -81,7 +94,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 - **Animated storytelling** - Morphing SVG backgrounds, scroll-driven reveals, and a grayscale-to-color founder photo transform passive browsing into an engaging narrative experience.
 - **Conversion-centric CTAs** - Strategically placed "Book a discovery call" buttons with the brand-accent orange draw attention at decision moments throughout the scroll journey.
 
-## 5.3 Technologies Used
+## 6.3 Technologies Used
 
 | Component       | Technology                                                |
 | --------------- | --------------------------------------------------------- |
@@ -96,7 +109,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 | Class Utilities | tailwind-merge                                            |
 | Linting         | ESLint 9, Prettier, Husky                                 |
 
-## 5.4 Features
+## 6.4 Features
 
 - **Cinematic Splash Screen** - Full-screen logo reveal animation on initial visit sets a premium tone before transitioning into the main page.
 - **Scroll-Driven Narrative** - GSAP ScrollSmoother provides buttery smooth scrolling while ScrollTrigger orchestrates section reveals, text animations, and the service card stacking effect based on scroll position.
@@ -108,7 +121,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 6. Results and Benefits
+# 7. Results and Benefits
 
 - **Modern Brand Positioning** - The site now reflects the premium, strategic nature of Tealeaf's services, differentiating it from generic accounting firms.
 - **Improved Engagement** - Smooth scroll animations and narrative pacing keep visitors engaged longer, increasing the likelihood of conversion.
@@ -119,7 +132,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 7. Lessons Learned
+# 8. Lessons Learned
 
 - **Performance budgeting for animation** - GSAP animations must be carefully performance-budgeted. The MorphSVG blob required desktop-only rendering to maintain 60fps on mid-tier devices. Future projects should establish mobile performance budgets earlier.
 - **ScrollSmoother + App Router** - Integrating a custom scroll engine with Next.js App Router requires explicit handling for hash navigation and route changes. A ScrollTrigger refresh strategy on route change is essential.
@@ -129,7 +142,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 
 ---
 
-# 8. Project Goals
+# 9. Project Goals
 
 1. **Establish premium brand positioning** that differentiates Tealeaf from generic financial advisory firms.
 2. **Communicate the "scale with intention" philosophy** through visual storytelling rather than text-heavy explanations.
@@ -137,7 +150,7 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 4. **Build immediate credibility** through prominent display of founder credentials, stats, and testimonials.
 5. **Deliver a cinematic browsing experience** that reflects the strategic sophistication of the services offered.
 
-# 9. Performance Optimizations
+# 10. Performance Optimizations
 
 - **GPU acceleration** - `force3D: true`, `translate3d(0,0,0)`, `will-change: transform` applied to all animated elements
 - **Conditional rendering** - Heavy background components (MorphSVG blob, parallax shapes) are desktop-only, reducing mobile memory pressure
@@ -146,10 +159,10 @@ A premium, conversion-focused design was created with a sophisticated navy-and-o
 - **Debounced refresh** - `debouncedScrollTriggerRefresh` prevents layout thrashing during resize events
 - **SmoothSmoother touch handling** - `smoothTouch: 0` disables smooth scrolling on touch devices where it causes friction
 
-# 10. Future Improvements
+# 11. Future Improvements
 
 - **Blog/Resources section** - Add a content hub for financial strategy articles to improve SEO and nurture leads
 - **Case study page** - Detailed client success stories with measurable outcomes (fundraising totals, operational savings)
 - **Service comparison tool** - Interactive quiz or matrix helping founders identify which service tier fits their current stage
 - **Newsletter signup** - Build an email list for ongoing lead nurturing
-- **Analytics integration** - Deeper event tracking (scroll depth, CTA clicks, video engagement) to optimize conversion funnel
+- **Analytics integration** - Deeper event tracking (scroll depth, CTA clicks, video engagement) to optimize conversion funnel conversion funnel

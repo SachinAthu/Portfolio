@@ -1,17 +1,18 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Link, { LinkProps } from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import Link, { LinkProps } from "next/link";
+import { usePathname } from "next/navigation";
 
-import { useLayoutContext } from '@/context/LayoutContext';
+import { useLayoutContext } from "@/context/LayoutContext";
 
-type PageLinkProps = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & { short?: boolean };
+type PageLinkProps = LinkProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & { short?: boolean };
 
 export default function PageLink({
   children,
   href,
-  target = '_self',
+  target = "_self",
   className,
   short = false,
   ...rest
@@ -39,7 +40,12 @@ export default function PageLink({
   }
 
   return (
-    <Link href={href} target={target} className={className || ''} onClick={clickHandler} {...rest}>
+    <Link
+      href={href}
+      target={target}
+      className={className || ""}
+      onClick={clickHandler}
+      {...rest}>
       {children}
     </Link>
   );

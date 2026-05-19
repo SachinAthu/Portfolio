@@ -309,7 +309,7 @@
   }
 
   .container-text {
-    @apply mx-auto max-w-180 px-4 sm:px-8 2xl:px-0;
+    @apply mx-auto max-w-170 px-4 md:px-0;
   }
   /**/
 
@@ -422,7 +422,7 @@
 
     p,
     blockquote {
-      @apply text-lg wrap-break-word not-first:pt-5;
+      @apply text-base wrap-break-word not-first:pt-5;
       line-height: 1.6;
     }
 
@@ -435,7 +435,7 @@
       @apply ml-6 list-disc pt-8 sm:ml-8;
 
       li {
-        @apply text-lg wrap-break-word not-first:pt-3;
+        @apply text-base wrap-break-word not-first:pt-3;
         line-height: 1.6;
       }
     }
@@ -445,7 +445,7 @@
     }
 
     hr {
-      @apply mt-40 mb-16;
+      @apply mt-20 mb-10 sm:mt-24 sm:mb-12;
     }
 
     pre {
@@ -476,7 +476,7 @@
 
     figure,
     img {
-      @apply mt-20 mb-8 sm:mt-24 sm:mb-12;
+      @apply mt-20 mb-8;
     }
 
     figure figcaption,
@@ -485,7 +485,7 @@
     }
 
     table {
-      @apply max-w-full min-w-103 font-normal;
+      @apply max-w-full min-w-103 text-sm font-normal sm:text-base;
 
       th {
         @apply border border-gray-300 px-4 py-2 font-semibold opacity-90 dark:border-gray-600;

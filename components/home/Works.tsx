@@ -109,11 +109,11 @@ function Work({ work, index }: WorkProps) {
               <div
                 className={cn(
                   "flex items-end gap-3",
-                  index % 2 === 0 ? "flex-row w-auto" : "flex-row-reverse w-fit"
+                  index % 2 === 0 ? "w-auto flex-row" : "w-fit flex-row-reverse"
                 )}>
                 <h3
                   className={cn(
-                    "text-xl sm:text-3xl lg:text-4xl font-medium underline underline-offset-8",
+                    "text-xl font-medium underline underline-offset-8 sm:text-3xl lg:text-4xl",
                     index % 2 === 0 ? "ml-auto" : ""
                   )}>
                   {work.title}
@@ -139,7 +139,7 @@ export default function Works() {
           <RevealText id="worksHeading">
             <h2 className="heading-1">
               My Works
-              <span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">
+              <span className="text-primary animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite]">
                 .
               </span>
             </h2>

@@ -1,11 +1,19 @@
-'use client';
+"use client";
 
-import { Renderable, Toast, ToastBar, Toaster, toast } from 'react-hot-toast';
+import { Renderable, Toast, ToastBar, Toaster, toast } from "react-hot-toast";
 
-function ToastBarInner({ t, icon, message }: { t: Toast; icon: Renderable; message: Renderable }) {
+function ToastBarInner({
+  t,
+  icon,
+  message,
+}: {
+  t: Toast;
+  icon: Renderable;
+  message: Renderable;
+}) {
   return (
     <div
-      className="toast-bar-inner | flex items-center gap-1 text-pretty text-base"
+      className="toast-bar-inner | flex items-center gap-1 text-base text-pretty"
       onClick={() => toast.dismiss(t.id)}>
       {icon}
 
@@ -22,15 +30,15 @@ export default function ToasterCom() {
       position="bottom-center"
       reverseOrder={false}
       toastOptions={{
-        className: 'app-toast-component',
+        className: "app-toast-component",
         success: {
           duration: 10000,
         },
         error: {
           duration: 10000,
           iconTheme: {
-            primary: '#E91E63',
-            secondary: '#F5F5F5',
+            primary: "#E91E63",
+            secondary: "#F5F5F5",
           },
         },
         blank: {
@@ -49,8 +57,15 @@ export default function ToasterCom() {
       {(t) => (
         <ToastBar
           toast={t}
-          style={{ ...t.style, animation: t.visible ? 'toast-anim-enter 0.5s ease' : 'toast-anim-leave 1s ease' }}>
-          {({ icon, message }) => <ToastBarInner t={t} icon={icon} message={message} />}
+          style={{
+            ...t.style,
+            animation: t.visible
+              ? "toast-anim-enter 0.5s ease"
+              : "toast-anim-leave 1s ease",
+          }}>
+          {({ icon, message }) => (
+            <ToastBarInner t={t} icon={icon} message={message} />
+          )}
         </ToastBar>
       )}
     </Toaster>

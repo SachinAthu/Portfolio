@@ -80,7 +80,7 @@ function ScrollNav() {
   return (
     <div
       ref={scrollNav}
-      className="fixed right-6 top-(--scroll-nav-top) z-20 hidden h-(--scroll-nav-height) translate-x-[100px] opacity-0 2xl:block">
+      className="fixed top-(--scroll-nav-top) right-6 z-20 hidden h-(--scroll-nav-height) translate-x-[100px] opacity-0 2xl:block">
       <div className="grid h-full grid-cols-1 grid-rows-[1fr_1.5fr_1fr] gap-1">
         <div className="flex items-center justify-center">
           <IconButton
@@ -91,7 +91,7 @@ function ScrollNav() {
         </div>
 
         <div className="flex justify-center">
-          <div className="w-[2px] bg-text dark:bg-d-text"></div>
+          <div className="bg-text dark:bg-d-text w-[2px]"></div>
         </div>
 
         <div className="flex items-center justify-center" ref={downButton}>

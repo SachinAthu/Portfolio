@@ -59,7 +59,7 @@ function TechStackMobile() {
       {entries.map(([key, value], i) => (
         <FadeIn key={key} id={`techStack-${key}`}>
           <div
-            className={`${i === 0 ? "mt-14 sm:mt-20" : "mt-12 sm:mt-14"} ${entries.length !== i + 1 ? "border-b border-b-subtext pb-14 dark:border-d-subtext" : ""}`}>
+            className={`${i === 0 ? "mt-14 sm:mt-20" : "mt-12 sm:mt-14"} ${entries.length !== i + 1 ? "border-b-subtext dark:border-d-subtext border-b pb-14" : ""}`}>
             <h3 className="text-2xl capitalize">
               {(i + 1).toString().padStart(2, "0")}. {key}
             </h3>
@@ -69,7 +69,7 @@ function TechStackMobile() {
                 <div
                   key={tech}
                   className="ts-item | inline-flex items-center justify-center">
-                  <span className="whitespace-nowrap rounded-full border border-subtext bg-background px-4 py-2 text-center text-base font-medium text-subtext dark:border-d-subtext dark:bg-d-background dark:text-d-subtext sm:text-lg">
+                  <span className="border-subtext bg-background text-subtext dark:border-d-subtext dark:bg-d-background dark:text-d-subtext rounded-full border px-4 py-2 text-center text-base font-medium whitespace-nowrap sm:text-lg">
                     {tech}
                   </span>
                 </div>
@@ -152,10 +152,10 @@ function TechStackDesktop() {
   return (
     <div className="mt-20" ref={container}>
       {/* filters */}
-      <div className="filters | relative flex items-center gap-2 border-b border-b-subtext dark:border-b-d-subtext">
+      <div className="filters | border-b-subtext dark:border-b-d-subtext relative flex items-center gap-2 border-b">
         <div
           ref={checkIndicator}
-          className="absolute left-0 top-1/2 h-12 w-32 -translate-y-1/2 bg-primary [&>label]:checked:text-white"></div>
+          className="bg-primary absolute top-1/2 left-0 h-12 w-32 -translate-y-1/2 [&>label]:checked:text-white"></div>
 
         {/* filter buttons */}
         {tsFilters.map((f, i) => (
@@ -187,7 +187,7 @@ function TechStackDesktop() {
               key={ts.title}
               data-categories={ts.categories.join(" ")}
               className="ts-item | inline-flex items-center justify-center will-change-transform">
-              <span className="whitespace-nowrap rounded-full border border-gray-300 bg-background px-4 py-2 text-center text-lg font-medium text-subtext dark:border-gray-600 dark:bg-d-background dark:text-d-subtext lg:px-8 lg:py-4 lg:text-xl">
+              <span className="bg-background text-subtext dark:bg-d-background dark:text-d-subtext rounded-full border border-gray-300 px-4 py-2 text-center text-lg font-medium whitespace-nowrap lg:px-8 lg:py-4 lg:text-xl dark:border-gray-600">
                 {ts.title}
               </span>
             </div>
@@ -207,7 +207,7 @@ export default function TechStack() {
         <RevealText id="techStackHeading">
           <h2 className="heading-1">
             Tech Stack
-            <span className="animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite] text-primary">
+            <span className="text-primary animate-[headingDot_5s_cubic-bezier(0.4,0,0.6,1)_infinite]">
               .
             </span>
           </h2>

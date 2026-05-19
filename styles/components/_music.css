@@ -13,14 +13,14 @@
       left: 50%;
       transform: rotate(45deg) translate(-50%, -50%) scaleX(0);
       transform-origin: left;
-      content: '';
+      content: "";
       width: var(--btn-width);
       height: 2px;
       transition: transform 0.5s;
     }
   }
 
-  .control-btn[data-play='false'] {
+  .control-btn[data-play="false"] {
     &::after {
       transform: rotate(45deg) translate(-50%, -50%) scaleX(1);
     }

@@ -17,7 +17,7 @@ export default function IconButton({
     <button
       type="button"
       className={cn(
-        "custom-icon-button | relative block overflow-hidden rounded-full border border-text bg-background p-2 dark:border-d-text dark:bg-d-background [&_svg]:h-6 [&_svg]:w-6",
+        "custom-icon-button | border-text bg-background dark:border-d-text dark:bg-d-background relative block overflow-hidden rounded-full border p-2 [&_svg]:h-6 [&_svg]:w-6",
         isStatic ? "is-static" : direction === "down" ? "down" : "",
         className || ""
       )}

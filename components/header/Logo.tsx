@@ -15,7 +15,7 @@ export default function Logo() {
       short>
       <span className="hidden sm:block">SachinAthu</span>
       <span className="sm:hidden">Sachin</span>
-      <span className="mx-1 animate-logo dark:animate-logo-d">_</span>
+      <span className="animate-logo dark:animate-logo-d mx-1">_</span>
       <span>;</span>
     </PageLink>
   );

@@ -14,7 +14,7 @@ export default function Hero() {
       <div
         data-scroll
         data-scroll-speed="-0.5"
-        className="flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pb-28 pt-12 will-change-transform sm:flex-col sm:px-[calc(3%+2rem)] 2xl:px-8">
+        className="flex h-full grid-cols-2 flex-col-reverse justify-between px-[calc(3%+1.5rem)] pt-12 pb-28 will-change-transform sm:flex-col sm:px-[calc(3%+2rem)] 2xl:px-8">
         <div className="flex flex-col items-end">
           <div className="mb-8 sm:mb-12">
             <p className="max-w-120 text-right text-5xl font-medium sm:text-7xl">
@@ -80,7 +80,7 @@ export default function Hero() {
         </div>
 
         <div>
-          <h1 className="text-[clamp(3.5rem,11vw,10rem)] font-semibold leading-none">
+          <h1 className="text-[clamp(3.5rem,11vw,10rem)] leading-none font-semibold">
             Sachin <br /> Athukorala
           </h1>
         </div>

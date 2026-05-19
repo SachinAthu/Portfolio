@@ -28,7 +28,7 @@ function Welcome() {
   }
 
   return (
-    <div className="fixed inset-0 z-60 flex h-lvh w-screen flex-col items-center justify-center bg-background dark:bg-d-background">
+    <div className="bg-background dark:bg-d-background fixed inset-0 z-60 flex h-lvh w-screen flex-col items-center justify-center">
       <RevealText id="welcome-p-1" duration={1.2}>
         <p className="text-center text-[clamp(6rem,12vw,13rem)] font-medium">
           Hey,

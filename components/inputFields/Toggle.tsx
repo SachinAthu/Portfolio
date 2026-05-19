@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useRef, memo, useEffect } from 'react';
+import React, { useRef, memo, useEffect } from "react";
 
 export type ToggleProps = {
   children: React.ReactNode;
@@ -19,16 +19,16 @@ const Toggle = ({ children, id, onChange, value, isChecked }: ToggleProps) => {
     if (!labelRef) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         e.preventDefault();
         toggle.current?.click();
       }
     }
 
-    labelRef.addEventListener('keydown', handleKeyDown);
+    labelRef.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      labelRef.removeEventListener('keydown', handleKeyDown);
+      labelRef.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -48,7 +48,7 @@ const Toggle = ({ children, id, onChange, value, isChecked }: ToggleProps) => {
         ref={label}
         tabIndex={0}
         htmlFor={id}
-        className="block cursor-pointer rounded-full px-4 py-2 text-center text-lg transition-colors duration-300 peer-checked:bg-primary peer-checked:text-d-text">
+        className="peer-checked:bg-primary peer-checked:text-d-text block cursor-pointer rounded-full px-4 py-2 text-center text-lg transition-colors duration-300">
         {children}
       </label>
     </div>

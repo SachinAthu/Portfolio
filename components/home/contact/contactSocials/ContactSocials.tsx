@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useMobile, useTouch } from '@/lib/hooks';
-import ContactSocialsNoDrag from './ContactSocialsNoDrag';
-import ContactSocialsDrag from './ContactSocialsDrag';
+import { useMobile, useTouch } from "@/lib/hooks";
+import ContactSocialsNoDrag from "./ContactSocialsNoDrag";
+import ContactSocialsDrag from "./ContactSocialsDrag";
 
 export default function ContactSocialsWrapper() {
   const isMobile = useMobile();

@@ -125,15 +125,15 @@ const TextAreaField = React.forwardRef<
         className="text-lg"
         onClick={() => textareaRef.current?.focus()}>
         {label}{" "}
-        {isRequired && <span className="px-1 text-xl text-primary">*</span>}
+        {isRequired && <span className="text-primary px-1 text-xl">*</span>}
       </label>
 
       <div
         className={cn(
           "mt-3 rounded-lg py-1 pr-1 transition-colors duration-300",
           errors
-            ? "border border-primary focus:border-primary dark:border-primary dark:focus:border-primary"
-            : "border border-gray-300 focus-within:border-text dark:border-gray-600 dark:focus-within:border-d-text"
+            ? "border-primary focus:border-primary dark:border-primary dark:focus:border-primary border"
+            : "focus-within:border-text dark:focus-within:border-d-text border border-gray-300 dark:border-gray-600"
         )}>
         <div
           ref={textareaRef}
@@ -144,7 +144,7 @@ const TextAreaField = React.forwardRef<
           aria-labelledby={`${id}-label`}
           aria-describedby={errors && `${id}-error`}
           className={cn(
-            "scrollbar-thin h-auto max-h-200 min-h-[12lh] w-full overflow-y-auto border-none bg-transparent py-4 pl-6 pr-5 text-base outline-none"
+            "scrollbar-thin h-auto max-h-200 min-h-[12lh] w-full overflow-y-auto border-none bg-transparent py-4 pr-5 pl-6 text-base outline-none"
           )}
           onInput={(e) => onChange(e.currentTarget.innerText)}
           onPaste={handlePaste}
@@ -155,7 +155,7 @@ const TextAreaField = React.forwardRef<
       {errors && (
         <div
           id={`${id}-error`}
-          className="mt-2 flex items-center gap-1 text-base text-primary"
+          className="text-primary mt-2 flex items-center gap-1 text-base"
           role="alert">
           <MdError className="h-5 w-5" /> {errors.message}
         </div>

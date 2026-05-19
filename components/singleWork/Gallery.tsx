@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 
+import { gsap, useGSAP } from "@/lib/gsap-config";
 import { Dialog } from "@/components";
 import { DialogRefProps, WorkType } from "@/lib/types";
 import Viewer from "@/components/ImageViewer/Viewer";
@@ -22,8 +23,31 @@ type BentoCellProps = {
 };
 
 function BentoCell({ index, image, onClick }: BentoCellProps) {
+  const cellWrapperRef = useRef<HTMLDivElement>(null);
+  const cellRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const cells = gsap.utils.toArray<HTMLElement>(".gallery-cell");
+      cells.forEach((cell) => {
+        gsap.from(cell, {
+          opacity: 0,
+          scale: 0.9,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cellWrapperRef.current,
+            start: "top 85%",
+          },
+        });
+      });
+    },
+    { scope: cellWrapperRef }
+  );
+
   return (
     <div
+      ref={cellWrapperRef}
       role="button"
       tabIndex={0}
       aria-label={`View gallery image ${index + 1}`}
@@ -35,22 +59,24 @@ function BentoCell({ index, image, onClick }: BentoCellProps) {
         }
       }}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border-2 border-gray-200 dark:border-gray-600",
-        "bg-skeleton dark:bg-d-skeleton",
         "cursor-zoom-in",
         image.cols === 2 && "col-span-2",
         image.cols === 3 && "col-span-3",
         image.cols === 4 && "col-span-4",
         image.rows === 2 && "lg:row-span-2"
       )}>
-      <Image
-        src={image.img}
-        alt={image.title}
-        fill
-        sizes={getSizes(image.cols)}
-        className="object-cover grayscale-25 transition-all duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0"
-        placeholder="blur"
-      />
+      <div
+        ref={cellRef}
+        className="gallery-cell group bg-skeleton dark:bg-d-skeleton relative h-full w-full overflow-hidden rounded-2xl border-2 border-gray-200 dark:border-gray-600">
+        <Image
+          src={image.img}
+          alt={image.title}
+          fill
+          sizes={getSizes(image.cols)}
+          className="object-cover grayscale-25 transition-all duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0"
+          placeholder="blur"
+        />
+      </div>
     </div>
   );
 }

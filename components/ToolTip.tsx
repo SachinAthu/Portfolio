@@ -96,11 +96,11 @@ function ToolTip({ children, toolTip, className }: ToolTipProps) {
         <div
           ref={ttip}
           className={cn(
-            "absolute left-0 top-0 hidden rounded-full border border-subtext bg-[rgba(245,245,245,0.9)] p-2 text-base opacity-0 dark:border-d-subtext dark:bg-[rgba(30,30,30,0.9)]",
+            "border-subtext dark:border-d-subtext absolute top-0 left-0 hidden rounded-full border bg-[rgba(245,245,245,0.9)] p-2 text-base opacity-0 dark:bg-[rgba(30,30,30,0.9)]",
             className || ""
           )}>
           <div className="flex items-center justify-center">
-            <span className="whitespace-nowrap font-medium text-subtext dark:text-d-subtext">
+            <span className="text-subtext dark:text-d-subtext font-medium whitespace-nowrap">
               {toolTip}
             </span>
           </div>

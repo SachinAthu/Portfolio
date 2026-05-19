@@ -109,9 +109,9 @@ export default function AnimGrid() {
   }, [isScrolled]);
 
   return (
-    <div className="animgrid | pointer-events-none fixed left-0 top-0 -z-10 h-lvh w-full">
+    <div className="animgrid | pointer-events-none fixed top-0 left-0 -z-10 h-lvh w-full">
       <div
-        className="animgrid-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:border-text [&>div]:bg-transparent [&>div]:opacity-10 dark:[&>div]:border-d-text"
+        className="animgrid-inner | [&>div]:border-text dark:[&>div]:border-d-text grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:bg-transparent [&>div]:opacity-10"
         ref={animgrid}></div>
     </div>
   );

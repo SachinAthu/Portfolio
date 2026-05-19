@@ -54,11 +54,11 @@ function SideNav() {
   return (
     <div
       ref={sideNav}
-      className="fixed left-6 top-(--side-nav-top) z-20 hidden h-(--side-nav-height) -translate-x-[100px] rounded-3xl border border-text bg-background opacity-0 dark:border-d-text dark:bg-d-background 2xl:block">
+      className="border-text bg-background dark:border-d-text dark:bg-d-background fixed top-(--side-nav-top) left-6 z-20 hidden h-(--side-nav-height) -translate-x-[100px] rounded-3xl border opacity-0 2xl:block">
       <div className="absolute inset-0 grid h-full w-full grid-cols-1 gap-(--side-nav-gap) overflow-hidden rounded-3xl">
         <div
           ref={btnIndicater}
-          className="absolute left-0 top-0 z-[-1] h-(--side-nav-btn-height) w-full bg-primary"></div>
+          className="bg-primary absolute top-0 left-0 z-[-1] h-(--side-nav-btn-height) w-full"></div>
       </div>
 
       <div className="relative grid h-full grid-cols-1 gap-(--side-nav-gap)">

@@ -188,15 +188,15 @@ export default function PageLoader() {
     <>
       <div
         ref={loaderWrapper}
-        className="page-loader | pointer-events-none fixed left-0 top-0 z-30 h-lvh w-full">
+        className="page-loader | pointer-events-none fixed top-0 left-0 z-30 h-lvh w-full">
         <div
-          className="page-loader-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:scale-[0.8] [&>div]:border-none [&>div]:bg-nav"
+          className="page-loader-inner | [&>div]:bg-nav grid h-full w-full gap-3 sm:gap-4 [&>div]:scale-[0.8] [&>div]:border-none"
           ref={loader}></div>
       </div>
 
       <div
         ref={loader2}
-        className="page-loader-2 | pointer-events-none fixed left-0 top-0 z-80 h-lvh w-full bg-background opacity-0 dark:bg-d-background"></div>
+        className="page-loader-2 | bg-background dark:bg-d-background pointer-events-none fixed top-0 left-0 z-80 h-lvh w-full opacity-0"></div>
     </>
   );
 }

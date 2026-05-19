@@ -1,6 +1,6 @@
-import { MusicTrackType } from '../types';
+import { MusicTrackType } from "../types";
 
-self.addEventListener('message', (event: MessageEvent<MusicTrackType>) => {
+self.addEventListener("message", (event: MessageEvent<MusicTrackType>) => {
   fetch(event.data.path)
     .then((response) => {
       if (!response.ok) {
@@ -9,9 +9,17 @@ self.addEventListener('message', (event: MessageEvent<MusicTrackType>) => {
       return response.arrayBuffer();
     })
     .then((arrayBuffer) => {
-      self.postMessage({ action: 'loaded', buffer: arrayBuffer, track: event.data });
+      self.postMessage({
+        action: "loaded",
+        buffer: arrayBuffer,
+        track: event.data,
+      });
     })
     .catch((error) => {
-      self.postMessage({ action: 'loadError', error: error.message, track: event.data });
+      self.postMessage({
+        action: "loadError",
+        error: error.message,
+        track: event.data,
+      });
     });
 });
