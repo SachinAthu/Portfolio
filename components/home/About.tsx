@@ -42,7 +42,7 @@ export default function About() {
               <CustomLink
                 id="resumeDownloadLink"
                 content="My resume"
-                href="/static/sample_resume.pdf"
+                href="/static/RESUME_SACHIN_ATHUKORALA.pdf"
                 rel="noopener noreferrer"
                 download
                 className="after:bg-text dark:after:bg-d-text rounded-full px-12 py-10 text-xl sm:px-14 sm:py-12 sm:text-2xl"
