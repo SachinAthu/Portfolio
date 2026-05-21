@@ -1,0 +1,208 @@
+## 1. About the Client
+
+- **Developed For:** Global Wheels International (Pvt) Ltd (Client)
+- **Developed By:** Voxitec (Software Development Startup)
+- **Location:** Sri Lanka
+- **Industry:** Automotive Parts & Vehicle Battery Wholesale Distribution
+- **Company Size:** Small-to-medium enterprise
+- **Business Type:** Multi-store vehicle battery and accessories retailer with external sales representatives
+- **Project Duration:** ~8 months (ongoing maintenance)
+- **Target Market:** B2B dealers and B2C retail customers across Sri Lanka
+
+This project was developed on behalf of **Voxitec** (a remote-first software development startup) to meet the complex inventory and POS requirements of their client. The end client operates multiple physical retail stores and manages a network of field-based sales representatives who sell to dealers. Their inventory spans both new and used vehicle batteries and automotive parts, sold in both unit quantities and loose/split measures (e.g., by meter or kilogram). The business handles the full lifecycle from supplier purchase orders through to retail sales, dealer sales, credit tracking, returns, complaints, and comprehensive reporting.
+
+---
+
+## 2. Business Challenge
+
+1. **Fragmented Operations** - Inventory tracking, sales recording, and financial data were spread across manual ledgers and disjointed spreadsheets, making it difficult to get a unified view of the business.
+2. **No Real-Time Stock Visibility** - Staff across multiple stores could not see current stock levels in real time, leading to overselling, stockouts, and delayed customer fulfilment.
+3. **Complex Sales Workflows** - The business needed to support shop sales (retail), rep sales (dealer/field), credit sales with partial payment tracking, loose-item selling, and returned cheques - none of which were handled by off-the-shelf software.
+4. **Audit & Compliance Gaps** - Stock adjustments, transfers, and inventory movements were not tracked with proper audit trails, making loss prevention and reconciliation difficult.
+5. **Manual Reporting** - Generating sales reports, inventory snapshots, and performance metrics required hours of manual spreadsheet work each week.
+
+---
+
+## 3. Challenges Faced
+
+- **Multi-Store Data Architecture** - Designing a Firestore data model that could efficiently track per-store stock levels, transfers between stores, and rep assignments while maintaining consistent inventory counts across the entire system.
+- **Transactional Integrity Without a Relational Database** - Business-critical operations (sales, stock adjustments, transfers) needed atomic multi-document writes. This was solved by routing all critical writes through Firebase Cloud Functions using Firestore transactions, preventing race conditions and partial updates.
+- **Loose/Partial Quantity Tracking** - Supporting items sold by length, weight, or volume (e.g., selling 2.5 meters from a 50-meter roll) required a separate loose-quantity tracking system alongside standard unit counts, including automatic conversion logic.
+- **Role-Based Security Across Three Layers** - Implementing consistent access control across the Next.js UI (sidebar visibility), server actions (session cookie verification), and Cloud Functions (custom claims checks) required careful coordination to avoid privilege escalation.
+- **Sequential Reference Numbering** - All documents (purchase orders, sales, receipts, etc.) needed auto-generated sequential references (e.g., `SS-1024`, `PO-567`) that could not have gaps or duplicates, requiring a Firestore counter document pattern with transaction-based increment.
+- **Migration from Legacy Systems** - The presence of data migration API endpoints suggests existing data needed to be migrated from legacy spreadsheets or an earlier system into the new Firestore schema.
+
+---
+
+## 4. Personas
+
+### Primary User - Store Staff / Cashier
+
+- Processes retail shop sales and handles customer walk-ins
+- Records new and used item sales, accepts cash/cheque payments
+- Needs fast, intuitive point-of-sale workflows and instant stock verification
+- Accesses the system via desktop browser at the store counter
+
+### Primary User - Sales Representative (Rep)
+
+- External field agent selling to dealers
+- Receives stock issued from stores, sells to dealers, returns unsold stock
+- Needs mobile-friendly access to view assigned stock and record sales
+
+### Secondary User - Store Manager
+
+- Oversees stock levels, initiates transfers between stores, and manages purchase orders
+- Reviews stock adjustment requests and investigates discrepancies
+- Generates sales and inventory reports for their store
+
+### Secondary User - Admin / Operations Manager
+
+- Manages users, roles, and system-wide settings (brands, categories, companies)
+- Reviews system-wide reports, stock snapshots, and notification alerts
+- Handles customer/dealer complaints and returned cheques
+
+### Tertiary User - Super Admin
+
+- Full system access including user management for all admins
+- Responsible for system configuration and troubleshooting
+- Can bypass most operational restrictions
+
+---
+
+## 5. System Overview
+
+### 5.1 System Diagram
+
+A three-tier architecture:
+
+- **Presentation Layer** - Next.js 15 App Router with React Server Components for initial page loads and Client Components for interactive forms, tables, and real-time updates. Styled with Tailwind CSS 4 and Radix UI primitives.
+- **Application Layer** - Dual data access paths:
+  - **Server Actions** (Next.js) for reads, reference data CRUD, and auth operations via Firebase Admin SDK
+  - **Cloud Functions v2** (Node 22, callable HTTPS) for all business-critical writes using Firestore transactions
+- **Data Layer** - Firebase Firestore (NoSQL) as the primary database, Firebase Authentication for identity, and session cookies for server-side auth verification.
+
+Data flows: Client React Query hooks read from Firestore directly for dynamic data. For writes that affect inventory or financial records, the client invokes a callable Cloud Function, which validates input via Zod, executes a multi-document Firestore transaction, and returns the result.
+
+### 5.2 Designs
+
+The UI follows a dashboard layout with a collapsible sidebar navigation, a top header bar with user/profile controls, and a main content area. Design priorities included:
+
+- **Role-adaptive navigation** - Sidebar links are filtered based on the user's role, hiding admin-only sections from staff
+- **Data table heavy** - Most entity views use TanStack React Table with sorting, filtering, search, and CSV/Excel export
+- **Form-driven workflows** - Create/edit forms use React Hook Form with Zod validation, consistent input field components, and sanitization before submission
+- **Dark/light mode** - Full theme support via `next-themes` with Tailwind CSS dark variants
+
+Responsive design considerations include mobile detection middleware and drawer components for smaller screens.
+
+### 5.3 Technologies Used
+
+| Component             | Technology                                       |
+| --------------------- | ------------------------------------------------ |
+| Frontend Framework    | Next.js 15 (App Router), React 19                |
+| Language              | TypeScript (strict mode)                         |
+| Styling               | Tailwind CSS 4, Radix UI, shadcn/ui              |
+| State & Data Fetching | TanStack Query                                   |
+| Forms & Validation    | React Hook Form, Zod                             |
+| Data Tables           | TanStack Table                                   |
+| Charts                | Recharts                                         |
+| Database              | Firebase Firestore (NoSQL)                       |
+| Authentication        | Firebase Auth (email/password + session cookies) |
+| Backend Logic         | Firebase Cloud Functions v2                      |
+| Hosting               | Vercel (frontend)                                |
+| Infrastructure        | Firebase (Firestore, Auth, Functions)            |
+| Export/Print          | SheetJS (xlsx), react-to-print                   |
+| Icons                 | lucide-react                                     |
+| UI Utilities          | class-variance-authority, clsx, tailwind-merge   |
+
+### 5.4 Features
+
+- **Multi-Store Inventory Management** - Track stock levels (units and loose quantities) across multiple physical store locations with per-store views and system-wide aggregate views
+- **New & Used Item Catalog** - Separate catalogs for new and used/imported items with brand, category, pricing, warranty, and selling-type (unit or loose) classification
+- **Purchase Order Management** - Record supplier purchases with item-level pricing, discounts, invoicing, and optional automatic stock replenishment
+- **Stock Adjustments & Transfers** - Audit-trailed stock corrections with reason tracking and inter-store transfers with automatic dual-ledger entries (transfer out / transfer in)
+- **Rep Stock Management** - Issue stock to field sales representatives and process returns from reps with full traceability
+- **Shop Sales (Point of Sale)** - Record retail sales with cash/credit payment, discounts, support for both unit and loose items, and used item sales
+- **Rep Sales (Dealer Sales)** - Record external sales representative transactions with dealer linkage and credit tracking
+- **Receipt & Payment Tracking** - Comprehensive payment recording with cash/cheque methods, overpayment handling, and payment status tracking (pending, partial, fully paid, cancelled)
+- **Returned Cheque Management** - Track bounced cheques linked to receipts with recovery payment status
+- **Customer & Dealer Complaints** - Warranty and fault complaint management with status tracking (pending, resolved, cancelled)
+- **Returns Processing** - Handle customer and dealer returns with automatic stock re-addition and refund/credit processing
+- **Stock Snapshots** - Point-in-time inventory snapshots with total-value calculation, category/brand summaries, and period-over-period comparison
+- **Real-Time Low Stock Notifications** - Automated alerts when stock falls below minimum thresholds, with role-based visibility and 24-hour deduplication
+- **Role-Based Access Control** - Three-tier permission model (staff, admin, super_admin) enforced at UI, server action, Cloud Function, and Firestore rule levels
+- **Reporting Suite** - Shop sales, rep sales, inventory, stock changes, purchase history, complaints, returns, receipts, and returned cheque reports with export to Excel/CSV
+- **User Management** - Admin panel for creating, editing, disabling, and deleting users with role assignment
+- **Company Settings** - Configurable business name, contact details, address, and logo
+- **Admin Dashboard** - Summary metrics, daily sales/purchase trends (charts), top-performing items, and cash-flow visualization
+
+---
+
+## 6. Results and Benefits
+
+- **Operational Efficiency** - Automated stock tracking eliminated manual ledger updates, reducing daily inventory reconciliation time for store managers.
+- **Real-Time Visibility** - Stock levels across all stores and with field reps became visible instantly, reducing overselling incidents and enabling informed transfer decisions.
+- **Audit Trail Integrity** - All inventory movements (adjustments, transfers, sales, returns) are now recorded through transactional Cloud Functions with full audit data, making loss prevention and discrepancy investigation straightforward.
+- **Scalable Reporting** - Pre-built reports with one-click export replaced hours of manual spreadsheet work, giving management faster access to business performance data.
+- **Unified Platform** - A single system now handles purchase orders, retail sales, dealer sales, credit tracking, complaints, returns, and notifications - replacing multiple disjointed tools and spreadsheets.
+- **Role-Appropriate Access** - Staff use focused operational interfaces while admins get full management capabilities, reducing training time and preventing unauthorized operations.
+
+_[Quantitative metrics such as percentage improvements in processing time, sales growth, or error reduction should be added here when available.]_
+
+---
+
+## 7. Lessons Learned
+
+- **Cloud Functions as a Transactional Guarantee Layer** - Routing all financially and inventory-sensitive writes through callable Cloud Functions with Firestore transactions was critical for data integrity. This pattern, while adding some latency versus direct client writes, prevented partial failures and race conditions that would have been difficult to debug.
+- **Counter Document Pattern for Sequential IDs** - Using Firestore transaction-based counters for auto-incrementing reference numbers was a robust approach, but counter contention at very high write volumes should be monitored.
+- **Server Actions vs. Client Hooks** - The hybrid approach of using server actions for admin-heavy operations and client React Query for dynamic user-facing data worked well, but the dual-codebase nature (Next.js server actions + Cloud Functions) required clear conventions about which path to use for each operation.
+- **Firestore Schema Design for Multi-Store Data** - Storing stock as subcollections under store documents proved flexible for per-store queries but required careful composite indexing for cross-store aggregate queries.
+- **Zod Schema Duplication** - Zod schemas are defined in both the client (`src/lib/zod-schemas.ts`) and Cloud Functions (`functions/src/schemas.ts`), creating a maintenance burden. A shared package would reduce drift.
+
+---
+
+## 8. Project Goals
+
+- Replace manual spreadsheets and paper-based stock tracking with a centralized digital system
+- Enable real-time inventory visibility across all stores and sales representatives
+- Automate sequential document numbering for all business transactions
+- Implement role-based access to ensure data security and operational control
+- Provide comprehensive reporting and export capabilities to reduce manual reporting effort
+
+---
+
+## 9. Development Process
+
+The project was executed in collaboration with **Voxitec's** development and design team, following an agile-inspired iterative approach. Core inventory features were prioritized first to replace the most painful manual processes, followed by sales workflows, then reporting and admin features. Regular feedback cycles between the Voxitec team and the end client ensured the system matched real-world operational workflows.
+
+---
+
+## 10. Performance Optimizations
+
+- Firestore composite indexes optimized for the most common query patterns across entities
+- React Query caching with appropriate stale times to minimize Firestore reads
+- Server-side data fetching for initial page loads reducing client-side data transfer
+- Lazy loading of non-critical UI components and data tables
+- Deferred loading of large list pages using pagination and search-based filtering
+
+---
+
+## 11. Security Measures
+
+- **Authentication** - Firebase Auth with email/password, session cookies (HTTP-only, secure, SameSite=Strict) for server-side auth
+- **Role-Based Access** - Custom claims (`super_admin`, `admin`, `staff`) enforced at UI, server action, Cloud Function, and Firestore security rule levels
+- **Input Sanitization** - All user inputs sanitized via `isomorphic-dompurify` before processing
+- **Write Path Restriction** - Critical collections (stock, sales, adjustments, transfers, receipts) are client-write-protected in Firestore rules; only Cloud Functions can modify them
+- **Rate Limiting** - [To be added: details on any rate limiting or abuse prevention]
+
+---
+
+## 12. Future Improvements (Optional)
+
+- **Mobile application** - Native or PWA for field sales representatives to record sales and check stock on the go
+- **Barcode/QR scanning** - Streamline item lookup and stocktaking at store level
+- **Supplier portal** - Allow suppliers to view purchase orders and submit invoices digitally
+- **Payment gateway integration** - Enable online payments for credit sales
+- **Predictive inventory** - Use historical sales data to suggest reorder quantities and timing
+- **WhatsApp/email notifications** - Extend notification delivery beyond in-app alerts
+- **Shared Zod schema package** - Consolidate client and Cloud Function validation schemas into a shared package to prevent drift
+- **Full text search** - Add full text search to the data tables using Algolia or Typesense

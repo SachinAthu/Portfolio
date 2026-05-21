@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { memo } from 'react';
-import { FiPlus, FiMinus } from 'react-icons/fi';
+import React, { memo } from "react";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
-import { cn } from '@/lib/common';
-import { Toggle } from '..';
+import { cn } from "@/lib/common";
+import { Toggle } from "..";
 
 type ControllsButtonProps = {
   children: React.ReactNode;
@@ -13,12 +13,17 @@ type ControllsButtonProps = {
   className?: string;
 };
 
-function ControllsButton({ children, onClick, disabled, className = '' }: ControllsButtonProps) {
+function ControllsButton({
+  children,
+  onClick,
+  disabled,
+  className = "",
+}: ControllsButtonProps) {
   return (
     <button
       type="button"
       className={cn(
-        'rounded-full p-2 text-lg transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-neutral-700 [&>svg]:h-6 [&>svg]:w-6',
+        "rounded-full p-2 text-lg transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-neutral-700 [&>svg]:h-6 [&>svg]:w-6",
         className
       )}
       onClick={onClick}
@@ -36,12 +41,18 @@ type ControllsProps = {
   reset: () => void;
 };
 
-const Controlls = ({ isShow, isHighRes, zoom, reset, toggleHighRes }: ControllsProps) => {
+const Controlls = ({
+  isShow,
+  isHighRes,
+  zoom,
+  reset,
+  toggleHighRes,
+}: ControllsProps) => {
   return (
     <div
       className={cn(
-        'absolute bottom-6 left-1/2 flex -translate-x-1/2 touch-none items-center gap-2 rounded-full border border-gray-300 bg-background px-5 py-4 transition-opacity duration-500 dark:border-gray-600 dark:bg-neutral-800 md:gap-3',
-        isShow ? 'opacity-100' : 'opacity-0'
+        "bg-background absolute bottom-6 left-1/2 flex -translate-x-1/2 touch-none items-center gap-2 rounded-full border border-gray-300 px-5 py-4 transition-opacity duration-500 md:gap-3 dark:border-gray-600 dark:bg-neutral-800",
+        isShow ? "opacity-100" : "opacity-0"
       )}>
       <div className="flex items-center gap-1 md:gap-2">
         <ControllsButton onClick={() => zoom(false)} disabled={!isShow}>
@@ -54,10 +65,17 @@ const Controlls = ({ isShow, isHighRes, zoom, reset, toggleHighRes }: ControllsP
       </div>
 
       {isHighRes && (
-        <Toggle id="toggleHighResCheckbox" value="highRes" onChange={toggleHighRes}>
+        <Toggle
+          id="toggleHighResCheckbox"
+          value="highRes"
+          onChange={toggleHighRes}>
           <>
-            <span className="hidden whitespace-nowrap break-keep md:block">High Resolution</span>
-            <span className="whitespace-nowrap break-keep md:hidden">High Res..</span>
+            <span className="hidden break-keep whitespace-nowrap md:block">
+              High Resolution
+            </span>
+            <span className="break-keep whitespace-nowrap md:hidden">
+              High Res..
+            </span>
           </>
         </Toggle>
       )}

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
+import React, { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
 
 type PopInProps = {
   children: React.ReactNode;
@@ -11,7 +11,13 @@ type PopInProps = {
   markers?: boolean;
 };
 
-export default function PopIn({ children, id, duration = 1, delay = 0, markers = false }: PopInProps) {
+export default function PopIn({
+  children,
+  id,
+  duration = 1,
+  delay = 0,
+  markers = false,
+}: PopInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
   const popin = useRef<HTMLDivElement>(null);
@@ -20,18 +26,18 @@ export default function PopIn({ children, id, duration = 1, delay = 0, markers =
     () => {
       gsap.to(popin.current, {
         opacity: 1,
-        visibility: 'visible',
+        visibility: "visible",
         duration,
         delay,
-        ease: 'power2.out',
+        ease: "power2.out",
         onStart: () => {
-          gsap.set(popin.current, { visibility: 'visible' });
+          gsap.set(popin.current, { visibility: "visible" });
         },
         scrollTrigger: {
           id: `${id}-popIn`,
           trigger: trigger.current,
-          start: 'top 90%',
-          end: 'top top',
+          start: "top 90%",
+          end: "top top",
           markers,
         },
       });

@@ -1,44 +1,51 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { gsap } from '@/lib/gsap-config';
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap-config";
 
-import { useLayoutContext } from '@/context/LayoutContext';
-import { NAV_LINKS } from '@/lib/data';
-import { cn } from '@/lib/common';
+import { useLayoutContext } from "@/context/LayoutContext";
+import { NAV_LINKS } from "@/lib/data";
+import { cn } from "@/lib/common";
 
 export default function NavMenu() {
-  const showNavLinksTween = useRef<gsap.core.Timeline>();
-  const hideNavLinksTween = useRef<gsap.core.Timeline>();
-  const { isNavShow, isScrolled, setIsNavOpen, locoScroll } = useLayoutContext();
+  const showNavLinksTween = useRef<gsap.core.Timeline | null>(null);
+  const hideNavLinksTween = useRef<gsap.core.Timeline | null>(null);
+  const { isNavShow, isScrolled, setIsNavOpen, locoScroll } =
+    useLayoutContext();
 
   useEffect(() => {
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu = document.querySelector(".nav-menu");
 
     showNavLinksTween.current = gsap
-      .timeline({ onStart: () => navMenu?.classList.remove('hidden'), paused: true })
-      .to('.nav-menu-link', {
+      .timeline({
+        onStart: () => navMenu?.classList.remove("hidden"),
+        paused: true,
+      })
+      .to(".nav-menu-link", {
         y: 0,
         opacity: 1,
         duration: 1.25,
         stagger: {
           amount: 0.5,
-          from: 'start',
+          from: "start",
         },
-        ease: 'power3.out',
+        ease: "power3.out",
       });
 
     hideNavLinksTween.current = gsap
-      .timeline({ onComplete: () => navMenu?.classList.add('hidden'), paused: true })
-      .to('.nav-menu-link', {
+      .timeline({
+        onComplete: () => navMenu?.classList.add("hidden"),
+        paused: true,
+      })
+      .to(".nav-menu-link", {
         y: 40,
         opacity: 0,
         duration: 1.25,
         stagger: {
           amount: 0.5,
-          from: 'end',
+          from: "end",
         },
-        ease: 'power3.out',
+        ease: "power3.out",
       });
 
     return () => {
@@ -65,21 +72,31 @@ export default function NavMenu() {
   return (
     <nav
       id="app-nav-menu"
-      className={'nav-menu | fixed left-0 right-0 top-[var(--header-height)] z-50 hidden h-[var(--nav-menu-height)]'}
+      className={
+        "nav-menu | fixed top-(--header-height) right-0 left-0 z-50 hidden h-(--nav-menu-height)"
+      }
       data-lenis-prevent>
       <ul className="nav-menu-links hide-scrollbar | h-full overflow-y-auto pt-20 lg:pt-28">
-        <div className={cn('px-[2%] sm:px-[3%]', isScrolled && 'mx-auto max-w-[80rem] xl:px-0')}>
+        <div
+          className={cn(
+            "px-[2%] sm:px-[3%]",
+            isScrolled && "mx-auto max-w-7xl xl:px-0"
+          )}>
           {navLinksArr && (
             <>
               {navLinksArr.map((l) => (
-                <li key={l.key} className="nav-menu-link | flex translate-y-10 items-center px-8 opacity-0">
+                <li
+                  key={l.key}
+                  className="nav-menu-link | flex translate-y-10 items-center px-8 opacity-0">
                   <button
                     type="button"
                     className="flex items-start gap-4 py-3 font-semibold"
                     onClick={() => navigate(l.id)}>
-                    <span className="text-5xl text-d-text sm:text-7xl md:text-8xl">{l.title}</span>
+                    <span className="text-d-text text-5xl sm:text-7xl md:text-8xl">
+                      {l.title}
+                    </span>
 
-                    <span className="hidden font-normal text-d-subtext sm:inline">
+                    <span className="text-d-subtext hidden font-normal sm:inline">
                       <span className="text-2xl">[ </span>
                       <span className="text-base">{l.tooltip}</span>
                       <span className="text-2xl"> ]</span>

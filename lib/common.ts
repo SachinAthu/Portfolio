@@ -1,6 +1,6 @@
-import { clsx, ClassArray } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import DOMPurify from 'isomorphic-dompurify';
+import { clsx, ClassArray } from "clsx";
+import { twMerge } from "tailwind-merge";
+import DOMPurify from "isomorphic-dompurify";
 
 export function cn(...classes: ClassArray) {
   return twMerge(clsx(classes));
@@ -11,7 +11,7 @@ export function truncateText(value: string, limit: number) {
     return value;
   }
 
-  return value.slice(0, limit) + '...';
+  return value.slice(0, limit) + "...";
 }
 
 export function getAnimGridSize(vw: number) {

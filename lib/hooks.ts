@@ -1,8 +1,8 @@
-import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { getCookie } from 'cookies-next';
+import { useTheme } from "next-themes";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { getCookie } from "cookies-next";
 
-import { COOKIE_KEYS } from './data';
+import { COOKIE_KEYS } from "./data";
 
 export function useMounted() {
   const [mounted, setMounted] = useState(false);
@@ -15,7 +15,7 @@ export function useMounted() {
 }
 
 export function useMobile() {
-  return getCookie(COOKIE_KEYS.IS_MOBILE) === 'true';
+  return getCookie(COOKIE_KEYS.IS_MOBILE) === "true";
 }
 
 export function useMobileViewport(mini = false) {
@@ -37,10 +37,10 @@ export function useMobileViewport(mini = false) {
 
   useEffect(() => {
     setIsMobileV(window.innerWidth < bp);
-    window.addEventListener('resize', debounce(onResize));
+    window.addEventListener("resize", debounce(onResize));
 
     return () => {
-      window.removeEventListener('resize', debounce(onResize));
+      window.removeEventListener("resize", debounce(onResize));
     };
   }, [bp, onResize]);
 
@@ -52,7 +52,9 @@ export function useTouch() {
 
   useEffect(() => {
     setIsTouch(
-      'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches
+      "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches
     );
   }, []);
 
@@ -64,7 +66,7 @@ export function useDark() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    setIsDark(theme === 'dark');
+    setIsDark(theme === "dark");
   }, [theme]);
 
   return isDark;
@@ -78,10 +80,10 @@ export function usePageVisible() {
       setIsVisible(!document.hidden);
     }
 
-    document.addEventListener('visibilitychange', onVisibilityChange);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
@@ -110,17 +112,21 @@ export function useWindowResize() {
     setVW(window.innerWidth);
     setVH(window.innerHeight);
 
-    window.addEventListener('resize', debounce(onResize));
+    window.addEventListener("resize", debounce(onResize));
 
     return () => {
-      window.removeEventListener('resize', debounce(onResize));
+      window.removeEventListener("resize", debounce(onResize));
     };
   }, [onResize]);
 
   return { vw, vh };
 }
 
-export const useObserver = (selector: string, rootMargin?: string, defaultVal: boolean = false) => {
+export const useObserver = (
+  selector: string,
+  rootMargin?: string,
+  defaultVal: boolean = false
+) => {
   const [isIntersecting, setIsIntersecting] = useState(defaultVal);
 
   useEffect(() => {
@@ -147,14 +153,23 @@ export const useObserver = (selector: string, rootMargin?: string, defaultVal: b
   return isIntersecting;
 };
 
-export const useDebouncedCallback = (callback: (...args: any[]) => void, delay: number) => {
+export const useDebouncedCallback = (
+  callback: (...args: any[]) => void,
+  delay: number
+) => {
+  const callbackRef = useRef(callback);
+  callbackRef.current = callback;
+
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   return useCallback(
     (...args: any[]) => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => callback(...args), delay);
+      timeoutRef.current = setTimeout(
+        () => callbackRef.current(...args),
+        delay
+      );
     },
-    [callback, delay]
+    [delay]
   );
 };

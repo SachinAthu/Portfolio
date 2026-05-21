@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsap-config';
+import { useRef } from "react";
+import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap-config";
 
-import { cn } from '@/lib/common';
-import { NAV_LINKS } from '@/lib/data';
-import { useHomeContext } from '@/context/HomeContext';
+import { cn } from "@/lib/common";
+import { NAV_LINKS } from "@/lib/data";
+import { useHomeContext } from "@/context/HomeContext";
 
 type SectionProps = {
   id: string;
@@ -39,12 +39,12 @@ export default function Section({
       if (borderBottom) {
         gsap.to(borderInner.current, {
           scaleX: 1,
-          ease: '',
+          ease: "",
           duration: 2,
           scrollTrigger: {
             trigger: border.current,
-            start: 'top 90%',
-            end: 'top top',
+            start: "top 90%",
+            end: "top top",
           },
         });
       }
@@ -56,8 +56,8 @@ export default function Section({
       ScrollTrigger.create({
         trigger: trigger.current,
         id: `section-trigger-${id}`,
-        start: 'top 50%',
-        end: '50% top',
+        start: "top 50%",
+        end: "50% top",
         onEnter: () => {
           // console.log('enter', id);
           setActiveSection(getSection(id));
@@ -76,20 +76,25 @@ export default function Section({
       <div
         ref={trigger}
         className={cn(
-          'relative',
-          className || '',
-          paddingTop ? 'pt-32 sm:pt-52 lg:pt-60' : '',
-          paddingBottom ? 'pb-48 sm:pb-64 lg:pb-72' : '',
-          transparent ? '' : 'container-wide shadow-section dark:shadow-d-section bg-background dark:bg-d-background'
+          "relative",
+          className || "",
+          paddingTop ? "pt-32 sm:pt-52 lg:pt-60" : "",
+          paddingBottom ? "pb-48 sm:pb-64 lg:pb-72" : "",
+          transparent
+            ? ""
+            : "container-wide shadow-section dark:shadow-d-section bg-background dark:bg-d-background"
         )}
         {...rest}>
         {children}
 
         {borderBottom && (
-          <div className="absolute bottom-0 left-0 right-0" ref={border} id={`${id}-border`}>
+          <div
+            className="absolute right-0 bottom-0 left-0"
+            ref={border}
+            id={`${id}-border`}>
             <div
               ref={borderInner}
-              className="h-[2px] w-full origin-center scale-x-0 bg-subtext dark:bg-d-subtext"></div>
+              className="bg-subtext dark:bg-d-subtext h-[2px] w-full origin-center scale-x-0"></div>
           </div>
         )}
       </div>

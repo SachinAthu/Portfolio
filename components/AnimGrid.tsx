@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { gsap } from '@/lib/gsap-config';
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap-config";
 
-import { usePageVisible, useWindowResize } from '@/lib/hooks';
-import { getAnimGridSize } from '@/lib/common';
-import { useLayoutContext } from '@/context/LayoutContext';
+import { usePageVisible, useWindowResize } from "@/lib/hooks";
+import { getAnimGridSize } from "@/lib/common";
+import { useLayoutContext } from "@/context/LayoutContext";
 
 export default function AnimGrid() {
   const animgrid = useRef<HTMLDivElement>(null);
@@ -18,12 +18,12 @@ export default function AnimGrid() {
   const decreseOpa = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
-    increseOpa.current = gsap.to('.animgrid-inner', {
+    increseOpa.current = gsap.to(".animgrid-inner", {
       opacity: 1,
       duration: 0.3,
       paused: true,
     });
-    decreseOpa.current = gsap.to('.animgrid-inner', {
+    decreseOpa.current = gsap.to(".animgrid-inner", {
       opacity: 0.5,
       duration: 0.3,
       paused: true,
@@ -45,46 +45,48 @@ export default function AnimGrid() {
       animgrid.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
 
       for (let i = 0; i < grid.cols * grid.rows; i++) {
-        const d = document.createElement('div');
-        d.className = 'box';
+        const d = document.createElement("div");
+        d.className = "box";
         animgrid.current?.appendChild(d);
       }
     }
 
     // comment only for development
     // animate animgrid
-    // gridAnim.current = gsap
-    //   .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
-    //   .to('.animgrid-inner .box', {
-    //     opacity: 0.5,
-    //     scale: 0.9,
-    //     ease: 'power2.out',
-    //     stagger: {
-    //       amount: 2,
-    //       grid: [grid.rows, grid.cols],
-    //       from: 'start',
-    //     },
-    //   })
-    //   .to(
-    //     '.animgrid-inner .box',
-    //     {
-    //       opacity: 0.1,
-    //       scale: 1,
-    //       ease: 'power2.out',
-    //       stagger: {
-    //         amount: 2,
-    //         grid: [grid.rows, grid.cols],
-    //         from: 'start',
-    //       },
-    //     },
-    //     '-=10%'
-    //   );
+    gridAnim.current = gsap
+      .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
+      .to(".animgrid-inner .box", {
+        opacity: 0.5,
+        scale: 0.9,
+        duration: 2,
+        ease: "power2.out",
+        stagger: {
+          amount: 2,
+          grid: [grid.rows, grid.cols],
+          from: "start",
+        },
+      })
+      .to(
+        ".animgrid-inner .box",
+        {
+          opacity: 0.1,
+          scale: 1,
+          duration: 2,
+          ease: "power2.out",
+          stagger: {
+            amount: 2,
+            grid: [grid.rows, grid.cols],
+            from: "start",
+          },
+        },
+        "-=10%"
+      );
 
     const animGridRef = animgrid.current;
 
     return () => {
       if (animGridRef?.innerHTML) {
-        animGridRef.innerHTML = '';
+        animGridRef.innerHTML = "";
       }
       gridAnim.current?.kill();
       gridAnim.current = null;
@@ -92,13 +94,13 @@ export default function AnimGrid() {
   }, [vw]);
 
   // comment only for development
-  // useEffect(() => {
-  //   if (isPageVisible) {
-  //     gridAnim.current?.resume();
-  //   } else {
-  //     gridAnim.current?.pause();
-  //   }
-  // }, [isPageVisible]);
+  useEffect(() => {
+    if (isPageVisible) {
+      gridAnim.current?.resume();
+    } else {
+      gridAnim.current?.pause();
+    }
+  }, [isPageVisible]);
 
   useEffect(() => {
     if (!isScrolled) {
@@ -109,9 +111,9 @@ export default function AnimGrid() {
   }, [isScrolled]);
 
   return (
-    <div className="animgrid | pointer-events-none fixed left-0 top-0 z-[-10] h-lvh w-full">
+    <div className="animgrid | pointer-events-none fixed top-0 left-0 -z-10 h-lvh w-full">
       <div
-        className="animgrid-inner | grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:border-text [&>div]:bg-transparent [&>div]:opacity-10 dark:[&>div]:border-d-text"
+        className="animgrid-inner | [&>div]:border-text dark:[&>div]:border-d-text grid h-full w-full gap-3 sm:gap-4 [&>div]:rounded-sm [&>div]:border [&>div]:bg-transparent [&>div]:opacity-10"
         ref={animgrid}></div>
     </div>
   );

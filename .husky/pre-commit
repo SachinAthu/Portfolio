@@ -1,0 +1,3 @@
+echo "[husky] Pre-commit hook triggered..."
+npx lint-staged
+echo "[husky] Pre-commit hook finished."

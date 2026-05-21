@@ -1,0 +1,28 @@
+.music {
+  --height: 36px;
+  --padding: 4px;
+  --btn-height: calc(var(--height) - var(--padding) * 2);
+  --btn-width: var(--btn-height);
+
+  padding: var(--padding);
+
+  .control-btn {
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: rotate(45deg) translate(-50%, -50%) scaleX(0);
+      transform-origin: left;
+      content: "";
+      width: var(--btn-width);
+      height: 2px;
+      transition: transform 0.5s;
+    }
+  }
+
+  .control-btn[data-play="false"] {
+    &::after {
+      transform: rotate(45deg) translate(-50%, -50%) scaleX(1);
+    }
+  }
+}

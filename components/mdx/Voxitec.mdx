@@ -1,0 +1,221 @@
+import { ImageViewer } from "@/components";
+import SYSTEM_DIAGRAM from "@/public/static/works/voxitec/voxitec_system_diagram.png";
+
+## 1. About the Client
+
+- **Company:** Voxitec
+- **Industry:** Software Development / IT Services
+- **Company Size:** 8 core team members (2 Co-Founders, 1 Founder, 1 PM, 2 UI/UX Designers, 2 Full-stack Developers) + interns
+- **Location:** Horana, Sri Lanka (Remote-first)
+- **Business Type:** Software development startup offering web development, UI/UX design, mobile app development, AI/ML, and DevOps services
+- **Project Duration:** ~8 months (ongoing maintenance)
+- **Target Market:** Global businesses seeking custom software solutions
+
+Voxitec is a remote-first software development startup that builds custom digital products for clients worldwide. As a company that sells software development services, their own website needed to be a powerful lead generation tool, portfolio showcase, and recruitment platform - all while demonstrating their technical capabilities firsthand.
+
+---
+
+## 2. Business Challenge
+
+1. **No Centralized Digital Presence** - As a young startup, Voxitec lacked a professional website to establish credibility and showcase their work to potential clients.
+
+2. **Manual Lead Management** - Inquiries and job applications came through email and social media DMs, with no structured pipeline for tracking or responding.
+
+3. **Recruitment Bottleneck** - The company was growing and needed a careers page with job listings and an application system to attract talent without manual email processing.
+
+4. **Content Marketing Gap** - There was no blog or RSS feed to publish technical content, which limited SEO visibility and thought leadership in the competitive software development market.
+
+5. **No Portfolio Showcase** - Previous client work had no central home, making it difficult to convince prospects during sales conversations.
+
+---
+
+## 3. Challenges Faced
+
+- **Animation Performance at Scale** - Heavy GSAP animations (typewriter effects, magnetic hover, scroll-triggered reveals, custom cursor sprite animations) required careful optimization to maintain 60fps across devices. Dynamic imports and `force3D` GPU acceleration were used to mitigate jank.
+
+- **Strapi CMS Integration Complexity** - The headless CMS powers blog articles, job listings, banner announcements, and contact form submissions. Building a resilient fetch layer (`lib/api.ts`) with abort controllers and error handling was non-trivial, especially handling Strapi's population and filtering query syntax.
+
+- **Form Security and Validation** - Contact, job application, and newsletter forms needed server-side validation (Zod), bot protection (honeypot fields), XSS sanitization (DOMPurify), and dual-email notification flow (admin alert + auto-reply via Brevo API). Coordinating all of these securely with `next-safe-action` required careful middleware design.
+
+- **Smooth Scroll + Animation Integration** - Integrating Lenis smooth scroll with GSAP's ScrollTrigger required a custom `ScrollProvider` context that synchronizes scroll positions and pauses Lenis during navigation menu interactions.
+
+- **Responsive Design Fidelity** - Pixel-perfect Figma designs with complex animations needed to adapt across devices. The WheelStock case study hero, for example, uses a fixed 1920px design frame with JavaScript-based scale factor recalculation on resize.
+
+- **Several changes to designs** - The designs were changed several times during the development process. So I had to make several changes to the codebase to accommodate the design changes.
+
+- **Lots of design ideas** - The client had many design ideas for the website. So I had to filter out the best possible design ideas that aligns with the client's brand and implement them in the codebase.
+
+---
+
+## 4. Personas
+
+### Primary User - Potential Client
+
+- Decision-makers (founders, CTOs, product managers) evaluating Voxitec for their software development needs
+- Goals: Assess technical capability, review past work, understand services, and initiate contact
+- Pain points: Need quick access to portfolio, clear service descriptions, and trust signals (testimonials, case studies)
+- System usage: Visits services page, browses portfolio/blog, reads testimonials, submits contact form
+
+### Primary User - Job Seeker
+
+- Developers, designers, and interns looking for career opportunities at a growing tech startup
+- Goals: Find open positions, understand company culture, submit applications with CV
+- Pain points: Wants transparency on job requirements, company values, and team composition
+- System usage: Browses careers page, reads team testimonials, applies with CV upload
+
+### Secondary User - Internal Admin (Voxitec Team)
+
+- Company founders and project manager managing site content via Strapi CMS
+- Responsibilities: Publish blog posts, manage job listings, respond to contact inquiries
+- System interactions: Logs into Strapi admin panel, pushes updates to the live site
+
+---
+
+## 5. System Overview
+
+### 5.1 System Diagram
+
+<ImageViewer
+  src={SYSTEM_DIAGRAM}
+  srcPath="/static/works/voxitec/voxitec_system_diagram.png"
+  alt="Voxitec system diagram"
+  dialogId="voxitecSystemDiagram"
+  dialogAriaLabel="View Voxitec system diagram"
+  caption="Voxitec system diagram"
+/>
+
+- **Frontend:** Next.js 16 App Router (React 19, TypeScript, Tailwind CSS v4) hosted on Vercel
+- **Backend/API:** Next.js Server Actions + API routes for form handling; RSS feed generation
+- **CMS:** Strapi headless CMS (hosted at `admin.voxitec.com`) serving RESTful API for blog, jobs, banner announcements, and contact data
+- **Email:** Brevo (Sendinblue) API v3 for transactional email (contact auto-reply, admin notifications, newsletter subscriptions)
+- **Analytics:** Vercel Speed Insights + Google Tag Manager
+- **External Services:** Cloudinary (image CDN), Google Tag Manager
+- **Domain:** voxitec.com (production), Vercel deployment
+
+### 5.2 Designs
+
+A dark-first UI design system was created with a cyan/blue accent palette (`#00c2ff` primary). The design emphasizes motion and interactivity — every element from navigation links to buttons has animated hover states (flip, fill, magnetic effects). The layout uses a custom `Biotif` typeface across weights 400/500/600. Wireframes and responsive mockups were created in Figma, covering 10+ page types (Home, Services, Blog, Careers, Contact, FAQ, Case Studies, Mission, Privacy Policy, Terms of Service). The design prioritizes:
+
+- **Dark-mode** - toggle between dark mode and light mode
+- **Motion-driven** - GSAP animations throughout (text reveals, scroll-triggered transitions, custom cursor)
+- **Content hierarchy** - clear sectioning with labels, dividers, and consistent spacing
+- **Mobile responsive** - custom Tailwind breakpoints from `2xs` to `5xl`
+
+### 5.3 Technologies Used
+
+| Component       | Technology                                                       |
+| --------------- | ---------------------------------------------------------------- |
+| Framework       | Next.js 16 (App Router)                                          |
+| Language        | TypeScript 5 (strict)                                            |
+| Styling         | Tailwind CSS v4 + ITCSS-structured CSS                           |
+| Animation       | GSAP 3.14 (ScrollTrigger), Lenis 1.3 (smooth scroll), Split-Type |
+| CMS             | Strapi (headless CMS, REST API)                                  |
+| Database (CMS)  | PostgreSQL (managed by Strapi hosting)                           |
+| Forms           | React Hook Form 7.51 + Zod 3.22                                  |
+| Server Actions  | next-safe-action 8.4                                             |
+| Email           | Brevo (Sendinblue) API v3                                        |
+| Image CDN       | Cloudinary                                                       |
+| Icons           | react-icons                                                      |
+| Date Handling   | dayjs                                                            |
+| Sanitization    | isomorphic-dompurify                                             |
+| SEO             | JSON-LD, Open Graph, Twitter Cards, xml sitemap, RSS             |
+| Analytics       | Vercel Speed Insights, Google Tag Manager                        |
+| Hosting         | Vercel                                                           |
+| Package Manager | pnpm                                                             |
+| Linting         | ESLint 9 (flat config), Prettier, Husky, lint-staged             |
+
+### 5.4 Features
+
+- **Animated Home Page** - GSAP-driven typewriter hero, scroll-triggered reveals, video background, client testimonial carousel, and animated service/industry cards
+- **Services Showcase** - 5 core service areas (Web, UI/UX, Mobile, AI/ML, DevOps) displayed with technology logos and interactive card layouts
+- **Full Blog CMS** - Article listing with tag filtering, search, pagination, individual article pages, related posts, newsletter signup, and RSS feeds (XML + Atom)
+- **Careers Portal** - Job listings with search/filter by type/location, individual job pages, and application form with CV upload via Strapi
+- **Smart Contact System** - Multi-field form with service-type selection, deadline date, file upload, server-side Zod validation, honeypot bot detection, and dual-email notification flow (admin + auto-reply)
+- **Portfolio/Case Studies** - Dynamic case study pages (e.g., WheelStock inventory system) with rich narrative sections, animated stats counters, and testimonial cards
+- **Dark/Light Theme** - System-persisted theme toggle with full support across all pages
+- **Smooth Scrolling** - Lenis-powered smooth scroll integrated with GSAP ScrollTrigger animations
+- **SEO Optimization** - JSON-LD structured data, dynamic sitemaps, canonical URLs, Open Graph + Twitter Cards, and accessibility-friendly markup
+- **GDPR Compliance** - Cookie consent banner and privacy policy page
+- **PWA Ready** - Web App Manifest with maskable icons and theme color
+
+---
+
+## 6. Results and Benefits
+
+- **Single Source of Truth** - All dynamic content (blog, jobs, contact submissions, announcements) centralized in Strapi, replacing scattered email and social media management.
+- **Automated Lead Pipeline** - Contact form submissions now trigger structured notifications to the team and personalized auto-replies to prospects via Brevo API.
+- **Talent Acquisition Channel** - The careers section with CV upload and Strapi-backed job listings created a structured application pipeline, reducing manual recruitment overhead.
+- **SEO & Organic Reach** - Blog with RSS feeds, structured data (JSON-LD), and dynamic sitemaps positioned the site for organic discovery in a competitive software services market.
+- **Performance Optimization** - Dynamic imports for heavy components, `next/font` optimization, and image CDN (Cloudinary) resulted in fast load times as measured by Vercel Speed Insights.
+- **First Impressions & Trust** - Rich animations, client testimonials, and detailed case studies (WheelStock) established credibility that directly supports sales conversations.
+- **Scalable CMS Workflow** - Non-technical team members can publish blog posts, update job listings, manage announcements, and review contact submissions through the Strapi admin panel without developer intervention.
+
+---
+
+## 7. Lessons Learned
+
+- **Animation Libraries Add Complexity** - GSAP + Lenis integration required a dedicated `ScrollProvider` context. For future projects, evaluating Framer Motion or native CSS animations for simpler sites could reduce maintenance overhead.
+- **Strapi Query Syntax Is Opaque** - Strapi's REST API population and filtering syntax is powerful but poorly documented. Building a robust `lib/api.ts` abstraction layer early in the project saved significant debugging time.
+- **Form Security Must Be Layered** - Combining Zod validation with honeypot fields, DOMPurify sanitization, and rate-limiting (via `next-safe-action` middleware) gave confidence that form endpoints were production-ready.
+- **Type Safety Across the Stack** - Using `next-safe-action` with shared Zod schemas between client and server eliminated an entire category of bugs related to form data shape mismatches.
+- **Mobile Animation Fidelity Is Hard** - Complex GSAP timelines and smooth scrolling behave differently on mobile Safari. Early testing on real devices (not just emulators) would have caught issues sooner.
+- **Husky + lint-staged Setup** - Automating linting and formatting on every commit prevented drift and kept the codebase consistently clean across 192+ commits.
+
+---
+
+## 8. Project Goals
+
+| Goal                                                              | Status   |
+| ----------------------------------------------------------------- | -------- |
+| Establish professional digital presence for a software startup    | Achieved |
+| Create a structured lead generation pipeline                      | Achieved |
+| Build a recruitment portal with CV upload                         | Achieved |
+| Launch a blog with RSS for SEO and content marketing              | Achieved |
+| Showcase portfolio with rich case study pages                     | Achieved |
+| Demonstrate technical capability through site itself (dogfooding) | Achieved |
+| Maintain a scalable CMS for non-technical content editors         | Achieved |
+
+---
+
+## 9. Development Process
+
+The project followed an agile-inspired workflow using:
+
+- **Git-based collaboration** - Feature branches (`main`, `nextjs-16`, `case-study`) with 192+ commits over ~8 months
+- **Automated code quality** - Husky pre-commit hooks running ESLint + Prettier via lint-staged on every commit
+- **Incremental delivery** - Pages and features shipped iteratively: core structure → animations → blog → careers → forms → CMS integration → case studies
+- **Design-to-code handoff** - Figma designs translated into pixel-perfect React components with custom GSAP animation timelines
+- **Vercel deployment** - Continuous preview deployments for staging review before production releases
+
+---
+
+## 10. Performance Optimizations
+
+- **Dynamic Imports** - Heavy layout components (Footer, MouseFollow, AcceptCookies, Toaster) loaded lazily via `next/dynamic` to reduce initial bundle size
+- **GPU Acceleration** - GSAP animations use `force3D: true` for hardware-accelerated transforms
+- **Image Optimization** - All images served through Cloudinary CDN with Next.js Image component for automatic format negotiation and lazy loading
+- **Font Optimization** - Custom Biotif font served locally with `next/font/local` to eliminate external font request overhead
+- **Bundle Management** - Heavy dependencies (uuid, floating-ui, lottie) removed during optimization passes to reduce JavaScript payload
+- **AbortController** - API fetch calls use AbortController to cancel in-flight requests when components unmount
+
+---
+
+## 11. Security Measures
+
+- **Bot Protection** - Honeypot fields (`nameVerify`, `fnameVerify`, `emailVerify`) on all forms trap automated submissions without CAPTCHA friction
+- **XSS Sanitization** - All user-submitted text sanitized through isomorphic-dompurify before storage or email transmission
+- **Type-Safe Validation** - Zod schemas enforce strict shape and type requirements on all form submissions server-side via `next-safe-action`
+- **Form Rate Limiting** - Server actions include rate-limiting patterns to prevent form abuse
+- **HTTPS Everywhere** - All traffic served over HTTPS via Vercel's default infrastructure
+- **CSRF Protection** - Next.js Server Actions include built-in CSRF protection
+
+---
+
+## 12. Future Improvements
+
+- **Automated Testing** - Implement unit tests (Vitest/Jest), integration tests, and E2E tests (Playwright) — currently the test suite is a placeholder
+- **CI/CD Pipeline** - Add GitHub Actions for automated linting, type-checking, testing, and deployment verification
+- **Multi-language Support** - Internationalization (i18n) to serve content in additional languages
+- **Enhanced Analytics** - Deeper event tracking and conversion funnel analysis beyond current GTM setup
+- **Advanced Search** - Full-text search across blog, services, and case studies
+- **Case Study Template System** - Convert the WheelStock case study into a reusable, CMS-backed template for adding future portfolio pieces without developer involvement

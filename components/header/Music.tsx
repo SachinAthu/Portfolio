@@ -1,14 +1,24 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef, memo, useState, createContext, useContext, useMemo } from 'react';
-import { RiMusicFill } from 'react-icons/ri';
-import { gsap } from '@/lib/gsap-config';
+import {
+  useEffect,
+  useRef,
+  memo,
+  useState,
+  createContext,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
+import { RiMusicFill } from "react-icons/ri";
+import { toast } from "react-hot-toast";
+import { gsap } from "@/lib/gsap-config";
+import { Howl, Howler } from "howler";
 
-import { useLayoutContext } from '@/context/LayoutContext';
-import { useMobileViewport, usePageVisible } from '@/lib/hooks';
-import { cn } from '@/lib/common';
-import { MUSIC_PLAYLIST } from '@/lib/data';
-import { MusicTrackType } from '@/lib/types';
+import { useLayoutContext } from "@/context/LayoutContext";
+import { useMobileViewport, usePageVisible } from "@/lib/hooks";
+import { cn } from "@/lib/common";
+import { MUSIC_PLAYLIST } from "@/lib/data";
 
 /* music context */
 export type MusicContextType = {
@@ -36,20 +46,47 @@ const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     [isDisable, isPlay]
   );
 
-  return <MusicContext.Provider value={value}>{children}</MusicContext.Provider>;
+  return (
+    <MusicContext.Provider value={value}>{children}</MusicContext.Provider>
+  );
 };
 
 const useMusicContext = () => {
   const context = useContext(MusicContext);
   if (!context) {
-    throw new Error('useMusicContext must be used within an MusicProvider');
+    throw new Error("useMusicContext must be used within an MusicProvider");
   }
   return context;
 };
 
-MusicContext.displayName = 'MusicContext';
-MusicProvider.displayName = 'MusicProvider';
+MusicContext.displayName = "MusicContext";
+MusicProvider.displayName = "MusicProvider";
 /**/
+
+const BAR_POSITIONS = Array.from({ length: 10 }, (_, i) => i * 5 + 0.425721);
+
+const WaveBars = memo(function WaveBars({
+  rectRefs,
+}: {
+  rectRefs: React.RefObject<SVGRectElement[]>;
+}) {
+  return (
+    <>
+      {BAR_POSITIONS.map((x, i) => (
+        <rect
+          key={x}
+          ref={(el) => {
+            if (el) rectRefs.current[i] = el;
+          }}
+          width="2"
+          height="16"
+          transform={`matrix(1 0 0 0.2 ${x} 7)`}
+          strokeWidth="0"
+        />
+      ))}
+    </>
+  );
+});
 
 function MusicWave() {
   const isPageVisible = usePageVisible();
@@ -57,44 +94,37 @@ function MusicWave() {
   const { isPlay } = useMusicContext();
 
   const wave = useRef<HTMLDivElement>(null);
+  const rectRefs = useRef<SVGRectElement[]>([]);
   const tweens = useRef<gsap.core.Timeline[]>([]);
-  const pauseTween = useRef<gsap.core.Tween>();
-
-  const playWave = useCallback(() => {
-    if (pauseTween.current?.isActive) {
-      pauseTween.current?.pause();
-    }
-    tweens.current?.forEach((t) => t.invalidate().restart());
-  }, []);
-
-  const stopWave = useCallback(() => {
-    tweens.current?.forEach((t) => t.pause());
-    pauseTween.current?.invalidate().restart();
-  }, []);
+  const pauseTween = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     // initialize tweens
-    const wavebars = wave.current?.querySelectorAll('svg rect');
-    wavebars?.forEach((r, i) => {
-      tweens.current?.push(
+    rectRefs.current.forEach((rect, i) => {
+      tweens.current.push(
         gsap
           .timeline({
             paused: true,
-            defaults: { repeat: -1, duration: 1.2, yoyo: true, ease: 'none' },
+            defaults: { repeat: -1, duration: 1.2, yoyo: true, ease: "none" },
           })
-          .to(r, {
+          .to(rect, {
             scaleY: 1,
             delay: i * 0.2,
             y: 0,
           })
-          .to(r, {
+          .to(rect, {
             scaleY: 0.2,
             y: 7,
           })
       );
     });
 
-    pauseTween.current = gsap.to('.wave svg rect', { scaleY: 0.2, y: 7, paused: true, duration: 1 });
+    pauseTween.current = gsap.to(rectRefs.current, {
+      scaleY: 0.2,
+      y: 7,
+      paused: true,
+      duration: 1,
+    });
 
     return () => {
       tweens.current?.forEach((t) => t.kill());
@@ -104,6 +134,18 @@ function MusicWave() {
   }, []);
 
   useEffect(() => {
+    const playWave = () => {
+      if (pauseTween.current?.isActive) {
+        pauseTween.current?.pause();
+      }
+      tweens.current?.forEach((t) => t.restart());
+    };
+
+    const stopWave = () => {
+      tweens.current?.forEach((t) => t.pause());
+      pauseTween.current?.restart();
+    };
+
     if (isPageVisible) {
       if (isPlay) {
         playWave();
@@ -113,10 +155,10 @@ function MusicWave() {
     } else {
       stopWave();
     }
-  }, [isPlay, isPageVisible, playWave, stopWave]);
+  }, [isPlay, isPageVisible]);
 
   return (
-    <div className="wave | ml-3 w-[60px]" ref={wave}>
+    <div className="wave | ml-3 w-15" ref={wave}>
       <svg
         id="musicWave"
         xmlns="http://www.w3.org/2000/svg"
@@ -124,17 +166,12 @@ function MusicWave() {
         viewBox="0 0 48 16"
         shapeRendering="geometricPrecision"
         textRendering="geometricPrecision"
-        className={isNavOpen ? '[&>rect]:fill-gray-300' : '[&>rect]:fill-gray-700 dark:[&>rect]:fill-gray-300'}>
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 0.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 5.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 10.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 15.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 20.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 25.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 30.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 35.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 40.425721 7)" strokeWidth="0" />
-        <rect width="2" height="16" transform="matrix(1 0 0 0.2 45.425721 7)" strokeWidth="0" />
+        className={
+          isNavOpen
+            ? "[&>rect]:fill-gray-300"
+            : "[&>rect]:fill-gray-700 dark:[&>rect]:fill-gray-300"
+        }>
+        <WaveBars rectRefs={rectRefs} />
       </svg>
     </div>
   );
@@ -149,15 +186,16 @@ function TogglePlayBtn({ onClick }: { onClick: () => void }) {
       id="mainMusicPlayBtn"
       type="button"
       className={cn(
-        'control-btn | relative grid h-[var(--btn-height)] w-[var(--btn-width)] place-items-center rounded-full border border-solid [&>svg]:h-[18px] [&>svg]:w-[18px]',
+        "control-btn | relative grid h-(--btn-height) w-(--btn-width) place-items-center rounded-full border border-solid [&>svg]:h-4.5 [&>svg]:w-4.5",
         isNavOpen
-          ? 'border-d-text after:bg-d-text [&>svg]:fill-d-text'
-          : 'border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text'
+          ? "border-d-text after:bg-d-text [&>svg]:fill-d-text"
+          : "border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text"
       )}
       onClick={onClick}
       data-play={isPlay}
       disabled={isDisable}
-      aria-label="Toggle background music">
+      aria-label="Toggle background music"
+      aria-pressed={isPlay}>
       <RiMusicFill />
     </button>
   );
@@ -165,268 +203,187 @@ function TogglePlayBtn({ onClick }: { onClick: () => void }) {
 
 function MusicControl() {
   const isPageVisible = usePageVisible();
-  const { isPlay, setIsPlay } = useMusicContext();
-  const player = useRef<HTMLAudioElement | null>(null);
+  const { isPlay, setIsPlay, setIsDisable } = useMusicContext();
+  const sound = useRef<Howl | null>(null);
+  const currentTrackIndex = useRef(0);
+  const lastNotifiedTrackIndex = useRef<number | null>(null);
+  const currentToastId = useRef<string | null>(null);
 
-  const playMusic = useCallback(() => {
-    player.current
-      ?.play()
-      .then()
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const stopMusic = useCallback(() => {
-    if (!player.current?.paused) {
-      player.current?.pause();
-    }
-  }, []);
-
-  const handleClick = () => {
-    playMusic();
-    setIsPlay(!isPlay);
+  const playMusic = () => {
+    sound.current?.play();
   };
 
-  useEffect(() => {
-    // initialize audio
-    if (!player.current) {
-      const p = new Audio(MUSIC_PLAYLIST[0].path);
-      p.volume = 0.2;
-      p.controls = false;
-      p.autoplay = false;
-      p.loop = true;
-
-      player.current = p;
-    }
-
-    return () => {
-      if (player.current) {
-        player.current.pause();
-        player.current = null;
-      }
-    };
+  const stopMusic = useCallback(() => {
+    sound.current?.pause();
   }, []);
-
-  useEffect(() => {
-    if (isPageVisible) {
-      if (isPlay) {
-        playMusic();
-      } else {
-        stopMusic();
-      }
-    } else {
-      stopMusic();
-    }
-  }, [isPlay, isPageVisible, playMusic, stopMusic]);
-
-  return <TogglePlayBtn onClick={handleClick} />;
-}
-
-const MusicControlMultiple = () => {
-  const isPageVisible = usePageVisible();
-  const { isPlay, setIsDisable, setIsPlay } = useMusicContext();
-  const canPageVisibleStop = useRef(false);
-
-  const workerRef = useRef<Worker | null>(null);
-  const audioContext = useRef<AudioContext | null>(null);
-  const audioGain = useRef<GainNode | null>(null);
-  const audioBuffer = useRef<AudioBuffer | null | undefined>(null);
-  const source = useRef<AudioBufferSourceNode | null>(null);
-  const currentTrackIndex = useRef(0);
-  const audioBufferCache = useRef<Map<string, AudioBuffer>>(new Map());
-  const retriedTracks = useRef<Set<string>>(new Set());
-
-  const resumeMusic = useCallback(() => {
-    // console.log('resume');
-
-    audioContext.current?.resume();
-    setIsPlay(true);
-    canPageVisibleStop.current = true;
-    sessionStorage.setItem('is-music', 'true');
-  }, [setIsPlay]);
-
-  const pauseMusic = useCallback(() => {
-    // console.log('pause');
-
-    audioContext.current?.suspend();
-    setIsPlay(false);
-    sessionStorage.setItem('is-music', 'false');
-  }, [setIsPlay]);
-
-  const nextTrack = useCallback(() => {
-    const nextIndex = (currentTrackIndex.current + 1) % MUSIC_PLAYLIST.length;
-    currentTrackIndex.current = nextIndex;
-    loadTrack(MUSIC_PLAYLIST[nextIndex]);
-  }, []);
-
-  const playMusic = useCallback(() => {
-    if (!audioContext.current || !audioGain.current || !audioBuffer.current) return;
-
-    sessionStorage.setItem('is-music', 'true');
-
-    if (source.current) {
-      resumeMusic();
-    } else {
-      // console.log('play');
-
-      // Create a new audio source
-      source.current = audioContext.current.createBufferSource();
-      source.current.buffer = audioBuffer.current;
-      source.current.connect(audioGain.current).connect(audioContext.current.destination);
-      source.current.start(0);
-
-      // Handle track end
-      source.current.onended = () => {
-        // console.log('ended', audioContext.current?.state);
-        source.current?.stop();
-        source.current = null;
-
-        nextTrack();
-      };
-
-      canPageVisibleStop.current = true;
-      setIsPlay(true);
-    }
-  }, [setIsPlay, resumeMusic, nextTrack]);
-
-  const onMessage = useCallback(
-    async (event: MessageEvent<any>) => {
-      const { action, buffer, track, error } = event.data;
-
-      if (action === 'loaded') {
-        try {
-          const decodedBuffer = await audioContext.current?.decodeAudioData(buffer);
-          if (decodedBuffer) {
-            // console.log('Track loaded and decoded');
-
-            audioBuffer.current = decodedBuffer;
-            audioBufferCache.current.set(track.key, decodedBuffer);
-            setIsDisable(false);
-
-            const isMusic = sessionStorage.getItem('is-music') === 'true';
-            if (isMusic) {
-              playMusic();
-            }
-          }
-        } catch (err) {
-          console.error(`Error decoding music track: ${track.name}`, error);
-          if (retriedTracks.current.size + 1 < MUSIC_PLAYLIST.length) {
-            retriedTracks.current.add(track.path);
-            nextTrack();
-          }
-        }
-      } else if (action === 'loadError') {
-        console.error(`Error loading music track: ${track.name}`, error);
-        if (retriedTracks.current.size + 1 < MUSIC_PLAYLIST.length) {
-          retriedTracks.current.add(track.path);
-          nextTrack();
-        }
-      } else {
-        console.error(action, error);
-        setIsDisable(true);
-        setIsPlay(false);
-      }
-    },
-    [setIsDisable, setIsPlay, playMusic, nextTrack]
-  );
 
   const handleClick = () => {
     if (isPlay) {
-      pauseMusic();
-      canPageVisibleStop.current = false;
+      stopMusic();
     } else {
       playMusic();
     }
   };
 
-  const loadTrack = useCallback(
-    (track: MusicTrackType) => {
-      setIsDisable(true);
+  function handleAutoPlay() {
+    if (!sound.current || isPlay) return;
 
-      if (audioBufferCache.current.has(track.key)) {
-        audioBuffer.current = audioBufferCache.current.get(track.key);
-        setIsDisable(false);
+    if (sound.current.state() === "loading") {
+      sound.current.once("load", () => {
         playMusic();
-      } else {
-        workerRef.current?.postMessage(track);
-      }
-    },
-    [playMusic, setIsDisable]
-  );
-
-  useEffect(() => {
-    // Initialize AudioContext and GainNode once
-    if (!audioContext.current) {
-      audioContext.current = new AudioContext();
-      audioGain.current = audioContext.current.createGain();
-      audioGain.current.gain.value = 0.2;
-      audioGain.current.connect(audioContext.current.destination);
+      });
     }
 
-    // Initialize the Web Worker
-    workerRef.current = new Worker(new URL('@/lib/workers/audioWorker.ts', import.meta.url));
+    if (sound.current.state() === "loaded") {
+      playMusic();
+    }
+  }
 
-    // Listen for messages from the worker
-    workerRef.current.addEventListener('message', onMessage);
+  const showNowPlayingToast = (trackIndex: number) => {
+    const track = MUSIC_PLAYLIST[trackIndex];
+    if (!track) return;
 
-    // only for development, because welcome screen disabled
-    loadTrack(MUSIC_PLAYLIST[0]);
+    if (currentToastId.current) {
+      toast.dismiss(currentToastId.current);
+    }
+
+    currentToastId.current = toast(
+      <div className="flex items-center gap-3">
+        <span className="border-text/20 text-primary dark:border-d-text/20 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border">
+          <RiMusicFill className="h-4 w-4" />
+        </span>
+
+        <div className="text-left">
+          <p className="text-subtext dark:text-d-subtext text-xs font-medium tracking-[0.16em] uppercase">
+            Now Playing
+          </p>
+          <p className="text-text dark:text-d-text text-sm font-medium">
+            {track.name}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    // initialize
+    Howler.volume(0.2);
+
+    const createTrack = (trackIndex: number) =>
+      new Howl({
+        src: [MUSIC_PLAYLIST[trackIndex].path],
+        loop: false,
+        volume: 0.2,
+      });
+
+    const moveToNextTrack = () => {
+      const nextIndex = (currentTrackIndex.current + 1) % MUSIC_PLAYLIST.length;
+      currentTrackIndex.current = nextIndex;
+
+      sound.current?.unload();
+
+      const nextTrack = createTrack(nextIndex);
+      sound.current = nextTrack;
+
+      nextTrack.on("load", handleLoad);
+      nextTrack.on("play", handlePlay);
+      nextTrack.on("pause", handlePause);
+      nextTrack.on("end", moveToNextTrack);
+
+      nextTrack.play();
+    };
+
+    const handleLoad = () => setIsDisable(false);
+    const handlePlay = () => {
+      setIsPlay(true);
+
+      if (lastNotifiedTrackIndex.current !== currentTrackIndex.current) {
+        showNowPlayingToast(currentTrackIndex.current);
+        lastNotifiedTrackIndex.current = currentTrackIndex.current;
+      }
+    };
+    const handlePause = () => setIsPlay(false);
+    const handleLoadError = () => {
+      console.error(
+        "Error loading audio:",
+        MUSIC_PLAYLIST[currentTrackIndex.current].path
+      );
+      setIsPlay(false);
+      setIsDisable(true);
+    };
+    const handlePlayError = () => {
+      console.error(
+        "Error playing audio:",
+        MUSIC_PLAYLIST[currentTrackIndex.current].path
+      );
+      moveToNextTrack();
+    };
+
+    const s = createTrack(currentTrackIndex.current);
+    sound.current = s;
+
+    s.on("load", handleLoad);
+    s.on("play", handlePlay);
+    s.on("pause", handlePause);
+    s.on("end", moveToNextTrack);
+    s.on("loaderror", handleLoadError);
+    s.on("playerror", handlePlayError);
+
+    s.load();
 
     return () => {
-      workerRef.current?.removeEventListener('message', onMessage);
-      workerRef.current?.terminate();
-      audioContext.current?.close();
+      s.off("load", handleLoad);
+      s.off("play", handlePlay);
+      s.off("pause", handlePause);
+      s.off("end", moveToNextTrack);
+      s.off("loaderror", handleLoadError);
+      s.off("playerror", handlePlayError);
 
-      workerRef.current = null;
-      audioContext.current = null;
+      if (currentToastId.current) {
+        toast.dismiss(currentToastId.current);
+      }
 
-      sessionStorage.setItem('is-music', 'false');
+      sound.current?.unload();
     };
-  }, [loadTrack]);
+  }, []);
 
   useEffect(() => {
-    if (!canPageVisibleStop.current) return;
-
-    if (isPageVisible) {
-      resumeMusic();
-    } else {
-      pauseMusic();
+    if (!isPageVisible) {
+      stopMusic();
     }
-  }, [isPageVisible, pauseMusic, resumeMusic]);
+  }, [isPageVisible, stopMusic]);
 
   return (
     <>
       <button
         type="button"
-        id="loadMusicBtn"
+        id="autoplayMusicBtn"
         tabIndex={-1}
         className="invisible"
-        onClick={() => loadTrack(MUSIC_PLAYLIST[0])}></button>
+        onClick={handleAutoPlay}></button>
 
       <TogglePlayBtn onClick={handleClick} />
     </>
   );
-};
+}
 
-const Music = memo(() => {
+function Music() {
   const { isNavOpen } = useLayoutContext();
 
   return (
     <div className="hidden md:block">
       <div
         className={cn(
-          'music | flex h-[var(--height)] items-center gap-2 rounded-full border border-solid',
-          isNavOpen ? 'border-d-text' : 'border-text dark:border-d-text'
+          "music | flex h-(--height) items-center gap-2 rounded-full border border-solid",
+          isNavOpen ? "border-d-text" : "border-text dark:border-d-text"
         )}>
         <MusicWave />
 
-        {window.Worker ? <MusicControlMultiple /> : <MusicControl />}
+        <MusicControl />
       </div>
     </div>
   );
-});
-Music.displayName = 'Music';
+}
 
 export default function MusicWrapper() {
   const isMobile = useMobileViewport();

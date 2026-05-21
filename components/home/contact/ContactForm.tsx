@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'react-hot-toast';
-import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-hot-toast";
+import { DotLottie, DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-import { contactSchema } from '@/lib/zod-schemas';
-import { Button, Dialog, TextAreaField, TextField } from '@/components';
-import { ContactFormValues, DialogRefProps } from '@/lib/types';
-import { contactAction } from '@/app/actions/contact-action';
+import { contactSchema } from "@/lib/zod-schemas";
+import { Button, Dialog, TextAreaField, TextField } from "@/components";
+import { ContactFormValues, DialogRefProps } from "@/lib/types";
+import { contactAction } from "@/app/actions/contact-action";
 
 const fieldNames = {
-  nameVerify: 'name verify',
-  name: 'name',
-  email: 'email',
-  message: 'message',
+  nameVerify: "name verify",
+  name: "name",
+  email: "email",
+  message: "message",
 };
 
 function SuccessDialog() {
@@ -67,13 +67,13 @@ export default function ContactForm() {
     trigger,
     formState: { errors, isValid },
   } = useForm<ContactFormValues>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      nameVerify: '',
-      name: '',
-      email: '',
-      message: '',
+      nameVerify: "",
+      name: "",
+      email: "",
+      message: "",
     },
   });
 
@@ -92,25 +92,31 @@ export default function ContactForm() {
     const result = await contactAction(data);
     // console.log(result);
 
-    if (result?.data && result.data.status === 'success') {
+    if (result?.data && result.data.status === "success") {
       dialogRef.current?.openDialog();
       reset();
       textareaRef.current?.clearField();
     } else {
-      if (result?.serverError?.status === 'error') {
-        toast.error(result.serverError?.message || "Sorry didn't work. Please try again.", {
-          id: 'contactServerErrorToast',
-        });
+      if (result?.serverError?.status === "error") {
+        toast.error(
+          result.serverError?.message || "Sorry didn't work. Please try again.",
+          {
+            id: "contactServerErrorToast",
+          }
+        );
       } else if (result?.validationErrors) {
         // map errors
         Object.keys(fieldNames).forEach((field: string) => {
           if ((result.validationErrors as any)[field]) {
-            setError(field as any, { type: 'custom', message: `Invalid value for ${(fieldNames as any)[field]}` });
+            setError(field as any, {
+              type: "custom",
+              message: `Invalid value for ${(fieldNames as any)[field]}`,
+            });
           }
         });
         toast.error(
-          result.serverError?.message || 'There are some validation errors. Please correct them and try again.',
-          { id: 'contactValidationErrorToast' }
+          "There are some validation errors. Please correct them and try again.",
+          { id: "contactValidationErrorToast" }
         );
       }
     }
@@ -122,7 +128,7 @@ export default function ContactForm() {
 
   return (
     <>
-      <div className="mt-8 max-w-[50rem] sm:mt-10">
+      <div className="mt-8 max-w-200 sm:mt-10">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
@@ -133,14 +139,26 @@ export default function ContactForm() {
             tabIndex={-1}
             aria-label="Your full name"
             aria-hidden="true"
-            {...register('nameVerify')}
+            {...register("nameVerify")}
           />
 
           {/* name */}
-          <TextField id="contact-name" label="Your Name" isRequired {...register('name')} errors={errors.name} />
+          <TextField
+            id="contact-name"
+            label="Your Name"
+            isRequired
+            {...register("name")}
+            errors={errors.name}
+          />
 
           {/* email */}
-          <TextField id="contact-email" label="Email Address" isRequired {...register('email')} errors={errors.email} />
+          <TextField
+            id="contact-email"
+            label="Email Address"
+            isRequired
+            {...register("email")}
+            errors={errors.email}
+          />
 
           {/* message */}
           <TextAreaField
@@ -148,8 +166,8 @@ export default function ContactForm() {
             id="contact-message"
             label="Your Message"
             onChange={(value: string) => {
-              setValue('message', value);
-              trigger('message');
+              setValue("message", value);
+              trigger("message");
             }}
             isRequired
             errors={errors.message}
@@ -176,7 +194,10 @@ export default function ContactForm() {
         </button> */}
       </div>
 
-      <Dialog id="contactSucessDialog" ref={dialogRef} ariaLabel="Contact request successfully submitted">
+      <Dialog
+        id="contactSucessDialog"
+        ref={dialogRef}
+        ariaLabel="Contact request successfully submitted">
         <SuccessDialog />
       </Dialog>
     </>

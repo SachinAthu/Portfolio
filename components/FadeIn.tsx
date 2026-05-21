@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { gsap, useGSAP } from '@/lib/gsap-config';
+import React, { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
 
 type FadeInProps = {
   children: React.ReactNode;
@@ -11,7 +11,13 @@ type FadeInProps = {
   markers?: boolean;
 };
 
-export default function FadeIn({ children, id, duration = 1, delay = 0, markers = false }: FadeInProps) {
+export default function FadeIn({
+  children,
+  id,
+  duration = 1,
+  delay = 0,
+  markers = false,
+}: FadeInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
   const fade = useRef<HTMLDivElement>(null);
@@ -23,12 +29,12 @@ export default function FadeIn({ children, id, duration = 1, delay = 0, markers 
         opacity: 1,
         duration,
         delay,
-        ease: 'power2.out',
+        ease: "power2.out",
         scrollTrigger: {
           id: `${id}-fadeIn`,
           trigger: trigger.current,
-          start: 'top 90%',
-          end: 'top top',
+          start: "top 90%",
+          end: "top top",
           markers,
         },
       });

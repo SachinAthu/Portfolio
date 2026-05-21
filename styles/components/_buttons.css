@@ -1,0 +1,373 @@
+.menu-btn {
+  .bar {
+    width: 100%;
+    height: 3px;
+    border-radius: 9999px;
+    position: relative;
+    transform-origin: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform-origin: right;
+      border-radius: 9999px;
+      transition:
+        transform 0.5s,
+        background-color 1.5s;
+      background-color: var(--var-color-text);
+    }
+  }
+
+  .bar-2 {
+    &::after {
+      transform: scaleX(0.75);
+    }
+  }
+
+  .bar-3 {
+    &::after {
+      transform: scaleX(0.5);
+    }
+  }
+}
+
+.menu-btn:hover,
+.menu-btn:focus,
+.menu-btn.open {
+  .bar-2 {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .bar-3 {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.menu-btn.open {
+  .bar {
+    &::after {
+      @apply bg-d-text;
+    }
+  }
+}
+/**/
+
+/* theme button */
+.theme-btn {
+  --width: 72px;
+  --height: 36px;
+  --padding: 4px;
+  --after-height: calc(var(--height) - var(--padding) * 2);
+  --after-width: var(--after-height);
+
+  width: var(--width);
+  height: var(--height);
+  position: relative;
+  padding: var(--padding);
+
+  .icon {
+    svg {
+      width: 22px;
+      height: 22px;
+      transition: transform 0.5s;
+      fill: var(--var-color-text);
+    }
+  }
+
+  .icon-sun svg {
+    transform: scale(0.75) translateX(3px);
+    @apply dark:animate-[sunicon_8s_linear_infinite];
+    -webkit-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+    -webkit-animation-delay: 0.5s !important;
+    animation-delay: 0.5s !important;
+  }
+
+  .icon-moon svg {
+    transform: scale(0.75) translateX(-3px);
+  }
+
+  &:hover {
+    .icon-sun svg {
+      -webkit-animation-play-state: running !important;
+      animation-play-state: running !important;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: calc(50% - var(--after-width) / 2);
+    left: var(--padding);
+    width: var(--after-width);
+    height: var(--after-height);
+    border-radius: 9999px;
+    transition:
+      left 0.5s,
+      background-color 0.5s;
+    background-color: var(--color-theme-btn-after-bg);
+  }
+
+  &[data-dark="true"]::after {
+    left: calc(100% - (var(--after-width) + var(--padding)));
+  }
+
+  &[data-dark="true"] .icon-sun svg {
+    transform: scale(1) translateX(0px);
+  }
+
+  &[data-dark="false"] .icon-moon svg {
+    transform: scale(1) translateX(0px);
+  }
+}
+/**/
+
+/* custom button */
+.custom-button {
+  transform-style: preserve-3d;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 125%;
+    height: 125%;
+    z-index: -1;
+    border-radius: 9999px;
+    pointer-events: none;
+    -webkit-clip-path: circle(0px at 0 0);
+    clip-path: circle(0px at 0 0);
+    transition: all 0.5s ease;
+    background-color: var(--var-color-text);
+  }
+
+  .inner {
+    color: transparent;
+    -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 100%, 0% 100%);
+    clip-path: polygon(0 10%, 100% 10%, 100% 100%, 0% 100%);
+
+    &::before {
+      content: attr(data-content);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--var-color-text);
+    }
+
+    .chars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 105%;
+      height: 100%;
+      transform: translate(0, 120%);
+      color: var(--var-color-text);
+
+      .char {
+        will-change: transform;
+      }
+    }
+  }
+}
+
+.custom-button:not(:disabled):has(:not(.loading)):hover {
+  &::after {
+    -webkit-clip-path: circle(250% at 0 0);
+    clip-path: circle(250% at 0 0);
+  }
+
+  .inner {
+    &::before {
+      color: transparent;
+    }
+
+    .chars {
+      color: var(--color-custom-btn-hover) !important;
+
+      .char {
+        transform: translate(0, -120%);
+        transition: transform 0.5s ease;
+      }
+    }
+  }
+}
+/**/
+
+/* custom icon button */
+.custom-icon-button {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    pointer-events: none;
+    -webkit-clip-path: circle(0px at 0 0);
+    clip-path: circle(0px at 0 0);
+    transition: all 0.5s ease;
+    background-color: var(--var-color-text);
+  }
+
+  .inner {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .inner-1 {
+    display: inline-block;
+    color: transparent;
+  }
+
+  .inner-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+  }
+
+  .inner-3 {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+  }
+}
+
+.custom-icon-button.down {
+  .inner-2 {
+    top: -150%;
+    transform: translate(-50%, -50%);
+  }
+
+  .inner-3 {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.custom-icon-button.is-static {
+  .inner-1 {
+    color: currentColor;
+  }
+}
+
+.custom-icon-button:hover {
+  color: var(--color-custom-btn-hover);
+
+  &::after {
+    -webkit-clip-path: circle(250% at 0 0);
+    clip-path: circle(250% at 0 0);
+  }
+
+  .inner-2 {
+    transform: translate(-50%, -150%);
+  }
+
+  .inner-3 {
+    transform: translate(-50%, -150%);
+  }
+}
+
+.custom-icon-button.down:hover {
+  .inner-2 {
+    transform: translate(-50%, 150%);
+  }
+
+  .inner-3 {
+    transform: translate(-50%, 150%);
+  }
+}
+/**/
+
+/* footer - scroll to top button */
+.scroll-top-button {
+  .scroll-top-button-1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease;
+  }
+
+  .scroll-top-button-2 {
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+  }
+}
+
+.scroll-top-button:hover,
+.scroll-top-button.scrolling {
+  .scroll-top-button-1 {
+    transform: translate(-50%, -70%);
+  }
+
+  .scroll-top-button-2 {
+    transform: translate(-50%, -180%);
+    opacity: 1;
+  }
+}
+/**/
+
+.underline-button {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    @apply border-b-2 border-dashed border-(--var-color-text);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 98%;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+    @apply border-b-2 border-solid border-(--var-color-text);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.back-button:hover {
+  svg {
+    transform: translateX(-4px);
+  }
+}
+
+.next-button:hover {
+  svg {
+    transform: translateX(4px);
+  }
+}
