@@ -136,7 +136,7 @@ export default function PageLoader() {
       openLoaderTween.current = null;
       closeLoaderTween.current = null;
     };
-  }, [vw]);
+  }, [vw, createGrid]);
 
   useEffect(() => {
     if (vw >= 1536) {

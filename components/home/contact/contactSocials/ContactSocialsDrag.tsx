@@ -197,14 +197,18 @@ const SocialLink = memo(
           draggable={false}
           onClick={(e) => e.preventDefault()}
           onContextMenu={(e) => e.preventDefault()}
-          className="social-link | relative grid h-20 w-36 cursor-grab touch-pan-x place-items-center overflow-hidden rounded-full border border-gray-300 px-1 text-base will-change-transform select-none sm:w-44 sm:text-lg lg:h-28 lg:w-56 lg:text-2xl dark:border-gray-600">
+          className="social-link | group relative grid h-20 w-36 cursor-grab touch-pan-x place-items-center overflow-hidden rounded-full border border-gray-300 px-1 text-base will-change-transform select-none sm:w-44 sm:text-lg lg:h-28 lg:w-56 lg:text-2xl dark:border-gray-600">
           <div className="social-link-inner | relative origin-[50%_0]">
-            <div className="social-link-inner-1 whitespace-nowrap">{title}</div>
+            <div className="social-link-inner-1 | whitespace-nowrap transition-colors duration-300 group-hover:text-(--color-custom-btn-hover)">
+              {title}
+            </div>
 
-            <div className="social-link-inner-2 absolute origin-[50%_0] [&_svg]:absolute [&_svg]:top-1/2 [&_svg]:left-1/2 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:-translate-x-1/2 [&_svg]:-translate-y-1/2 [&_svg]:will-change-transform lg:[&_svg]:h-10 lg:[&_svg]:w-10">
+            <div className="social-link-inner-2 | absolute origin-[50%_0] [&_svg]:h-8 [&_svg]:w-8 [&_svg]:will-change-transform group-hover:[&_svg]:fill-(--color-custom-btn-hover) lg:[&_svg]:h-10 lg:[&_svg]:w-10">
               <span className="invisible">{title}</span>
 
-              <GoArrowUpRight />
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <GoArrowUpRight />
+              </span>
             </div>
           </div>
         </Link>

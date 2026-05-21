@@ -1,4 +1,4 @@
-import { Metadata, Viewport } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";

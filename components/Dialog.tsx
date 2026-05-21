@@ -140,7 +140,7 @@ const Dialog = React.forwardRef<DialogRefProps, DialogProps>(
         resetBodyStyles(true);
         controller.abort();
       };
-    }, [handleClose]);
+    }, [handleClose, imageView, resetBodyStyles]);
 
     return (
       <dialog

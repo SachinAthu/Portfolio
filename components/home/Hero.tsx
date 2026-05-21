@@ -1,6 +1,6 @@
 import { CustomLink, Section } from "..";
 
-import { SiCodepen, SiGithub, SiHackerrank, SiLeetcode } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
 import { IoLogoLinkedin } from "react-icons/io";
 
 export default function Hero() {
@@ -41,41 +41,6 @@ export default function Hero() {
               aria-label="LinkedIn account">
               <IoLogoLinkedin />
             </CustomLink>
-            {/* <CustomLink
-              id="heroSocialCodepenLink"
-              href="https://codepen.io/sachinathu"
-              target="_blank"
-              className="p-3"
-              icon
-              aria-label="Codepen account">
-              <SiCodepen />
-            </CustomLink>
-            <CustomLink
-              id="heroSocialHRLink"
-              href="https://www.hackerrank.com/profile/sachin2262716"
-              target="_blank"
-              className="p-3"
-              icon
-              aria-label="Hackerrank account">
-              <SiHackerrank />
-            </CustomLink>
-            <CustomLink
-              id="heroSocialLeetcodeLink"
-              href="https://leetcode.com/sachin2262716"
-              target="_blank"
-              className="p-3"
-              icon
-              aria-label="Leetcode account">
-              <SiLeetcode />
-            </CustomLink> */}
-            {/* <CustomLink
-              id="heroSocialCodeSBLink"
-              href="https://codesandbox.io/u/sachinAthu"
-              target="_blank"
-              className="p-3"
-              icon aria-label='Codesandbox account'>
-              <SiCodesandbox />
-            </CustomLink> */}
           </div>
         </div>
 

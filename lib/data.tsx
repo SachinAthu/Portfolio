@@ -598,11 +598,11 @@ export const WORKS: WorkType[] = [
 /**/
 
 export const MUSIC_PLAYLIST: MusicTrackType[] = [
-  {
-    key: "track_output",
-    name: "Witcher 3 Kaer Morhen",
-    path: "/static/music/output.mp3",
-  },
+  // {
+  //   key: "track_output",
+  //   name: "Witcher 3 Kaer Morhen",
+  //   path: "/static/music/output.mp3",
+  // },
   {
     key: "track_aurum_spacesounds",
     name: "Aurum - Spacesounds",
@@ -633,10 +633,11 @@ export const MUSIC_PLAYLIST: MusicTrackType[] = [
     name: "Arnyd - Hypernova",
     path: "/static/music/hypernova.mp3",
   },
-  // {
-  //   name: 'Witcher 3 Kaer Morhen',
-  //   path: '/static/music/kaer_morhen.mp3',
-  // },
+  {
+    key: "track_kaer_morhen",
+    name: "Witcher 3 Kaer Morhen",
+    path: "/static/music/kaer_morhen.mp3",
+  },
 ];
 
 export const SOCIAL_LINKS = [

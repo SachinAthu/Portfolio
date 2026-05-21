@@ -29,7 +29,7 @@ export default function About() {
 
             <FadeIn id="aboutDescription2">
               <p className="paragraph-1 [&>span]:text-primary">
-                I'm <span>open to work</span> where I can contribute, and
+                I&apos;m <span>open to work</span> where I can contribute, and
                 improve my skills while providing my best effort. If you have a
                 suitable opportunity that matches my skills, feel free to{" "}
                 <span>contact me</span>.

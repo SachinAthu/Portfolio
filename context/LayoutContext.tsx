@@ -68,7 +68,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       header.style.paddingRight = "";
       navMenu.style.paddingRight = "";
     }
-  }, [isNavOpen]);
+  }, [isNavOpen, isMobile]);
 
   useEffect(() => {
     // setup locomotive scroll

@@ -8,6 +8,7 @@ import {
   createContext,
   useContext,
   useMemo,
+  useCallback,
 } from "react";
 import { RiMusicFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
@@ -97,18 +98,6 @@ function MusicWave() {
   const tweens = useRef<gsap.core.Timeline[]>([]);
   const pauseTween = useRef<gsap.core.Tween | null>(null);
 
-  const playWave = () => {
-    if (pauseTween.current?.isActive) {
-      pauseTween.current?.pause();
-    }
-    tweens.current?.forEach((t) => t.restart());
-  };
-
-  const stopWave = () => {
-    tweens.current?.forEach((t) => t.pause());
-    pauseTween.current?.restart();
-  };
-
   useEffect(() => {
     // initialize tweens
     rectRefs.current.forEach((rect, i) => {
@@ -145,6 +134,18 @@ function MusicWave() {
   }, []);
 
   useEffect(() => {
+    const playWave = () => {
+      if (pauseTween.current?.isActive) {
+        pauseTween.current?.pause();
+      }
+      tweens.current?.forEach((t) => t.restart());
+    };
+
+    const stopWave = () => {
+      tweens.current?.forEach((t) => t.pause());
+      pauseTween.current?.restart();
+    };
+
     if (isPageVisible) {
       if (isPlay) {
         playWave();
@@ -154,7 +155,7 @@ function MusicWave() {
     } else {
       stopWave();
     }
-  }, [isPlay, isPageVisible, playWave, stopWave]);
+  }, [isPlay, isPageVisible]);
 
   return (
     <div className="wave | ml-3 w-15" ref={wave}>
@@ -208,13 +209,13 @@ function MusicControl() {
   const lastNotifiedTrackIndex = useRef<number | null>(null);
   const currentToastId = useRef<string | null>(null);
 
-  function playMusic() {
+  const playMusic = () => {
     sound.current?.play();
-  }
+  };
 
-  function stopMusic() {
+  const stopMusic = useCallback(() => {
     sound.current?.pause();
-  }
+  }, []);
 
   const handleClick = () => {
     if (isPlay) {

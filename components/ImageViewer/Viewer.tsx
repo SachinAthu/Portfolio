@@ -192,7 +192,7 @@ export default function Viewer({ src }: { src: string }) {
     if (!animationRef.current) {
       animationRef.current = requestAnimationFrame(animateZoom);
     }
-  }, []);
+  }, [animateZoom]);
 
   const handleDoubleClickOrTap = useCallback(
     (mouseX: number, mouseY: number) => {

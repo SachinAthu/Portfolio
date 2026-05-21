@@ -1,14 +1,14 @@
-.contact-me {
-  @keyframes bounceArrow {
-    0%,
-    100% {
-      transform: translateX(-50%) translateY(-50%);
-    }
-    50% {
-      transform: translateX(-50%) translateY(-58%);
-    }
+@keyframes bounceArrow {
+  0%,
+  100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
+.contact-me {
   .contact-social-drag {
     .social-link {
       &::after {
@@ -25,7 +25,7 @@
         -webkit-clip-path: circle(0px at 0 0);
         clip-path: circle(0px at 0 0);
         transition: all 0.5s ease;
-        @apply bg-text dark:bg-d-text;
+        background-color: var(--var-color-text);
       }
 
       .social-link-inner {
@@ -42,7 +42,7 @@
     }
 
     .social-link:hover {
-      @apply text-d-text dark:text-text;
+      color: var(--var-color-text);
 
       &::after {
         -webkit-clip-path: circle(250% at 0 0);
