@@ -28,47 +28,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(ROOTURL),
   title,
   description,
-  icons: {
-    shortcut: [
-      {
-        rel: "shortcut icon",
-        url: "/favicon.ico",
-        type: "image/x-icon",
-      },
-    ],
-    apple: [
-      {
-        rel: "apple-touch-icon",
-        url: "/apple-icon-180x180.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-    ],
-    other: [
-      {
-        url: "/favicon-16x16.png",
-        sizes: "16x16",
-        type: "image/png",
-      },
-      {
-        url: "/favicon-32x32.png",
-        sizes: "32x32",
-        type: "image/png",
-      },
-      {
-        url: "/favicon-96x96.png",
-        sizes: "96x96",
-        type: "image/png",
-      },
-      {
-        rel: "mask-icon",
-        url: "/safari-pinned-tab.svg",
-        sizes: "625x625",
-        type: "image/png",
-        color: "#1e1e1e",
-      },
-    ],
-  },
   alternates: { canonical: ROOTURL },
   openGraph: {
     title,
@@ -139,7 +98,7 @@ export default function RootLayout({
             <PageLoader />
 
             {/* for development comment out */}
-            {/* <Welcome /> */}
+            <Welcome />
 
             <ToasterCom />
           </LayoutProvider>
@@ -147,9 +106,11 @@ export default function RootLayout({
 
         {/* for development comment out */}
         {/* Tell the browser to never restore the scroll position on load. Always scroll position is on top on page load. */}
-        {/* <Script
-        id="scroll-top-script"
-        dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }}></Script> */}
+        <Script
+          id="scroll-top-script"
+          dangerouslySetInnerHTML={{
+            __html: `history.scrollRestoration = "manual"`,
+          }}></Script>
       </body>
     </html>
   );

@@ -606,7 +606,7 @@ export const MUSIC_PLAYLIST: MusicTrackType[] = [
   {
     key: "track_aurum_spacesounds",
     name: "Aurum - Spacesounds",
-    path: "/static/music/aurum_spacesounds1.mp3",
+    path: "/static/music/aurum_spacesounds.mp3",
   },
   {
     key: "track_a_cabin_by_the_lake",

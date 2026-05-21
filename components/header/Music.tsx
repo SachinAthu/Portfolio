@@ -10,6 +10,7 @@ import {
   useMemo,
 } from "react";
 import { RiMusicFill } from "react-icons/ri";
+import { toast } from "react-hot-toast";
 import { gsap } from "@/lib/gsap-config";
 import { Howl, Howler } from "howler";
 
@@ -17,7 +18,6 @@ import { useLayoutContext } from "@/context/LayoutContext";
 import { useMobileViewport, usePageVisible } from "@/lib/hooks";
 import { cn } from "@/lib/common";
 import { MUSIC_PLAYLIST } from "@/lib/data";
-import { MusicTrackType } from "@/lib/types";
 
 /* music context */
 export type MusicContextType = {
@@ -157,7 +157,7 @@ function MusicWave() {
   }, [isPlay, isPageVisible, playWave, stopWave]);
 
   return (
-    <div className="wave | ml-3 w-[60px]" ref={wave}>
+    <div className="wave | ml-3 w-15" ref={wave}>
       <svg
         id="musicWave"
         xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +185,7 @@ function TogglePlayBtn({ onClick }: { onClick: () => void }) {
       id="mainMusicPlayBtn"
       type="button"
       className={cn(
-        "control-btn | relative grid h-(--btn-height) w-(--btn-width) place-items-center rounded-full border border-solid [&>svg]:h-[18px] [&>svg]:w-[18px]",
+        "control-btn | relative grid h-(--btn-height) w-(--btn-width) place-items-center rounded-full border border-solid [&>svg]:h-4.5 [&>svg]:w-4.5",
         isNavOpen
           ? "border-d-text after:bg-d-text [&>svg]:fill-d-text"
           : "border-text after:bg-text dark:border-d-text dark:after:bg-d-text [&>svg]:fill-text dark:[&>svg]:fill-d-text"
@@ -204,6 +204,9 @@ function MusicControl() {
   const isPageVisible = usePageVisible();
   const { isPlay, setIsPlay, setIsDisable } = useMusicContext();
   const sound = useRef<Howl | null>(null);
+  const currentTrackIndex = useRef(0);
+  const lastNotifiedTrackIndex = useRef<number | null>(null);
+  const currentToastId = useRef<string | null>(null);
 
   function playMusic() {
     sound.current?.play();
@@ -235,32 +238,111 @@ function MusicControl() {
     }
   }
 
+  const showNowPlayingToast = (trackIndex: number) => {
+    const track = MUSIC_PLAYLIST[trackIndex];
+    if (!track) return;
+
+    if (currentToastId.current) {
+      toast.dismiss(currentToastId.current);
+    }
+
+    currentToastId.current = toast(
+      <div className="flex items-center gap-3">
+        <span className="border-text/20 text-primary dark:border-d-text/20 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border">
+          <RiMusicFill className="h-4 w-4" />
+        </span>
+
+        <div className="text-left">
+          <p className="text-subtext dark:text-d-subtext text-xs font-medium tracking-[0.16em] uppercase">
+            Now Playing
+          </p>
+          <p className="text-text dark:text-d-text text-sm font-medium">
+            {track.name}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   useEffect(() => {
     // initialize
     Howler.volume(0.2);
 
-    const s = new Howl({
-      src: MUSIC_PLAYLIST.map((t) => t.path),
-      loop: true,
-      volume: 0.2,
-    });
+    const createTrack = (trackIndex: number) =>
+      new Howl({
+        src: [MUSIC_PLAYLIST[trackIndex].path],
+        loop: false,
+        volume: 0.2,
+      });
 
-    sound.current = s;
+    const moveToNextTrack = () => {
+      const nextIndex = (currentTrackIndex.current + 1) % MUSIC_PLAYLIST.length;
+      currentTrackIndex.current = nextIndex;
+
+      sound.current?.unload();
+
+      const nextTrack = createTrack(nextIndex);
+      sound.current = nextTrack;
+
+      nextTrack.on("load", handleLoad);
+      nextTrack.on("play", handlePlay);
+      nextTrack.on("pause", handlePause);
+      nextTrack.on("end", moveToNextTrack);
+
+      nextTrack.play();
+    };
 
     const handleLoad = () => setIsDisable(false);
-    const handlePlay = () => setIsPlay(true);
+    const handlePlay = () => {
+      setIsPlay(true);
+
+      if (lastNotifiedTrackIndex.current !== currentTrackIndex.current) {
+        showNowPlayingToast(currentTrackIndex.current);
+        lastNotifiedTrackIndex.current = currentTrackIndex.current;
+      }
+    };
     const handlePause = () => setIsPlay(false);
+    const handleLoadError = () => {
+      console.error(
+        "Error loading audio:",
+        MUSIC_PLAYLIST[currentTrackIndex.current].path
+      );
+      setIsPlay(false);
+      setIsDisable(true);
+    };
+    const handlePlayError = () => {
+      console.error(
+        "Error playing audio:",
+        MUSIC_PLAYLIST[currentTrackIndex.current].path
+      );
+      moveToNextTrack();
+    };
+
+    const s = createTrack(currentTrackIndex.current);
+    sound.current = s;
 
     s.on("load", handleLoad);
     s.on("play", handlePlay);
     s.on("pause", handlePause);
+    s.on("end", moveToNextTrack);
+    s.on("loaderror", handleLoadError);
+    s.on("playerror", handlePlayError);
+
+    s.load();
 
     return () => {
       s.off("load", handleLoad);
       s.off("play", handlePlay);
       s.off("pause", handlePause);
+      s.off("end", moveToNextTrack);
+      s.off("loaderror", handleLoadError);
+      s.off("playerror", handlePlayError);
 
-      s.unload();
+      if (currentToastId.current) {
+        toast.dismiss(currentToastId.current);
+      }
+
+      sound.current?.unload();
     };
   }, []);
 

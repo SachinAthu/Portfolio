@@ -53,32 +53,34 @@ export default function AnimGrid() {
 
     // comment only for development
     // animate animgrid
-    // gridAnim.current = gsap
-    //   .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
-    //   .to('.animgrid-inner .box', {
-    //     opacity: 0.5,
-    //     scale: 0.9,
-    //     ease: 'power2.out',
-    //     stagger: {
-    //       amount: 2,
-    //       grid: [grid.rows, grid.cols],
-    //       from: 'start',
-    //     },
-    //   })
-    //   .to(
-    //     '.animgrid-inner .box',
-    //     {
-    //       opacity: 0.1,
-    //       scale: 1,
-    //       ease: 'power2.out',
-    //       stagger: {
-    //         amount: 2,
-    //         grid: [grid.rows, grid.cols],
-    //         from: 'start',
-    //       },
-    //     },
-    //     '-=10%'
-    //   );
+    gridAnim.current = gsap
+      .timeline({ delay: 5, repeat: -1, repeatDelay: 10 })
+      .to(".animgrid-inner .box", {
+        opacity: 0.5,
+        scale: 0.9,
+        duration: 2,
+        ease: "power2.out",
+        stagger: {
+          amount: 2,
+          grid: [grid.rows, grid.cols],
+          from: "start",
+        },
+      })
+      .to(
+        ".animgrid-inner .box",
+        {
+          opacity: 0.1,
+          scale: 1,
+          duration: 2,
+          ease: "power2.out",
+          stagger: {
+            amount: 2,
+            grid: [grid.rows, grid.cols],
+            from: "start",
+          },
+        },
+        "-=10%"
+      );
 
     const animGridRef = animgrid.current;
 
@@ -92,13 +94,13 @@ export default function AnimGrid() {
   }, [vw]);
 
   // comment only for development
-  // useEffect(() => {
-  //   if (isPageVisible) {
-  //     gridAnim.current?.resume();
-  //   } else {
-  //     gridAnim.current?.pause();
-  //   }
-  // }, [isPageVisible]);
+  useEffect(() => {
+    if (isPageVisible) {
+      gridAnim.current?.resume();
+    } else {
+      gridAnim.current?.pause();
+    }
+  }, [isPageVisible]);
 
   useEffect(() => {
     if (!isScrolled) {

@@ -82,6 +82,13 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       setLocoScroll(scroll);
     })();
 
+    return () => {
+      locoScroll?.destroy();
+      setLocoScroll(null);
+    };
+  }, []);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     // network state listener
@@ -140,11 +147,9 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     }, 5000);
 
     return () => {
-      locoScroll?.destroy();
-      setLocoScroll(null);
       controller.abort();
     };
-  }, [pathname, isMobile]);
+  }, [pathname, isMobile, locoScroll]);
 
   const value = useMemo(
     () => ({
