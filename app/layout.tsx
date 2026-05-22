@@ -83,7 +83,11 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable}`}
         suppressHydrationWarning={true}>
-        <ThemeProvider attribute="class">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+          disableTransitionOnChange={true}>
           <LayoutProvider>
             <AnimGrid />
 

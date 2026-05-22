@@ -98,8 +98,6 @@ const SocialLink = memo(
 
       // mouse down / touch start
       const onMouseDown = (e: MouseEvent | TouchEvent) => {
-        // console.log('mouse down');
-
         isDragging = true;
         startX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
         initialX = translateX;
@@ -111,14 +109,12 @@ const SocialLink = memo(
       // mouse move / touch move
       const onMouseMove = (e: MouseEvent | TouchEvent) => {
         if (!isDragging) return;
-        // console.log('mouse move');
 
         let newX =
           initialX +
           (e instanceof MouseEvent ? e.clientX : e.touches[0].clientX) -
           startX;
         translateX = gsap.utils.clamp(minX, maxX, newX);
-        // console.log(translateX);
         xTo(translateX);
         scaleXTo(translateX / maxX);
       };
@@ -126,7 +122,6 @@ const SocialLink = memo(
       // mouse up / touch end
       const onMouseUp = (e: MouseEvent | TouchEvent) => {
         if (!isDragging || (isTouch && e instanceof MouseEvent)) return;
-        console.log("mouse up");
 
         isDragging = false;
         handleMouseUp(index, translateX);
@@ -141,8 +136,6 @@ const SocialLink = memo(
 
       // mouse leave / touch cancel
       const onMouseLeave = () => {
-        // console.log('mouse leave');
-
         startTime = 0; // Reset the start time
       };
 
@@ -235,8 +228,6 @@ export default function ContactSocialsDrag() {
   const handleMouseUp = useCallback(
     (index: number, xVal: number) => {
       // calculate x values
-      // console.log(index, xVal);
-
       const sl = document.querySelector(".social-link") as HTMLAnchorElement;
       if (!sl || !container.current) return;
 
@@ -289,8 +280,6 @@ export default function ContactSocialsDrag() {
     },
     { dependencies: [resetXVals] }
   );
-
-  // console.log(xVals);
 
   return (
     <div className="contact-social-drag mt-20 sm:mt-40" ref={container}>

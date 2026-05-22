@@ -1,17 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap-config";
+import { useEffect, useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-config";
 
 import { useWindowResize } from "@/lib/hooks";
 import { useLayoutContext } from "@/context/LayoutContext";
 import { getAnimGridSize } from "@/lib/common";
 
 export default function PageLoader() {
-  const loader = useRef<HTMLDivElement>(null);
-  const loaderWrapper = useRef<HTMLDivElement>(null);
-  const loader2 = useRef<HTMLDivElement>(null);
-  const { vw } = useWindowResize();
   const {
     isNavOpen,
     isPageLoading,
@@ -19,157 +15,176 @@ export default function PageLoader() {
     setIsNavShow,
     setIsNavOpen,
   } = useLayoutContext();
+  const { vw } = useWindowResize();
 
-  const openLoaderTween = useRef<gsap.core.Timeline | null>(null);
-  const closeLoaderTween = useRef<gsap.core.Timeline | null>(null);
-  const openLoader2Tween = useRef<gsap.core.Timeline | null>(null);
-  const closeLoader2Tween = useRef<gsap.core.Timeline | null>(null);
+  const loader = useRef<HTMLDivElement>(null);
+  const loaderWrapper = useRef<HTMLDivElement>(null);
+  const loader2 = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const vwRef = useRef(vw);
 
-  const createGrid = useCallback(() => {
-    if (!loader.current) return;
+  const navShowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const zIndexTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const grid = getAnimGridSize(window.innerWidth);
+  const { contextSafe } = useGSAP({ scope: container });
 
-    loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
-    loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
+  const openLoader = contextSafe(() => {
+    const boxes = loader.current?.querySelectorAll(".box");
 
-    for (let i = 0; i < grid.cols * grid.rows; i++) {
-      const b = document.createElement("div");
-      b.className = "box";
-      b.style.opacity = isNavOpen ? "1" : "0";
-      b.style.scale = "none";
-      b.style.transform = isNavOpen
-        ? "translate3d(0px, 0px, 0px)"
-        : "translate3d(0px, 0px, 0px) scale(0.8, 0.8)";
-      b.style.rotate = "none";
-      b.style.translate = "none";
-      loader.current?.appendChild(b);
-    }
-  }, [isNavOpen]);
+    if (!boxes) return;
 
-  useEffect(() => {
-    openLoader2Tween.current = gsap
-      .timeline({
-        paused: true,
-      })
-      .to(loader2.current, {
-        opacity: 1,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-
-    closeLoader2Tween.current = gsap
-      .timeline({
-        paused: true,
-      })
-      .to(loader2.current, {
-        duration: 0.5,
-        opacity: 0,
-        ease: "power2.out",
-      });
-
-    return () => {
-      openLoader2Tween.current?.kill();
-      closeLoader2Tween.current?.kill();
-      openLoader2Tween.current = null;
-      closeLoader2Tween.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    // create grid
-    createGrid();
-
-    // setup tweens
-    openLoaderTween.current = gsap
-      .timeline({
-        paused: true,
-      })
+    gsap
+      .timeline()
       .set(loaderWrapper.current, { pointerEvents: "auto" })
-      .to(".page-loader-inner .box", {
-        opacity: 1,
-        scale: 1.02,
-        ease: "power2.out",
-        stagger: {
-          amount: 1,
-          grid: "auto",
-          from: "start",
+      .to(
+        boxes,
+        {
+          opacity: 1,
+          scale: 1.02,
+          ease: "power2.out",
+          duration: 1,
+          stagger: {
+            amount: 1,
+            grid: "auto",
+            from: "start",
+          },
         },
-      })
+        0
+      )
       .to(loader.current, {
         gap: 0,
         duration: 0.2,
         delay: 0.2,
         ease: "power2.out",
       });
+  });
 
-    closeLoaderTween.current = gsap
-      .timeline({
-        paused: true,
-      })
+  const closeLoader = contextSafe(() => {
+    const boxes = loader.current?.querySelectorAll(".box");
+
+    if (!boxes) return;
+
+    gsap
+      .timeline()
       .to(loader.current, {
         gap: vw < 768 ? 12 : 16,
         duration: 0.2,
         ease: "power2.out",
       })
-      .to(".page-loader-inner .box", {
-        opacity: 0,
-        scale: 0.8,
-        delay: 0.2,
-        ease: "power2.out",
-        stagger: {
-          amount: 1,
-          grid: "auto",
-          from: "end",
+      .to(
+        boxes,
+        {
+          opacity: 0,
+          scale: 0.8,
+          delay: 0.2,
+          duration: 1,
+          ease: "power2.out",
+          stagger: {
+            amount: 1,
+            grid: "auto",
+            from: "end",
+          },
         },
-      })
+        ">"
+      )
       .set(loaderWrapper.current, { pointerEvents: "none" });
+  });
 
-    const loaderRef = loader.current;
+  const openLoader2 = contextSafe(() => {
+    if (!loader2.current) return;
 
+    gsap.to(loader2.current, {
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  });
+
+  const closeLoader2 = contextSafe(() => {
+    if (!loader2.current) return;
+
+    gsap.to(loader2.current, {
+      duration: 0.5,
+      opacity: 0,
+      ease: "power2.out",
+    });
+  });
+
+  useEffect(() => {
     return () => {
-      if (loaderRef?.innerHTML) {
-        loaderRef.innerHTML = "";
-      }
-      openLoaderTween.current?.kill();
-      closeLoaderTween.current?.kill();
-      openLoaderTween.current = null;
-      closeLoaderTween.current = null;
+      if (navShowTimeoutRef.current) clearTimeout(navShowTimeoutRef.current);
+      if (navCloseTimeoutRef.current) clearTimeout(navCloseTimeoutRef.current);
+      if (zIndexTimeoutRef.current) clearTimeout(zIndexTimeoutRef.current);
     };
-  }, [vw, createGrid]);
+  }, []);
+
+  useEffect(() => {
+    const createGrid = () => {
+      if (!loader.current) return;
+
+      loader.current.innerHTML = "";
+
+      const grid = getAnimGridSize(window.innerWidth);
+
+      loader.current.style.gridTemplateColumns = `repeat(${grid.cols},1fr)`;
+      loader.current.style.gridTemplateRows = `repeat(${grid.rows},1fr)`;
+
+      for (let i = 0; i < grid.cols * grid.rows; i++) {
+        const b = document.createElement("div");
+        b.className = "box";
+        b.style.opacity = isNavOpen ? "1" : "0";
+        b.style.scale = "none";
+        b.style.transform = isNavOpen
+          ? "translate3d(0px, 0px, 0px)"
+          : "translate3d(0px, 0px, 0px) scale(0.8, 0.8)";
+        b.style.rotate = "none";
+        b.style.translate = "none";
+        loader.current?.appendChild(b);
+      }
+    };
+
+    vwRef.current = vw;
+    createGrid();
+  }, [vw, isNavOpen]);
 
   useEffect(() => {
     if (vw >= 1536) {
       // close nav menu
       setIsNavOpen(false);
     }
-  }, [vw, setIsNavOpen]);
+  }, [vw]);
 
   // nav menu toggle
   useEffect(() => {
     loaderWrapper.current?.classList.remove("z-[70]");
 
+    if (navShowTimeoutRef.current) clearTimeout(navShowTimeoutRef.current);
+    if (navCloseTimeoutRef.current) clearTimeout(navCloseTimeoutRef.current);
+
     if (isNavOpen) {
-      openLoaderTween.current?.invalidate().restart();
-      setTimeout(() => {
+      openLoader();
+      navShowTimeoutRef.current = setTimeout(() => {
         setIsNavShow(true);
       }, 2500);
     } else {
       setIsNavShow(false);
-      setTimeout(() => {
-        closeLoaderTween.current?.invalidate().restart();
+      navCloseTimeoutRef.current = setTimeout(() => {
+        closeLoader();
       }, 2000);
     }
-  }, [isNavOpen, setIsNavShow]);
+  }, [isNavOpen]);
 
   // page load
   useEffect(() => {
+    if (zIndexTimeoutRef.current) clearTimeout(zIndexTimeoutRef.current);
+
     if (isPageLoading) {
       loaderWrapper.current?.classList.add("z-[70]");
-      openLoaderTween.current?.invalidate().restart();
+      openLoader();
     } else {
-      closeLoaderTween.current?.invalidate().restart();
-      setTimeout(() => {
+      closeLoader();
+      zIndexTimeoutRef.current = setTimeout(() => {
         loaderWrapper.current?.classList.remove("z-[70]");
       }, 1900);
     }
@@ -178,14 +193,14 @@ export default function PageLoader() {
   // page load quick
   useEffect(() => {
     if (isPageLoading2) {
-      openLoader2Tween.current?.invalidate().restart();
+      openLoader2();
     } else {
-      closeLoader2Tween.current?.invalidate().restart();
+      closeLoader2();
     }
   }, [isPageLoading2]);
 
   return (
-    <>
+    <div ref={container}>
       <div
         ref={loaderWrapper}
         className="page-loader | pointer-events-none fixed top-0 left-0 z-30 h-lvh w-full">
@@ -197,6 +212,6 @@ export default function PageLoader() {
       <div
         ref={loader2}
         className="page-loader-2 | bg-background dark:bg-d-background pointer-events-none fixed top-0 left-0 z-80 h-lvh w-full opacity-0"></div>
-    </>
+    </div>
   );
 }

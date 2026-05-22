@@ -79,6 +79,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
           duration: 1.5,
         },
       });
+      scroll.scrollTo(0, { duration: 0 });
       setLocoScroll(scroll);
     })();
 

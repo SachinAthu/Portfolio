@@ -24,7 +24,7 @@ function Welcome() {
         setIsPageLoading(false);
         document.body.classList.remove("overflow-hidden");
       }, 1000);
-    }, 1900);
+    }, 2200);
   }
 
   return (

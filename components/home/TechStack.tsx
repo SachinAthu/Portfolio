@@ -178,7 +178,7 @@ function TechStackDesktop() {
       </div>
 
       {/* tech stack */}
-      <div className="mt-16 min-h-[400px] xl:min-h-[410px]">
+      <div className="mt-16 min-h-100 xl:min-h-102.5">
         <div
           ref={tsItemsContainer}
           className="ts-item-container | flex flex-wrap gap-x-4 gap-y-6">

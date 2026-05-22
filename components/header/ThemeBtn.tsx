@@ -3,13 +3,11 @@
 import { useTheme } from "next-themes";
 import { RiSunFill, RiMoonClearFill } from "react-icons/ri";
 
-import { useDark } from "@/lib/hooks";
 import { useLayoutContext } from "@/context/LayoutContext";
 import { cn } from "@/lib/common";
 
 export default function ThemeBtn() {
-  const { setTheme } = useTheme();
-  const isDark = useDark();
+  const { resolvedTheme, setTheme } = useTheme();
   const { isNavOpen } = useLayoutContext();
 
   return (
@@ -20,8 +18,8 @@ export default function ThemeBtn() {
       )}
       type="button"
       aria-label="Theme Toggle"
-      data-dark={isDark}
-      onClick={() => setTheme(isDark ? "light" : "dark")}>
+      data-dark={resolvedTheme === "dark"}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
       <span className="icon icon-sun | flex h-full items-center justify-center">
         <RiSunFill />
       </span>

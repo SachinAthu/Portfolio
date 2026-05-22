@@ -109,9 +109,6 @@
     width: var(--after-width);
     height: var(--after-height);
     border-radius: 9999px;
-    transition:
-      left 0.5s,
-      background-color 0.5s;
     background-color: var(--color-theme-btn-after-bg);
   }
 
@@ -179,6 +176,11 @@
       }
     }
   }
+
+  svg {
+    fill: var(--var-color-text);
+    transition: fill 0.5s ease;
+  }
 }
 
 .custom-button:not(:disabled):has(:not(.loading)):hover {
@@ -200,6 +202,10 @@
         transition: transform 0.5s ease;
       }
     }
+  }
+
+  svg {
+    fill: var(--color-custom-btn-hover);
   }
 }
 /**/

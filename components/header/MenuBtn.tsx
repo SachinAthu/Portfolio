@@ -9,7 +9,7 @@ import { cn } from "@/lib/common";
 
 function MenuBtn() {
   const { isNavOpen, setIsNavOpen } = useLayoutContext();
-  const [isNavToggling, setIsNavToggling] = useState(false);
+  const isNavToggling = useRef(false);
   const openTimeline = useRef<gsap.core.Timeline | null>(null);
   const closeTimeline = useRef<gsap.core.Timeline | null>(null);
   const bar1 = useRef<HTMLDivElement>(null);
@@ -52,13 +52,13 @@ function MenuBtn() {
   }, [isNavOpen]);
 
   function handleClick() {
-    if (isNavToggling) return;
-    setIsNavToggling(true);
+    if (isNavToggling.current) return;
+    isNavToggling.current = true;
 
     setIsNavOpen(!isNavOpen);
 
     setTimeout(() => {
-      setIsNavToggling(false);
+      isNavToggling.current = false;
     }, 4000);
   }
 

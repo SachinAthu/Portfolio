@@ -1,18 +1,7 @@
-import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getCookie } from "cookies-next";
 
 import { COOKIE_KEYS } from "./data";
-
-export function useMounted() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return mounted;
-}
 
 export function useMobile() {
   return getCookie(COOKIE_KEYS.IS_MOBILE) === "true";
@@ -59,17 +48,6 @@ export function useTouch() {
   }, []);
 
   return isTouch;
-}
-
-export function useDark() {
-  const [isDark, setIsDark] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setIsDark(theme === "dark");
-  }, [theme]);
-
-  return isDark;
 }
 
 export function usePageVisible() {
