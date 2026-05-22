@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import "@/styles/main.css";
 import { Footer, PageLoader, Welcome } from "@/components";
@@ -75,6 +76,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <GoogleTagManager gtmId="GTM-N5GSS7RK" />
+
       <head>
         <meta name="apple-mobile-web-app-title" content="SachinAthu" />
       </head>
