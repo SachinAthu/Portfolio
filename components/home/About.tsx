@@ -18,7 +18,7 @@ export default function About() {
             <FadeIn id="aboutDescription1">
               <p className="paragraph-1 [&>span]:text-primary">
                 I’m a <span>Full-stack Developer</span> from Sri Lanka,
-                currently freelancing since April 2023, primarily focused on{" "}
+                currently freelancing since November 2024, primarily focused on{" "}
                 <span>Web Development</span>, creating beautiful and efficient
                 web applications. I’m also interested in developing{" "}
                 <span>mobile and desktop applications</span>. I enjoy my time
