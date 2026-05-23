@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...WORKS.map((work) => {
       return {
-        url: `${ROOTURL}/${work.slug}`,
+        url: `${ROOTURL}/works/${work.slug}`,
         lastModified: work.date.dateModified,
         changeFrequency: "monthly" as const,
         priority: 0.5,

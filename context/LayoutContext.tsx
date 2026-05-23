@@ -6,10 +6,12 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useCallback,
+  useRef,
 } from "react";
 import { usePathname } from "next/navigation";
 import { ScrollTrigger } from "@/lib/gsap-config";
-import LocomotiveScroll from "locomotive-scroll";
+import type LocomotiveScroll from "locomotive-scroll";
 
 import { useDebouncedCallback, useMobile } from "@/lib/hooks";
 import { NAV_LINKS } from "@/lib/data";
@@ -36,6 +38,7 @@ const LayoutContext = createContext<LayoutContextType | null>(null);
 const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMobile();
   const pathname = usePathname();
+  const locoScrollRef = useRef<LocomotiveScroll | null>(null);
 
   const [locoScroll, setLocoScroll] = useState<LocomotiveScroll | null>(null);
   const [isWelcome, setIsWelcome] = useState(true);
@@ -68,89 +71,117 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
       header.style.paddingRight = "";
       navMenu.style.paddingRight = "";
     }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+      header.style.paddingRight = "";
+      navMenu.style.paddingRight = "";
+    };
   }, [isNavOpen, isMobile]);
 
   useEffect(() => {
+    let isMounted = true;
+    let scrollInstance: LocomotiveScroll | null = null;
+
     // setup locomotive scroll
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const scroll = new LocomotiveScroll({
+    const initLocomotive = async () => {
+      const LocomotiveScrollClass = (await import("locomotive-scroll")).default;
+      scrollInstance = new LocomotiveScrollClass({
         lenisOptions: {
           duration: 1.5,
         },
       });
-      scroll.scrollTo(0, { duration: 0 });
-      setLocoScroll(scroll);
-    })();
+
+      if (!isMounted) {
+        scrollInstance.destroy();
+        return;
+      }
+
+      // for development comment out
+      scrollInstance.scrollTo(0, { duration: 0 });
+      locoScrollRef.current = scrollInstance;
+      setLocoScroll(scrollInstance);
+    };
+
+    initLocomotive();
 
     return () => {
-      locoScroll?.destroy();
+      isMounted = false;
+      locoScrollRef.current?.destroy();
+      locoScrollRef.current = null;
       setLocoScroll(null);
     };
   }, []);
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (pathname !== "/") return;
 
-    // network state listener
-    //
-
-    // key press listener
-    window.addEventListener(
-      "keydown",
-      (e: KeyboardEvent) => {
-        switch (e.key) {
-          case "Escape":
-            if (pathname === "/") {
-              setIsNavOpen(false);
-            }
-            break;
-          case "1":
-          case "2":
-          case "3":
-          case "4":
-          case "5":
-          case "6":
-            if (pathname === "/") {
-              locoScroll?.scrollTo(`#${NAV_LINKS[parseInt(e.key) - 1].id}`);
-              setIsNavOpen(false);
-            }
-            break;
-          default:
-            return;
+      switch (e.key) {
+        case "Escape":
+          setIsNavOpen(false);
+          break;
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6": {
+          const navLink = NAV_LINKS[parseInt(e.key, 10) - 1];
+          if (!navLink) return;
+          locoScrollRef.current?.scrollTo(`#${navLink.id}`);
+          setIsNavOpen(false);
+          break;
         }
-      },
-      { signal: controller.signal }
-    );
+        default:
+          return;
+      }
+    },
+    [pathname]
+  );
 
-    // browser back and forward button click listener
-    window.addEventListener(
-      "popstate",
-      () => {
-        setIsPageLoading2(true);
-      },
-      { signal: controller.signal }
-    );
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onKeyDown]);
 
-    if (!isMobile) {
-      document.addEventListener("scroll", onScroll, {
-        signal: controller.signal,
-      });
-    }
+  useEffect(() => {
+    const onPopState = () => {
+      setIsPageLoading2(true);
+    };
 
-    // reset page loading state
-    setIsPageLoading(false);
-    setIsPageLoading2(false);
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, []);
 
-    // refresh Scrolltrigger
-    setTimeout(() => {
+  useEffect(() => {
+    if (isMobile) return;
+    document.addEventListener("scroll", onScroll);
+    return () => {
+      document.removeEventListener("scroll", onScroll);
+    };
+  }, [isMobile, onScroll]);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setIsPageLoading(false);
+      setIsPageLoading2(false);
+    });
+  }, [pathname]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
       ScrollTrigger.refresh();
     }, 5000);
 
     return () => {
-      controller.abort();
+      window.clearTimeout(timeoutId);
     };
-  }, [pathname, isMobile, locoScroll]);
+  }, [pathname]);
 
   const value = useMemo(
     () => ({

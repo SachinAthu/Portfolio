@@ -32,7 +32,7 @@ export default function PageLoader() {
   const openLoader = contextSafe(() => {
     const boxes = loader.current?.querySelectorAll(".box");
 
-    if (!boxes) return;
+    if (!boxes || boxes.length === 0) return;
 
     gsap
       .timeline()
@@ -63,7 +63,7 @@ export default function PageLoader() {
   const closeLoader = contextSafe(() => {
     const boxes = loader.current?.querySelectorAll(".box");
 
-    if (!boxes) return;
+    if (!boxes || boxes.length === 0) return;
 
     gsap
       .timeline()
@@ -144,8 +144,12 @@ export default function PageLoader() {
       }
     };
 
-    vwRef.current = vw;
-    createGrid();
+    const hasBoxes = !!loader.current?.querySelector(".box");
+
+    if (vwRef.current !== vw || !hasBoxes) {
+      vwRef.current = vw;
+      createGrid();
+    }
   }, [vw, isNavOpen]);
 
   useEffect(() => {

@@ -47,13 +47,13 @@ function WorkVideo({ video, id }: { video: WorkType["video"]; id: string }) {
 
 function WorkMobile({ work, index }: { work: WorkType; index: number }) {
   return (
-    <FadeIn id={`work-${index}`}>
+    <FadeIn id={`work-${index}`} className="w-full">
       <div
         className={cn(
           "work-wrapper mb-20 flex rounded-3xl sm:mb-28",
           index === WORKS.length - 1 ? "mb-0" : ""
         )}>
-        <PageLink href={`/works/${work.slug}`}>
+        <PageLink href={`/works/${work.slug}`} className="w-full">
           <div className="space-y-4 pb-2">
             <WorkVideo video={work.video} id={`work-${index}`} />
 
@@ -113,7 +113,7 @@ function WorkDesktop({ work, index }: WorkProps) {
       id={`work-${index}`}
       ref={workWrapperEl}
       className={`work-wrapper mb-20 flex last:mb-0 sm:mb-28 lg:mb-40 ${index % 2 === 0 ? "justify-start" : "justify-end"}`}>
-      <div ref={workEl} className="work rounded-3xl lg:w-[75%]">
+      <div ref={workEl} className="work w-full rounded-3xl lg:w-[75%]">
         <ToolTip toolTip="Case Study" className="p-8 text-2xl">
           <PageLink href={`/works/${work.slug}`}>
             <div className="space-y-4 pb-2">

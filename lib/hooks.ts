@@ -25,7 +25,9 @@ export function useMobileViewport(mini = false) {
   }
 
   useEffect(() => {
-    setIsMobileV(window.innerWidth < bp);
+    queueMicrotask(() => {
+      setIsMobileV(window.innerWidth < bp);
+    });
     window.addEventListener("resize", debounce(onResize));
 
     return () => {
@@ -40,11 +42,13 @@ export function useTouch() {
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    setIsTouch(
-      "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches
-    );
+    queueMicrotask(() => {
+      setIsTouch(
+        "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0 ||
+          window.matchMedia("(pointer: coarse)").matches
+      );
+    });
   }, []);
 
   return isTouch;
@@ -73,8 +77,10 @@ export function useWindowResize() {
   const [vh, setVH] = useState(0);
 
   const onResize = useCallback(() => {
-    setVW(window.innerWidth);
-    setVH(window.innerHeight);
+    queueMicrotask(() => {
+      setVW(window.innerWidth);
+      setVH(window.innerHeight);
+    });
   }, []);
 
   function debounce(func: () => void) {

@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-config";
+import { cn } from "@/lib/common";
 
 type FadeInProps = {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ type FadeInProps = {
   duration?: number;
   delay?: number;
   markers?: boolean;
+  className?: string;
 };
 
 export default function FadeIn({
@@ -17,6 +19,7 @@ export default function FadeIn({
   duration = 1,
   delay = 0,
   markers = false,
+  className = "",
 }: FadeInProps) {
   const container = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLDivElement>(null);
@@ -43,9 +46,12 @@ export default function FadeIn({
   );
 
   return (
-    <div ref={container}>
-      <div ref={trigger}>
-        <div ref={fade} id={id} className="translate-y-[30px] opacity-0">
+    <div ref={container} className="w-full">
+      <div ref={trigger} className="w-full">
+        <div
+          ref={fade}
+          id={id}
+          className={cn("translate-y-7.5 opacity-0", className)}>
           {children}
         </div>
       </div>
