@@ -23,10 +23,6 @@ export default function PageLoader() {
   const container = useRef<HTMLDivElement>(null);
   const vwRef = useRef(vw);
 
-  const navShowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const navCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const zIndexTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const { contextSafe } = useGSAP({ scope: container });
 
   const openLoader = contextSafe(() => {
@@ -43,7 +39,6 @@ export default function PageLoader() {
           opacity: 1,
           scale: 1.02,
           ease: "power2.out",
-          duration: 1,
           stagger: {
             amount: 1,
             grid: "auto",
@@ -78,7 +73,6 @@ export default function PageLoader() {
           opacity: 0,
           scale: 0.8,
           delay: 0.2,
-          duration: 1,
           ease: "power2.out",
           stagger: {
             amount: 1,
@@ -112,14 +106,6 @@ export default function PageLoader() {
   });
 
   useEffect(() => {
-    return () => {
-      if (navShowTimeoutRef.current) clearTimeout(navShowTimeoutRef.current);
-      if (navCloseTimeoutRef.current) clearTimeout(navCloseTimeoutRef.current);
-      if (zIndexTimeoutRef.current) clearTimeout(zIndexTimeoutRef.current);
-    };
-  }, []);
-
-  useEffect(() => {
     const createGrid = () => {
       if (!loader.current) return;
 
@@ -144,9 +130,7 @@ export default function PageLoader() {
       }
     };
 
-    const hasBoxes = !!loader.current?.querySelector(".box");
-
-    if (vwRef.current !== vw || !hasBoxes) {
+    if (vwRef.current !== vw) {
       vwRef.current = vw;
       createGrid();
     }
@@ -161,34 +145,31 @@ export default function PageLoader() {
 
   // nav menu toggle
   useEffect(() => {
-    loaderWrapper.current?.classList.remove("z-[70]");
+    if (isPageLoading) return;
 
-    if (navShowTimeoutRef.current) clearTimeout(navShowTimeoutRef.current);
-    if (navCloseTimeoutRef.current) clearTimeout(navCloseTimeoutRef.current);
+    loaderWrapper.current?.classList.remove("z-[70]");
 
     if (isNavOpen) {
       openLoader();
-      navShowTimeoutRef.current = setTimeout(() => {
+      setTimeout(() => {
         setIsNavShow(true);
       }, 2500);
     } else {
       setIsNavShow(false);
-      navCloseTimeoutRef.current = setTimeout(() => {
+      setTimeout(() => {
         closeLoader();
       }, 2000);
     }
-  }, [isNavOpen]);
+  }, [isNavOpen, isPageLoading]);
 
   // page load
   useEffect(() => {
-    if (zIndexTimeoutRef.current) clearTimeout(zIndexTimeoutRef.current);
-
     if (isPageLoading) {
       loaderWrapper.current?.classList.add("z-[70]");
       openLoader();
     } else {
       closeLoader();
-      zIndexTimeoutRef.current = setTimeout(() => {
+      setTimeout(() => {
         loaderWrapper.current?.classList.remove("z-[70]");
       }, 1900);
     }
